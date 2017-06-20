@@ -19,7 +19,7 @@
             @if(count($post))
                 <b style="display: block; margin-bottom: 10px;">{{$post->content}}</b>
                 <span style="float: right;">
-                    <i class="fa fa-edit"></i>{{$post->updated_at->diffForHumans()}}
+                    {{$post->updated_at->diffForHumans()}}
                 </span>
                 @else
                 <span>暂无公告</span>
