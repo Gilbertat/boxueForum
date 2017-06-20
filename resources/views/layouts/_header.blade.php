@@ -17,16 +17,6 @@
                 <ul class="nav navbar-nav login">
                     @if(Auth::check())
                         <li>
-                            <a href="#" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="AddPlus">
-                                <i class="fa fa-plus text-md"></i>
-                            </a>
-                            <ul class="dropdown-menu" aria-labelledby="dLabel">
-                                <li>
-                                    <a class="button" href="{{route('topic.create')}}">
-                                        <i class="fa fa-comment text-md"></i>发起讨论
-                                    </a>
-                                </li>
-                            </ul>
                         </li>
                         <li>
                             <a href="#" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="dLabel">

@@ -61,7 +61,7 @@ class UsersController extends Controller
     {
         $view = 'emails.confirm';
         $data = compact('user');
-        $from = 'shiyue45457@gmail.com';
+        $from = 'shiyue45457@126.com';
         $name = 'boxueForum';
         $to = $user->email;
         $subject = '欢迎来到泊学论坛，请确认你的邮箱';

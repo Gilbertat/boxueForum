@@ -65,7 +65,7 @@ class TopicsController extends Controller
     {
         $topic = Topic::where([
             ['user_id', $request->id],
-            ['slug', 'http://blog.app/topics/' . $request->id . '/' . $request->slug]
+            ['slug', env("APP_URL") . 'topics/' . $request->id . '/' . $request->slug]
         ])->first();
 
 

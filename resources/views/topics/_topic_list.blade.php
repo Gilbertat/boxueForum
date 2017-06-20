@@ -11,14 +11,15 @@
                         <span class="count_of_visits" title="查看数">
                             {{$topic->view_count}}
                         </span>
-                        <span class="count_seperator">|</span>
-                        <abbr title="{{ $topic->updated_at }}" class="timeago">{{\Carbon\Carbon::parse($topic->updated_at)->diffForHumans()}}</abbr>
+                        {{--<span class="count_seperator">|</span>--}}
+                        {{--<abbr title="{{ $topic->updated_at }}" class="timeago">{{\Carbon\Carbon::parse($topic->updated_at)->diffForHumans()}}</abbr>--}}
                     </div>
                 </a>
 
                 <div class="avatar pull-left">
                     <a href="{{route('users.show', [$topic->user_id])}}" title="{{$topic->user->name}}">
-                        <img class="media-object img-thumbnail avatar avatar-middle" src="{{$topic->user->present()->gravatar}}" alt="{{$topic->user->name}}">
+                        <img class="media-object img-thumbnail avatar avatar-middle"
+                             src="{{$topic->user->present()->gravatar}}" alt="{{$topic->user->name}}">
                     </a>
                 </div>
                 <div class="infos">
@@ -26,6 +27,27 @@
                         <a href="{{$topic->slug}}" title="{{$topic->title}}">
                             {{$topic->title}}
                         </a>
+                    </div>
+                    <div class="meta">
+                        <a href="{{route('categories.show', $topic->category_id)}}" class="category">
+                            {{$topic->category->title}}
+                        </a>
+                        .
+                        <abbr title="{{$topic->created_at}}" class="timeago">{{$topic->created_at->diffForHumans()}}</abbr>
+                        由
+                        <a href="{{route('users.show',  $topic->user->id)}}" class="author">
+                            {{$topic->user->name}}
+                        </a>
+                        编辑
+                        @if(count($topic->lastReplyUser))
+                            最后回复由
+                            <a href="{{URL::route('users.show', [$topic->lastReplyUser->id])}}">
+                                {{$topic->lastReplyUser->name}}
+                            </a>
+                            于<abbr title="{{$topic->updated_at}}" class="timeago">{{$topic->updated_at->diffForHumans()}}</abbr>
+                            .
+                        @endif
+                        {{$topic->view_count}}阅读
                     </div>
                 </div>
             </li>

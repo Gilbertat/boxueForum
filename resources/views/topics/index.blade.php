@@ -23,5 +23,3 @@
         @include('layouts.partials.sidebar')
     </div>
 @endsection
-
-

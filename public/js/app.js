@@ -11541,6 +11541,7 @@ $(document).ready(function () {
     $('#login-out').on('click', function (e) {
         var text = $(this).data('lang-loginout');
         var href = $(this).attr('href');
+
         swal({
             title: "",
             text: text,
@@ -11552,8 +11553,6 @@ $(document).ready(function () {
         }, function () {
             location.href = href;
         });
-
-        return false;
     });
 });
 
