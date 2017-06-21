@@ -19,12 +19,9 @@ class TopicsController extends Controller
     function __construct()
     {
         $this->middleware('auth', [
-           'only' => ['create', 'store'],
+            'only' => ['create', 'store'],
         ]);
 
-        $this->middleware('guest', [
-           'only' => ['show'],
-        ]);
     }
     /* 显示添加话题表单 */
     public function create()

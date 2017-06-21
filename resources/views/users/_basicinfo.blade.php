@@ -4,8 +4,10 @@
             <div class="media">
                 <div class="media-left">
                     <div class="image">
-                        <a href="{{route('users.edit_avatar', $user->id)}}" class="popover-with-html" data-content="修改头像">
-                            <img src="{{$user->present()->gravatar(200)}}" alt="{{$user->name}}" class="media-object avatar-112 avatar img-thumbnail"/>
+                        <a href="{{route('users.edit_avatar', $user->id)}}" class="popover-with-html"
+                           data-content="修改头像">
+                            <img src="{{$user->present()->gravatar(200)}}" alt="{{$user->name}}"
+                                 class="media-object avatar-112 avatar img-thumbnail"/>
                         </a>
                     </div>
                 </div>
@@ -39,12 +41,14 @@
             </div>
         </div>
         <hr>
-        @if(Auth::user()->id == $user->id)
-            <a href="{{route('users.edit', $user->id)}}" class="btn btn-primary btn-block">
-                <i class="fa fa-edit"></i>编辑个人资料
-            </a>
-        @else
-            @include('users.partials.follow_form')
+        @if(Auth::check())
+            @if(Auth::user()->id == $user->id)
+                <a href="{{route('users.edit', $user->id)}}" class="btn btn-primary btn-block">
+                    <i class="fa fa-edit"></i>编辑个人资料
+                </a>
+            @else
+                @include('users.partials.follow_form')
+            @endif
         @endif
     </div>
 </div>

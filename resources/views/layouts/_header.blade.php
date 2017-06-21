@@ -48,9 +48,7 @@
                                 注册
                         </a>
                         <a href="{{route('login')}}" class="btn btn-primary btn-sm login-btn">
-                            <i class="fa fa-user">
                                 登录
-                            </i>
                         </a>
                     @endif
                 </ul>

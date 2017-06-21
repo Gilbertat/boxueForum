@@ -11,19 +11,21 @@
         @endif
     </div>
 </div>
-<div class="reply-box form box-block">
-    @include('shared.errors')
-    <form method="post" action="{{route('replies.store')}}" accept-charset="UTF-8">
-        {{csrf_field()}}
-        <input type="hidden" name="topic_id" value="{{$topic->id}}">
-        <div class="form-group">
-            <div id="mdEditor">
-                <textarea style="display: none" name="mark"></textarea>
-                <textarea class="editormd-html-textarea" name="content_html" id="reply_content"></textarea>
+@if(Auth::check())
+    <div class="reply-box form box-block">
+        @include('shared.errors')
+        <form method="post" action="{{route('replies.store')}}" accept-charset="UTF-8">
+            {{csrf_field()}}
+            <input type="hidden" name="topic_id" value="{{$topic->id}}">
+            <div class="form-group">
+                <div id="mdEditor">
+                    <textarea style="display: none" name="mark"></textarea>
+                    <textarea class="editormd-html-textarea" name="content_html" id="reply_content"></textarea>
+                </div>
             </div>
-        </div>
-        <div class="form-group reply-post-submit">
-            <button type="submit" class="btn btn-primary">回复</button>
-        </div>
-    </form>
-</div>
+            <div class="form-group reply-post-submit">
+                <button type="submit" class="btn btn-primary">回复</button>
+            </div>
+        </form>
+    </div>
+@endif
