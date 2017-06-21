@@ -1,4 +1,7 @@
 <div class="meta inline-block">
+    <a  href="javascript:void(0)" id="vote" data-url="{{ route('topic.vote', $topic->id) }}">
+        <i class="fa fa-thumbs-o-up"></i> <i class="vote_value">{{$topic->vote_count}}</i>
+    </a>
     <a href="{{route('categories.show', $topic->category_id)}}" class="remove-padding-left">
         <i class="fa fa-folder text-md" aria-hidden="true"></i>{{$topic->category->title}}
     </a>

@@ -35,6 +35,7 @@ Route::post('topic', 'TopicsController@store')->name('topic.store');
 Route::get('topics/{id}/{slug}', 'TopicsController@detail')->name('topic.detail');
 Route::get('users/{id}/topics', 'UsersController@topic')->name('users.topics');
 Route::post('topic/uploads/images/', 'TopicsController@attachment')->name('topic.attachment');
+Route::get('topic/{id}/vote', 'TopicsController@vote')->name('topic.vote');
 
 /*follow unFollow*/
 Route::post('/users/followers/{id}', 'FollowersController@store')->name('followers.store');

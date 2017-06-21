@@ -39,6 +39,11 @@ class Topic extends Model
         return $this->hasMany(Reply::class);
     }
 
+    public function votes()
+    {
+        return $this->morphMany(Vote::class, 'voteT');
+    }
+
 
     public function lastReplyUser()
     {

@@ -37,5 +37,23 @@ $(document).ready(function () {
            location.href = href;
        })
    })
+
+    $('#vote').click( function() {
+
+        axios({
+            url: $("#vote").attr("data-url"),
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content'),
+            },
+        }).then(function (response) {
+            if (response.status == 200) {
+                $(".vote_value").html(response.data['message'])
+            }
+        });
+
+       // axios.post($("#vote").attr("data-url")).then(function(response) {
+       //    alert(response);
+       // });
+    });
 });
 

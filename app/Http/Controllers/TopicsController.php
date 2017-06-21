@@ -114,6 +114,27 @@ class TopicsController extends Controller
         ]);
     }
 
+    // 点赞
+    public function vote($id)
+    {
+        $topic = Topic::findOrFail($id);
+
+        if ($topic->votes()->where('user_id', Auth::id())->count()) {
+            $topic->votes()->where('user_id', Auth::id())->delete();
+            $topic->decrement('vote_count');
+        } else {
+            $topic->votes()->create([
+               'user_id' => Auth::id()
+            ]);
+            $topic->increment('vote_count');
+        }
+
+        return response([
+            'status'  => 200,
+            'message' => $topic->vote_count,
+        ]);
+    }
+
     /* 查重 */
     protected function isDuplicate($data)
     {
