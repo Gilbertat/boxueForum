@@ -135,6 +135,18 @@ body {
   border-radius: 50%;
 }
 
+.infos {
+  .vote_count {
+    position: relative;
+    float: right;
+    padding-right: 10px;
+    bottom: 25px;
+    color: #ddd;
+    font-size: 20px;
+    text-decoration: none;
+  }
+}
+
 .topnav {
   background-color: $navbar-color;
   .navbar-brand {
