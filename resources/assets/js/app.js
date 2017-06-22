@@ -21,9 +21,9 @@ const app = new Vue({
 });
 
 $(document).ready(function () {
-   $('#login-out').on('click', function (e) {
+   $('#login-out').on('click', function () {
        var text = $(this).data('lang-loginout');
-       var href = $(this).attr('href');
+       var href = $(this).attr('data-url');
 
        swal({
            title: "",
@@ -33,10 +33,10 @@ $(document).ready(function () {
            cancelButtonText: "取消",
            confirmButtonText: "退出",
            closeOnConfirm: false
-       }, function () {
-           location.href = href;
-       })
-   })
+       }, function() {
+          location.href = href;
+       });
+   });
 
     $('#vote').click( function() {
 
@@ -50,10 +50,6 @@ $(document).ready(function () {
                 $(".vote_value").html(response.data['message'])
             }
         });
-
-       // axios.post($("#vote").attr("data-url")).then(function(response) {
-       //    alert(response);
-       // });
     });
 });
 

@@ -37,7 +37,7 @@
                                     </a>
                                 </li>
                                 <li>
-                                    <a  id="login-out" class="button"  href="{{route('logout')}}" data-lang-loginout="你确定要退出吗？">
+                                    <a  id="login-out" class="button"  href="javascript:void(0)" data-lang-loginout="你确定要退出吗？" data-url="{{route("logout")}}">
                                         <i class="fa fa-sign-out text-md"></i>退出
                                     </a>
                                 </li>
