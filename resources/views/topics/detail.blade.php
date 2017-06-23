@@ -2,7 +2,6 @@
 @section('title')
     {{$topic->title}}
 @endsection
-@include('vendor.editor.head')
 <style>
     #AddPlus {
         padding-top: 18px;

@@ -61,7 +61,7 @@
             </div>
             <div class="panel-body text-center pills">
                 @foreach($categories as $category)
-                    <a href="{{route('categories.show', $category->id)}}" title="{{$category->description}}">{{$category->title}}</a>
+                    <a href="{{route('categories.show', $category->id)}}" title="{{$category->description}}" data-pjax>{{$category->title}}</a>
                 @endforeach
             </div>
         </div>

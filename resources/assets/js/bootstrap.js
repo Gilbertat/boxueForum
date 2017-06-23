@@ -13,7 +13,6 @@ try {
     require('bootstrap-sass');
     require('sweetalert');
     require('jquery-pjax');
-    require('nprogress');
     require('axios');
 
 } catch (e) {}

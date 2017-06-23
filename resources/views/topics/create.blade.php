@@ -1,6 +1,5 @@
 @extends('layouts.default')
 @section('title', '发布帖子')
-    @include('vendor.editor.head')
 <style>
    #AddPlus {
        padding-top: 18px;

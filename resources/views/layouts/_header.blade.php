@@ -8,7 +8,7 @@
                 <span class="icon-bar"></span>
             </button>
 
-            <a href="{{route('home')}}" class="navbar-brand">泊学论坛</a>
+            <a href="{{route('home')}}" class="navbar-brand" data-pjax>泊学论坛</a>
 
         </div>
 
@@ -27,12 +27,12 @@
 
                             <ul class="dropdown-menu" aria-labelledby="dLabel">
                                 <li>
-                                    <a class="button" href="{{route('users.show', Auth::user()->id)}}">
+                                    <a class="button" href="{{route('users.show', Auth::user()->id)}}" data-pjax>
                                         <i class="fa fa-user text-md"></i>个人中心
                                     </a>
                                 </li>
                                 <li>
-                                    <a class="button" href="{{route('users.edit', Auth::user()->id)}}">
+                                    <a class="button" href="{{route('users.edit', Auth::user()->id)}}" data-pjax>
                                         <i class="fa fa-cog text-md"></i>编辑资料
                                     </a>
                                 </li>
@@ -44,10 +44,10 @@
                             </ul>
                         </li>
                     @else
-                        <a href="{{route('signup')}}" class="btn btn-default btn-sm register-btn">
+                        <a href="{{route('signup')}}" class="btn btn-default btn-sm register-btn" data-pjax>
                                 注册
                         </a>
-                        <a href="{{route('login')}}" class="btn btn-primary btn-sm login-btn">
+                        <a href="{{route('login')}}" class="btn btn-primary btn-sm login-btn" data-pjax>
                                 登录
                         </a>
                     @endif

@@ -21,6 +21,7 @@ const app = new Vue({
 });
 
 $(document).ready(function () {
+
    $('#login-out').on('click', function () {
        var text = $(this).data('lang-loginout');
        var href = $(this).attr('data-url');
@@ -51,5 +52,20 @@ $(document).ready(function () {
             }
         });
     });
+
+    $(document).pjax('a[data-pjax]', '#pjax-container', {
+        timeout: 1000,
+        maxCacheLength: 500
+    });
+
+    $(document).on('pjax:start', function () {
+        NProgress.start();
+    });
+
+    $(document).on('pjax:end', function () {
+       NProgress.done();
+
+    });
+
 });
 
