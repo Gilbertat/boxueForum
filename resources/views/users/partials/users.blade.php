@@ -1,7 +1,7 @@
 <ul class="list-group">
     @foreach($users as $index => $followUser)
         <li class="list-group-item">
-            <a href="{{route('users.show', [$followUser->id])}}" title="{{$followUser->name}}" data-pjax>
+            <a href="{{route('users.show', [$followUser->id])}}" title="{{$followUser->name}}" data-pjax class="title">
                 <img class="media-object img-thumbnail avatar avatar-small inline-block" src="{{$followUser->present()->gravatar}}" alt="{{$followUser->name}}">
                 {{$followUser->name}}
             </a>
