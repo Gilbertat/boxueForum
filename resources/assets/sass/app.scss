@@ -467,19 +467,21 @@ input {
 /*topics*/
 .side-bar {
   .create-topic {
+    display: block;
     background-color: #428BDD;
+    color: #fff;
+    text-decoration: none;
+    text-align: center;
+    font-size: 15px;
+    margin-bottom: 20px;
+    height: 54px;
+    padding: 17px;
   }
 
   .create-topic:hover {
     background-color: #4b92e4;
   }
   
-  .create-topic a {
-    color: #fff;
-    text-decoration: none;
-    font-size: 15px;
-  }
-
   .pills a {
     text-decoration: none;
     color: #a5a5a5;

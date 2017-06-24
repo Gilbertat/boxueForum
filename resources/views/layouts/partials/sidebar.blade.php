@@ -1,13 +1,13 @@
 
 <div class="col-md-3 side-bar">
     @if(Auth::check())
-      <div class="panel panel-default corner-radius">
-          <div class="panel-body text-center create-topic">
-              <a class="button" href="{{route('topic.create')}}">
+      {{--<div class="panel panel-default corner-radius">--}}
+          {{--<div class="panel-body text-center create-topic">--}}
+              <a  href="{{route('topic.create')}}" class="create-topic">
                   <i class="fa fa-plus text-md"></i>创建话题
               </a>
-          </div>
-      </div>
+          {{--</div>--}}
+      {{--</div>--}}
     @endif
     
     @if(isset($post))
