@@ -29,19 +29,19 @@
                         </a>
                     </div>
                     <div class="meta">
-                        <a href="{{route('categories.show', $topic->category_id)}}" class="category">
+                        <a href="{{route('categories.show', $topic->category_id)}}" class="category" data-pjax>
                             {{$topic->category->title}}
                         </a>
                         .
                         <abbr title="{{$topic->created_at}}" class="timeago">{{$topic->created_at->diffForHumans()}}</abbr>
                         由
-                        <a href="{{route('users.show',  $topic->user->id)}}" class="author">
+                        <a href="{{route('users.show',  $topic->user->id)}}" class="author" data-pjax>
                             {{$topic->user->name}}
                         </a>
                         编辑
                         @if(count($topic->lastReplyUser))
                             最后回复由
-                            <a href="{{URL::route('users.show', [$topic->lastReplyUser->id])}}">
+                            <a href="{{URL::route('users.show', [$topic->lastReplyUser->id])}}" data-pjax>
                                 {{$topic->lastReplyUser->name}}
                             </a>
                             于<abbr title="{{$topic->updated_at}}" class="timeago">{{$topic->updated_at->diffForHumans()}}</abbr>

@@ -5,14 +5,14 @@
         @endif
         <li class="list-group-item media" style="margin-top: 0px;">
             <div class="avatar avatar-container pull-left">
-                <a href="{{route('users.show', [$reply->user_id])}}">
+                <a href="{{route('users.show', [$reply->user_id])}}" data-pjax>
                     <img class="media-object img-thumbnail avatar avatar-middle" src="{{$reply->user->present()->gravatar}}" alt="{{$reply->user->name}}" style="width: 55px; height: 55px;">
                 </a>
             </div>
 
             <div class="infos">
                 <div class="media-heading">
-                    <a href="{{route('users.show', [$reply->user_id])}}" title="{{$reply->user->name}}" class="remove-padding-left author">
+                    <a href="{{route('users.show', [$reply->user_id])}}" title="{{$reply->user->name}}" class="remove-padding-left author" data-pjax>
                         {{$reply->user->name}}
                     </a>
                     {{--<span class="operate pull-right">--}}

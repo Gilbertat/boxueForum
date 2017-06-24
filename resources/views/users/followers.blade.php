@@ -10,7 +10,7 @@
         </div>
         <div class="main-col col-md-9 left-col">
             <ol class="breadcrumb">
-                <li><a href="{{route('users.show', $user->id)}}">个人中心</a></li>
+                <li><a href="{{route('users.show', $user->id)}}" data-pjax>个人中心</a></li>
                 <li class="active">{{$user->name}}的关注者</li>
             </ol>
 

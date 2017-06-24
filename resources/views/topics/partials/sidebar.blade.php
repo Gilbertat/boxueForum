@@ -3,14 +3,14 @@
         <h3 class="panel-title">作者:{{$user->name}}</h3>
     </div>
     <div class="panel-body text-center topic-author-box">
-        <a href="{{route('users.show', $user->id)}}">
+        <a href="{{route('users.show', $user->id)}}" data-pjax>
             <img src="{{$user->present()->gravatar}}" alt="{{$user->name}}" style="width: 80px; height: 80px; margin: 5px;" class="img-thumbnail avatar">
         </a>
         <span class="text-white">
             <hr>
             @if(Auth::check())
                 @if(Auth::user()->id == $user->id)
-                    <a href="{{route('users.edit', $user->id)}}" class="btn btn-primary btn-block">
+                    <a href="{{route('users.edit', $user->id)}}" class="btn btn-primary btn-block" data-pjax>
                     <i class="fa fa-edit"></i>编辑个人资料
                 </a>
                 @else

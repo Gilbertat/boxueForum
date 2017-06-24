@@ -5,7 +5,7 @@
                 <div class="media-left">
                     <div class="image">
                         <a href="{{route('users.edit_avatar', $user->id)}}" class="popover-with-html"
-                           data-content="修改头像">
+                           data-content="修改头像" data-pjax>
                             <img src="{{$user->present()->gravatar(200)}}" alt="{{$user->name}}"
                                  class="media-object avatar-112 avatar img-thumbnail"/>
                         </a>
@@ -32,18 +32,18 @@
         <hr>
         <div class="follow-info row">
             <div class="col-xs-6">
-                <a href="{{route('users.followers', [$user->id])}}" class="counter">{{$user->follower_count}}</a>
+                <a href="{{route('users.followers', [$user->id])}}" class="counter" data-pjax>{{$user->follower_count}}</a>
                 <span class="text">关注者</span>
             </div>
             <div class="col-xs-6">
-                <a href="{{route('users.topics', [$user->id])}}" class="counter">{{$user->topic_count}}</a>
+                <a href="{{route('users.topics', [$user->id])}}" class="counter" data-pjax>{{$user->topic_count}}</a>
                 <span class="text">话题</span>
             </div>
         </div>
         <hr>
         @if(Auth::check())
             @if(Auth::user()->id == $user->id)
-                <a href="{{route('users.edit', $user->id)}}" class="btn btn-primary btn-block">
+                <a href="{{route('users.edit', $user->id)}}" class="btn btn-primary btn-block" data-pjax>
                     <i class="fa fa-edit"></i>编辑个人资料
                 </a>
             @else
