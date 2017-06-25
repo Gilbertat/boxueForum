@@ -444,6 +444,10 @@ input, textarea, select {
     color: #999;
   }
 
+  input[type=text]:focus + #global_search_btn {
+    color: #000;
+  }
+
 }
 
 .control-label {
