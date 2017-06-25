@@ -64,7 +64,6 @@ $(document).ready(function () {
 
     $(document).on('pjax:end', function () {
        NProgress.done();
-
     });
 
 });
