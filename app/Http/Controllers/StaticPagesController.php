@@ -18,5 +18,10 @@ class StaticPagesController extends Controller
         return view('topics.index', compact('topics', 'categories', 'post'));
     }
 
+    public function search(Request $request)
+    {
+
+    }
+
 
 }

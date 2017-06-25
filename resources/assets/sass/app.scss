@@ -426,6 +426,26 @@ input, textarea, select {
   margin-bottom: 15px;
 }
 
+/* Search */
+.aw-search-box {
+  position: relative;
+  float: left;
+  margin-top: 7px;
+
+  input {
+    padding-right: 10px;
+    margin-bottom: 0px;
+  }
+
+  #global_search_btn {
+    position: absolute;
+    right: 7px;
+    top: 6px;
+    color: #999;
+  }
+
+}
+
 .control-label {
     text-align: right;
     margin-bottom: 0;
