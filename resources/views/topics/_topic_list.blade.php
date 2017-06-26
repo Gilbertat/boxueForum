@@ -35,13 +35,13 @@
                         .
                         <abbr title="{{$topic->created_at}}" class="timeago">{{$topic->created_at->diffForHumans()}}</abbr>
                         由
-                        <a href="{{route('users.show',  $topic->user->id)}}" class="author" data-pjax>
+                        <a href="{{route('users.show',  $topic->user->id)}}" class="author" data-pjax style="color: #84dfec;">
                             {{$topic->user->name}}
                         </a>
                         编辑
                         @if(count($topic->lastReplyUser))
                             最后回复由
-                            <a href="{{URL::route('users.show', [$topic->lastReplyUser->id])}}" data-pjax>
+                            <a href="{{URL::route('users.show', [$topic->lastReplyUser->id])}}" data-pjax style="color: #ec5e2e;">
                                 {{$topic->lastReplyUser->name}}
                             </a>
                             于<abbr title="{{$topic->updated_at}}" class="timeago">{{$topic->updated_at->diffForHumans()}}</abbr>
