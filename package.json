@@ -23,6 +23,7 @@
     "font-awesome": "^4.7.0",
     "gulp": "^3.9.1",
     "inline-attachment": "^2.0.3",
+    "jquery-highlight": "^3.4.0",
     "jquery-pjax": "^2.0.1",
     "nprogress": "^0.2.0",
     "pjax": "^0.2.4",

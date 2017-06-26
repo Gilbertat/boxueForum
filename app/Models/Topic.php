@@ -3,9 +3,12 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Nicolaslopezj\Searchable\SearchableTrait;
 
 class Topic extends Model
 {
+    use SearchableTrait;
+
     protected $table = 'topics';
 
     protected $fillable = [
@@ -23,6 +26,15 @@ class Topic extends Model
         'created_at',
         'updated_at',
     ];
+
+    /* search */
+    protected $searchable = [
+      'columns' => [
+          'topics.title' => 10,
+          'topics.content_raw' => 5,
+      ],
+    ];
+
 
     public function user()
     {

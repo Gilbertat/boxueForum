@@ -15,16 +15,27 @@
         <div id="top-navbar-collapse" class="collapse navbar-collapse">
             <div class="navbar-right">
                 <div class="aw-search-box hidden-xs hidden-sm">
-                    <form class="navbar-search" action="{{route('search')}}" id="global_search_form" method="post">
+                    <form class="navbar-search" action="{{route('search')}}" id="global_search_form" method="get">
                         <input class="form-control search-query" type="text" placeholder="搜索问题或人" name="q" id="aw-search-query">
                         <span title="搜索" id="global_search_btn" onclick="$('#global_search_form').submit();">
                             <i class="fa fa-search"></i>
                         </span>
-                        <div class="aw-dropdown" style>
-
-                        </div>
+                        {{--<div class="aw-dropdown" style="display: none;">--}}
+                            {{--<div class="mod-body">--}}
+                                {{--<p class="title">输入关键字进行搜索</p>--}}
+                                {{--<ul class="aw-dropdown-list hide"></ul>--}}
+                                {{--<p class="search">--}}
+                                    {{--<span>搜索:</span>--}}
+                                    {{--<a onclick="$('#global_search_form').submit();"></a>--}}
+                                {{--</p>--}}
+                            {{--</div>--}}
+                            {{--<div class="mod-footer">--}}
+                                {{--<a href="{{route('topic.create')}}" class="pull-right btn btn-mini btn-success publish">发起问题</a>--}}
+                            {{--</div>--}}
+                        {{--</div>--}}
                     </form>
                 </div>
+
                 <ul class="nav navbar-nav login">
                     @if(Auth::check())
                         <li>

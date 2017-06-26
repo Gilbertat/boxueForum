@@ -7,12 +7,15 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use App\Notifications\ResetPasswordNotification;
 use Laracasts\Presenter\PresentableTrait;
+use Nicolaslopezj\Searchable\SearchableTrait;
 
 class User extends Authenticatable
 {
     use Notifiable;
     use Traits\AvatarHelper;
     use PresentableTrait;
+    use SearchableTrait;
+
 
     /* table name */
 
@@ -37,6 +40,20 @@ class User extends Authenticatable
         'city',
         'last_activied_at',
     ];
+
+    /**
+     * Searchable rules.
+     *
+     * @var array
+     *
+     */
+
+    protected $searchable = [
+       'columns' => [
+           'users.name' => 10,
+       ],
+    ];
+
 
     /**
      * The attributes that should be hidden for arrays.

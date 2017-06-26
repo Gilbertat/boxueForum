@@ -3,10 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Post;
+use App\Models\User;
 use Illuminate\Http\Request;
 use App\Models\Topic;
 use App\Models\Category;
-use Illuminate\Support\Facades\DB;
 
 class StaticPagesController extends Controller
 {
@@ -20,8 +20,10 @@ class StaticPagesController extends Controller
 
     public function search(Request $request)
     {
+        $query = $request->input('q');
+        $users = User::search($query, null, true)->orderBy('id', 'asc')->limit(5)->get();
+        $topics = Topic::search($query, null, true)->paginate(30);
 
+        return view('searches.search', compact('users', 'topics', 'query'));
     }
-
-
 }

@@ -20,6 +20,8 @@ const app = new Vue({
     el: '#app'
 });
 
+
+
 $(document).ready(function () {
 
    $('#login-out').on('click', function () {
@@ -65,6 +67,5 @@ $(document).ready(function () {
     $(document).on('pjax:end', function () {
        NProgress.done();
     });
-
 });
 
