@@ -53,7 +53,7 @@ class UsersController extends Controller
 
         $this->sendEmailConfirmationTo($user);
         session()->flash('success', '验证邮件已经发送到您的注册邮箱上，请注意查收。');
-        return redirect('/');
+        return redirect(route('home'));
     }
 
     // 发送邮件
@@ -61,7 +61,7 @@ class UsersController extends Controller
     {
         $view = 'emails.confirm';
         $data = compact('user');
-        $from = 'shiyue45457@126.com';
+        $from = 'shiyue45457@gmail.com';
         $name = 'boxueForum';
         $to = $user->email;
         $subject = '欢迎来到泊学论坛，请确认你的邮箱';

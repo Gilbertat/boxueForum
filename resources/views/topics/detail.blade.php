@@ -3,8 +3,8 @@
     {{$topic->title}}
 @endsection
 <style>
-    #AddPlus {
-        padding-top: 18px;
+    #global_search_btn {
+        top: 10px !important;
     }
 </style>
 @section('content')

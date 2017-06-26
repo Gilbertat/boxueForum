@@ -1,8 +1,8 @@
 @extends('layouts.default')
 @section('title', '发布帖子')
 <style>
-   #AddPlus {
-       padding-top: 18px;
+   #global_search_btn {
+       top: 10px !important;
    }
 </style>
     @section('content')
