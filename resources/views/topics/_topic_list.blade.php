@@ -29,7 +29,7 @@
                         </a>
                     </div>
                     <div class="meta">
-                        <a href="{{route('categories.show', $topic->category_id)}}" class="category" data-pjax>
+                        <a href="{{route('categories.show', $topic->category_id)}}" class="category" data-pjax style="color: {{$topic->category->color}}">
                             {{$topic->category->title}}
                         </a>
                         .

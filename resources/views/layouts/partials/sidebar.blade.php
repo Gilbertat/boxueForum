@@ -60,8 +60,9 @@
                 <h3 class="panel-title">话题分类</h3>
             </div>
             <div class="panel-body text-center pills">
+                <a href="{{route('home')}}" title="全部" style="color: #000;" data-pjax>全部</a>
                 @foreach($categories as $category)
-                    <a href="{{route('categories.show', $category->id)}}" title="{{$category->description}}" data-pjax>{{$category->title}}</a>
+                    <a href="{{route('categories.show', $category->id)}}" title="{{$category->description}}" data-pjax style="color: {{$category->color}};">{{$category->title}}</a>
                 @endforeach
             </div>
         </div>

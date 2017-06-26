@@ -445,6 +445,7 @@ class ComposerStaticInit7f4e3c1fd86da5c5ed2c354d3f7dc4e8
 
     public static $classMap = array (
         'AddActivationToUsersTable' => __DIR__ . '/../..' . '/database/migrations/2017_05_10_185339_add_activation_to_users_table.php',
+        'AddColorToPostTable' => __DIR__ . '/../..',
         'AddContentHtmlToTopicsTable' => __DIR__ . '/../..' . '/database/migrations/2017_06_05_162648_add_content_html_to_topics_table.php',
         'AddLastReplyUserIdToTopicTable' => __DIR__ . '/../..' . '/database/migrations/2017_05_18_105148_add_last_reply_user_id_to_topic_table.php',
         'AddSlugToTopicsTable' => __DIR__ . '/../..' . '/database/migrations/2017_06_07_115626_add_slug_to_topics_table.php',

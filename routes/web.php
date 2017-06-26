@@ -31,7 +31,7 @@ Route::get('logout', 'SessionsController@destroy')->name('logout');
 Route::get('signup/confirm/{token}', 'UsersController@confirmEmail')->name('confirm_email');
 
 /*categories*/
-Route::get('categories/{id}', 'CategoriesController@show')->name('categories.show');
+Route::get('categories/{id?}', 'CategoriesController@show')->name('categories.show');
 
 /* topic */
 Route::get('topic/create', 'TopicsController@create')->name('topic.create');
