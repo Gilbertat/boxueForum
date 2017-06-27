@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Topic;
 use boxue\Handler\Exception\ImageUploadException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -162,6 +163,19 @@ class UsersController extends Controller
         $topics = User::find($id)->topic()->orderBy('updated_at', 'desc')->paginate(15);
 
         return view('users.topics', compact('user', 'topics'));
+    }
+
+    public function all()
+    {
+        $users = User::all();
+        return view('users.index', compact('users'));
+    }
+
+    public function fame()
+    {
+        $topics = Topic::where('vote_count', '>', 0)
+                        ->orderBy('vote_count', 'desc')
+                        ->get();
     }
 
 

@@ -27,7 +27,7 @@ class FollowersController extends Controller
             $user->increment('follower_count');
         }
 
-        return redirect()->route('users.show', $id);
+        return redirect()->back();
     }
 
     /* 取消关注 */
@@ -44,6 +44,6 @@ class FollowersController extends Controller
             $user->decrement('follower_count');
         }
 
-        return redirect()->route('users.show', $id);
+        return redirect()->back();
     }
 }

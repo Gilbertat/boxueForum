@@ -13,6 +13,11 @@
         </div>
 
         <div id="top-navbar-collapse" class="collapse navbar-collapse">
+            <ul class="nav navbar-nav">
+                <li class>
+
+                </li>
+            </ul>
             <div class="navbar-right">
                 <div class="aw-search-box hidden-xs hidden-sm">
                     <form class="navbar-search" action="{{route('search')}}" id="global_search_form" method="get">

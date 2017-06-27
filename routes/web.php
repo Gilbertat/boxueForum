@@ -19,6 +19,8 @@ Route::patch('/users/{id}/update_password', 'UsersController@updatePassword')->n
 Route::get('/users/{id}/edit_avatar', 'UsersController@editAvatar')->name('users.edit_avatar');
 Route::patch('/users/{id}/update_avatar', 'UsersController@updateAvatar')->name('users.update_avatar');
 Route::get('/users/{id}/followers', 'UsersController@followers')->name('users.followers');
+Route::get('/user/all', 'UsersController@all')->name('users.all');
+Route::get('/hall_of_fame', 'UsersController@fame')->name('users.fame');
 
 
 /* reset password */
