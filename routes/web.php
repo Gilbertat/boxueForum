@@ -10,7 +10,7 @@ Route::get('/search', 'StaticPagesController@search')->name('search');
 
 /* Users Control */
 Route::get('signup', 'UsersController@create')->name('signup');
-Route::post('users', 'UsersController@store')->name('users.store');
+Route::post('users/store', 'UsersController@store')->name('users.store');
 Route::get('users/{id}/edit', 'UsersController@edit')->name('users.edit');
 Route::get('users/{id}', 'UsersController@show')->name('users.show');
 Route::patch('users/{id}', 'UsersController@update')->name('users.update');
