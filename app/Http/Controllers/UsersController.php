@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreUserRequest;
 use App\Models\Topic;
 use boxue\Handler\Exception\ImageUploadException;
 use Illuminate\Http\Request;
@@ -37,15 +38,8 @@ class UsersController extends Controller
     }
 
     // 用户资料入库,并自动登录
-    public function store (Request $request)
+    public function store (StoreUserRequest $request)
     {
-        $this->validate($request, [
-            'email' => 'required|email|unique:users|max:255',
-            'nickname'=> 'required|max:20',
-            'captcha' => 'required|captcha',
-            'password' => 'required|confirmed'
-        ]);
-
         $user = User::create([
             'email' => $request->email,
             'name' => $request->nickname,
