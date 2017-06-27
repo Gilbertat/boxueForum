@@ -19,7 +19,7 @@ class UsersController extends Controller
         ]);
 
         $this->middleware('guest', [
-           'only' => ['create']
+            'only' => ['create']
         ]);
     }
 
@@ -37,24 +37,32 @@ class UsersController extends Controller
     }
 
     // 用户资料入库,并自动登录
-    public function store (Request $request)
+    public function store(Request $request)
     {
-        $this->validate($request, [
+
+        $rules = array([
             'email' => 'required|email|unique:users|max:255',
-            'nickname'=> 'required|max:20',
+            'nickname' => 'required|max:20',
             'captcha' => 'required|captcha',
             'password' => 'required|confirmed'
         ]);
 
-        $user = User::create([
-            'email' => $request->email,
-            'name' => $request->nickname,
-            'password' => bcrypt($request->password),
-        ]);
+        $validator = \Validator::make($request, $rules);
 
-        $this->sendEmailConfirmationTo($user);
-        session()->flash('success', '验证邮件已经发送到您的注册邮箱上，请注意查收。');
-        return redirect(route('home'));
+        if ($validator->passes()) {
+            $user = User::create([
+                'email' => $request->email,
+                'name' => $request->nickname,
+                'password' => bcrypt($request->password),
+            ]);
+
+            $this->sendEmailConfirmationTo($user);
+            session()->flash('success', '验证邮件已经发送到您的注册邮箱上，请注意查收。');
+            return redirect(route('home'));
+        } else {
+            return redirect(route('signup'))->withErrors($validator);
+        }
+
     }
 
     // 发送邮件
@@ -119,12 +127,12 @@ class UsersController extends Controller
     public function updatePassword($id, Request $request)
     {
         $this->validate($request, [
-           'password' => 'required|confirmed'
+            'password' => 'required|confirmed'
         ]);
         $user = User::findOrFail($id);
         $this->authorize('update', $user);
         $user->update([
-           'password' => bcrypt($request->password),
+            'password' => bcrypt($request->password),
         ]);
 
         session()->flash('success', '密码修改成功!');
@@ -146,12 +154,12 @@ class UsersController extends Controller
         if ($file = $request->file('avatar')) {
             try {
                 $user->updateAvatar($file);
-                session()->flash('success','上传头像成功');
+                session()->flash('success', '上传头像成功');
             } catch (ImageUploadException $exception) {
                 session()->flash('errors', error($exception->getMessage()));
             }
         } else {
-            session()->flash('errors','上传头像失败');
+            session()->flash('errors', '上传头像失败');
         }
 
         return redirect(route('users.edit_avatar', $id));
@@ -174,8 +182,8 @@ class UsersController extends Controller
     public function fame()
     {
         $topics = Topic::where('vote_count', '>', 0)
-                        ->orderBy('vote_count', 'desc')
-                        ->get();
+            ->orderBy('vote_count', 'desc')
+            ->get();
     }
 
 
@@ -183,7 +191,7 @@ class UsersController extends Controller
     {
         $user = User::findOrFail($id);
         $users = $user->followers()->paginate(15);
-        return view('users.followers', compact('user','users'));
+        return view('users.followers', compact('user', 'users'));
     }
 
 }

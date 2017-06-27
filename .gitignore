@@ -4,3 +4,7 @@
 node_modules
 public/js
 public/css
+resources/assets/js/vendor/
+vendor/doctrine/common/lib/vendor/
+vendor/doctrine/dbal/lib/vendor/
+vendor/ezyang/htmlpurifier/plugins/phorum/htmlpurifier/
