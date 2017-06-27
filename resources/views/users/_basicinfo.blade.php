@@ -4,11 +4,19 @@
             <div class="media">
                 <div class="media-left">
                     <div class="image">
-                        <a href="{{route('users.edit_avatar', $user->id)}}" class="popover-with-html"
-                           data-content="修改头像" data-pjax>
-                            <img src="{{$user->present()->gravatar(200)}}" alt="{{$user->name}}"
-                                 class="media-object avatar-112 avatar img-thumbnail"/>
-                        </a>
+                        @if(Auth::id() == $user->id)
+                            <a href="{{route('users.edit_avatar', $user->id)}}" class="popover-with-html"
+                               data-content="修改头像" data-pjax>
+                                <img src="{{$user->present()->gravatar(200)}}" alt="{{$user->name}}"
+                                     class="media-object avatar-112 avatar img-thumbnail"/>
+                            </a>
+                        @else
+                            <a href="javascript:void(0);" class="popover-with-html"
+                               data-content="修改头像" data-pjax>
+                                <img src="{{$user->present()->gravatar(200)}}" alt="{{$user->name}}"
+                                     class="media-object avatar-112 avatar img-thumbnail"/>
+                            </a>
+                        @endif
                     </div>
                 </div>
                 <div class="media-body">
@@ -32,7 +40,8 @@
         <hr>
         <div class="follow-info row">
             <div class="col-xs-6">
-                <a href="{{route('users.followers', [$user->id])}}" class="counter" data-pjax>{{$user->follower_count}}</a>
+                <a href="{{route('users.followers', [$user->id])}}" class="counter"
+                   data-pjax>{{$user->follower_count}}</a>
                 <span class="text">关注者</span>
             </div>
             <div class="col-xs-6">
