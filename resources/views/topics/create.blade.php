@@ -4,6 +4,9 @@
    #global_search_btn {
        top: 10px !important;
    }
+   #global_search_form {
+       margin-bottom: 0px !important;
+   }
 </style>
     @section('content')
         <div class="row">
