@@ -2,7 +2,7 @@
 
 /* index */
 Route::get('/', 'StaticPagesController@home')->name('home');
-Route::get('/home', 'StaticPagesController@home')->name('home');
+//Route::get('/home', 'StaticPagesController@home')->name('home');
 
 /* search */
 Route::get('/search', 'StaticPagesController@search')->name('search');
