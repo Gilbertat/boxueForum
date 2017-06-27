@@ -66,7 +66,7 @@ class UsersController extends Controller
         $to = $user->email;
         $subject = '欢迎来到泊学论坛，请确认你的邮箱';
 
-        Mail::send($view, $data, function ($message) use ($from, $name, $to, $subject) {
+        Mail::queue($view, $data, function ($message) use ($from, $name, $to, $subject) {
             $message->from($from, $name)->to($to)->subject($subject);
         });
     }

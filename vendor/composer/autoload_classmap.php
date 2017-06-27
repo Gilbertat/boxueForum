@@ -7,7 +7,7 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'AddActivationToUsersTable' => $baseDir . '/database/migrations/2017_05_10_185339_add_activation_to_users_table.php',
-    'AddColorToPostTable' => $baseDir . '/database/migrations/2017_06_26_155457_add_color_to_category_table.php',
+    'AddColorToCategoryTable' => $baseDir . '/database/migrations/2017_06_26_155457_add_color_to_category_table.php',
     'AddContentHtmlToTopicsTable' => $baseDir . '/database/migrations/2017_06_05_162648_add_content_html_to_topics_table.php',
     'AddLastReplyUserIdToTopicTable' => $baseDir . '/database/migrations/2017_05_18_105148_add_last_reply_user_id_to_topic_table.php',
     'AddSlugToTopicsTable' => $baseDir . '/database/migrations/2017_06_07_115626_add_slug_to_topics_table.php',
@@ -121,6 +121,7 @@ return array(
     'CategoriesTableSeeder' => $baseDir . '/database/seeds/CategoriesTableSeeder.php',
     'CreateCategoriesTable' => $baseDir . '/database/migrations/2017_06_06_104204_create_categories_table.php',
     'CreateFollowersTable' => $baseDir . '/database/migrations/2017_06_13_143038_create_followers_table.php',
+    'CreateJobsTable' => $baseDir . '/database/migrations/2017_06_27_110211_create_jobs_table.php',
     'CreatePasswordResetsTable' => $baseDir . '/database/migrations/2014_10_12_100000_create_password_resets_table.php',
     'CreatePostTable' => $baseDir . '/database/migrations/2017_06_12_163123_create_post_table.php',
     'CreateReplyTable' => $baseDir . '/database/migrations/2017_06_15_150349_create_reply_table.php',
