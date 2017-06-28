@@ -66,8 +66,8 @@ class RegisterController extends Controller
             'password' => bcrypt($data['password']),
         ]);
 
-       $job = (new SendConfirmEmail($user))->onQueue('vip')->delay(5);
-       $this->dispatch($job);
+       $job = (new SendConfirmEmail($user))->onConnection('database')->onQueue('vip')->delay(5);
+       dispatch($job);
        session()->flash('success', '验证邮件已经发送到您的注册邮箱上，请注意查收。');
        return $user;
     }
