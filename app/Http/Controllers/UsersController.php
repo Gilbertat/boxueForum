@@ -48,7 +48,7 @@ class UsersController extends Controller
 
         $this->sendEmailConfirmationTo($user);
         session()->flash('success', '验证邮件已经发送到您的注册邮箱上，请注意查收。');
-        return redirect(route('home'));
+        return redirect('/');
     }
 
     // 发送邮件
@@ -91,7 +91,7 @@ class UsersController extends Controller
     public function update($id, Request $request)
     {
         $this->validate($request, [
-            'nickname' => 'required|max:50',
+            'nickname' => 'required|max:16',
         ]);
         $user = User::findOrFail($id);
         $this->authorize('update', $user);
