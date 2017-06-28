@@ -7,6 +7,7 @@ use Illuminate\Queue\SerializesModels;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
+use Illuminate\Support\Facades\Mail;
 use App\Models\User;
 
 class SendConfirmEmail implements ShouldQueue
@@ -44,7 +45,7 @@ class SendConfirmEmail implements ShouldQueue
         $to = $user->email;
         $subject = '欢迎来到泊学论坛，请确认你的邮箱';
 
-        Mail::queue($view, $data, function ($message) use ($from, $name, $to, $subject) {
+        Mail::send($view, $data, function ($message) use ($from, $name, $to, $subject) {
             $message->from($from, $name)->to($to)->subject($subject);
         });
     }
