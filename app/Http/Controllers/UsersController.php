@@ -51,11 +51,6 @@ class UsersController extends Controller
         return redirect('/');
     }
 
-    // 发送邮件
-    protected function sendEmailConfirmationTo($user)
-    {
-
-    }
 
     // 根据邮件激活对应账号
     public function confirmEmail($token)
