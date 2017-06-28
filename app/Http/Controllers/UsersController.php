@@ -162,7 +162,7 @@ class UsersController extends Controller
     public function all()
     {
         $users = User::all();
-        return view('users.inde', compact('users'));
+        return view('users.index', compact('users'));
     }
 
     public function fame()
