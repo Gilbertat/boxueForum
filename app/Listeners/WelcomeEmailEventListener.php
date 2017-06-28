@@ -1,37 +1,32 @@
 <?php
 
-namespace App\Jobs;
+namespace App\Listeners;
 
-use Illuminate\Bus\Queueable;
-use Illuminate\Queue\SerializesModels;
+use App\Events\WelcomeEmail;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Foundation\Bus\Dispatchable;
-use App\Models\User;
 
-class SendConfirmEmail implements ShouldQueue
+class WelcomeEmailEventListener
 {
-    use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
-
-    protected $user;
     /**
-     * Create a new job instance.
+     * Create the event listener.
      *
      * @return void
      */
-    public function __construct(User $user)
+    public function __construct()
     {
-        $this->user = $user;
+        //
     }
 
     /**
-     * Execute the job.
+     * Handle the event.
      *
+     * @param  WelcomeEmail  $event
      * @return void
      */
-    public function handle()
+    public function handle(WelcomeEmail $event)
     {
-        $user = $this->user;
+        $user = $event->user;
 
         $view = 'emails.confirm';
         $data = compact('user');

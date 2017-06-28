@@ -1,9 +1,9 @@
-<form method="post" action="{{route('users.store')}}">
+<form method="post" action="{{route('register')}}">
     {{csrf_field()}}
 
     <div class="form-group">
-        <label for="nickname">昵称:</label>
-        <input type="text" name="nickname" class="form-control" value="{{old('nickname')}}">
+        <label for="name">昵称:</label>
+        <input type="text" name="name" class="form-control" value="{{old('name')}}">
     </div>
 
     <div class="form-group">

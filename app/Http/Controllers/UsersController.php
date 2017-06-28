@@ -54,16 +54,7 @@ class UsersController extends Controller
     // 发送邮件
     protected function sendEmailConfirmationTo($user)
     {
-        $view = 'emails.confirm';
-        $data = compact('user');
-        $from = 'shiyue45457@gmail.com';
-        $name = 'boxueForum';
-        $to = $user->email;
-        $subject = '欢迎来到泊学论坛，请确认你的邮箱';
 
-        Mail::send($view, $data, function ($message) use ($from, $name, $to, $subject) {
-            $message->from($from, $name)->to($to)->subject($subject);
-        });
     }
 
     // 根据邮件激活对应账号

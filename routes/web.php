@@ -9,8 +9,9 @@ Route::get('/search', 'StaticPagesController@search')->name('search');
 
 
 /* Users Control */
-Route::get('signup', 'UsersController@create')->name('signup');
-Route::post('users/store', 'UsersController@store')->name('users.store');
+Route::get('register', 'Auth\RegisterController@showRegistrationForm')->name('register');
+Route::post('register', 'Auth\RegisterController@register');
+
 Route::get('users/{id}/edit', 'UsersController@edit')->name('users.edit');
 Route::get('users/{id}', 'UsersController@show')->name('users.show');
 Route::patch('users/{id}', 'UsersController@update')->name('users.update');
@@ -30,9 +31,9 @@ Route::get('password/reset/{token}', 'Auth\ResetPasswordController@showResetForm
 Route::post('password/reset', 'Auth\ResetPasswordController@reset')->name('password.update');
 
 /* Users status */
-Route::get('login', 'SessionsController@create')->name('login');
-Route::post('login', 'SessionsController@store')->name('login');
-Route::get('logout', 'SessionsController@destroy')->name('logout');
+Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
+Route::post('login', 'Auth\LoginController@login');
+Route::post('logout', 'Auth\LoginController@logout')->name('logout');
 Route::get('signup/confirm/{token}', 'UsersController@confirmEmail')->name('confirm_email');
 
 /*categories*/

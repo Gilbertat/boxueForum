@@ -11545,10 +11545,8 @@ var app = new Vue({
 
 $(document).ready(function () {
 
-    $('#login-out').on('click', function () {
-        var text = $(this).data('lang-loginout');
-        var href = $(this).attr('data-url');
-
+    $('#logout').on('click', function () {
+        var text = $(this).data('lang-logout');
         swal({
             title: "",
             text: text,
@@ -11558,7 +11556,7 @@ $(document).ready(function () {
             confirmButtonText: "退出",
             closeOnConfirm: false
         }, function () {
-            location.href = href;
+            $('#logout-form').submit();
         });
     });
 

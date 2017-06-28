@@ -64,14 +64,17 @@
                                     </a>
                                 </li>
                                 <li>
-                                    <a  id="login-out" class="button"  href="javascript:void(0)" data-lang-loginout="你确定要退出吗？" data-url="{{route("logout")}}">
+                                    <a id="logout" class="button"  href="javascript:void(0)" data-lang-logout="你确定要退出吗？" data-url="{{route("logout")}}">
                                         <i class="fa fa-sign-out text-md"></i>退出
                                     </a>
+                                    <form id="logout-form" action="{{route('logout')}}" method="post" style="display: none;">
+                                        {{csrf_field()}}
+                                    </form>
                                 </li>
                             </ul>
                         </li>
                     @else
-                        <a href="{{route('signup')}}" class="btn btn-default btn-sm register-btn" data-pjax>
+                        <a href="{{route('register')}}" class="btn btn-default btn-sm register-btn" data-pjax>
                                 注册
                         </a>
                         <a href="{{route('login')}}" class="btn btn-primary btn-sm login-btn" data-pjax>
