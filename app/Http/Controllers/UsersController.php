@@ -91,7 +91,7 @@ class UsersController extends Controller
     public function update($id, Request $request)
     {
         $this->validate($request, [
-            'nickname' => 'required|max:16',
+            'nickname' => 'required|max:10',
         ]);
         $user = User::findOrFail($id);
         $this->authorize('update', $user);
