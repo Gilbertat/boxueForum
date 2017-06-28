@@ -22,10 +22,8 @@ class RegisterController extends Controller
 
     use RegistersUsers;
 
-    public function redirectTo()
-    {
-        return redirect(route('home'));
-    }
+    protected $redirectTo = '/';
+
     /**
      * Create a new controller instance.
      *

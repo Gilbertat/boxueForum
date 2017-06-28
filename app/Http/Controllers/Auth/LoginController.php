@@ -20,10 +20,7 @@ class LoginController extends Controller
 
     use AuthenticatesUsers;
 
-    public function redirectTo()
-    {
-        return redirect(route('home'));
-    }
+    protected $redirectTo = '/';
 
     /**
      * Create a new controller instance.
