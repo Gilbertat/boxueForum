@@ -9,8 +9,8 @@ Route::get('/search', 'StaticPagesController@search')->name('search');
 
 
 /* Users Control */
-Route::get('register', 'Auth\RegisterController@showRegistrationForm')->name('register');
-Route::post('register', 'Auth\RegisterController@register');
+//Route::get('register', 'Auth\RegisterController@showRegistrationForm')->name('register');
+//Route::post('register', 'Auth\RegisterController@register');
 
 Route::get('users/{id}/edit', 'UsersController@edit')->name('users.edit');
 Route::get('users/{id}', 'UsersController@show')->name('users.show');
@@ -31,9 +31,9 @@ Route::get('password/reset/{token}', 'Auth\ResetPasswordController@showResetForm
 Route::post('password/reset', 'Auth\ResetPasswordController@reset')->name('password.update');
 
 /* Users status */
-Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
-Route::post('login', 'Auth\LoginController@login');
-Route::post('logout', 'Auth\LoginController@logout')->name('logout');
+//Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
+//Route::post('login', 'Auth\LoginController@login');
+//Route::post('logout', 'Auth\LoginController@logout')->name('logout');
 Route::get('signup/confirm/{token}', 'UsersController@confirmEmail')->name('confirm_email');
 
 /*categories*/
@@ -61,4 +61,7 @@ Route::post('/replies', 'RepliesController@store')->name('replies.store');
 
 
 
+
+
+Auth::routes();
 
