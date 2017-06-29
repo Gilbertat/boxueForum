@@ -21,7 +21,7 @@
                 <div class="infos panel-heading">
                     <h1 class="panel-title topic-title">{{$topic->title}}</h1>
                     <a  href="javascript:void(0)" id="vote" class="vote_count" data-url="{{ route('topic.vote', $topic->id) }}">
-                        <i class="fa fa-thumbs-o-up"></i> <i class="vote_value">{{$topic->vote_count}}</i>
+                        <i class="fa fa-star"></i> <i class="vote_value">{{$topic->vote_count}}</i>
                     </a>
                     @include('topics.partials.info')
                 </div>
