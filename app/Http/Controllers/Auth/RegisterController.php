@@ -8,6 +8,8 @@ use App\Models\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use Laracasts\Flash\Flash;
+
 
 class RegisterController extends Controller
 {
