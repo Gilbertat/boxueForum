@@ -680,18 +680,15 @@ abbr[data-original-title], abbr[title] {
   .reply_count_area {
     line-height: inherit;
   }
-  .count_of_replies {
+  .count_of_replies,
+  .count_of_visits,
+  .count_of_likes {
     font-size: 15px;
     margin-top: 11px;
     color: #bab9bb;
     margin-bottom: -3px;
   }
-  .count_of_visits {
-    font-size:  15px;
-    margin-top: 11px;
-    color: #bab9bb;
-    margin-bottom: -3px;
-  }
+
   .count_set {
     font-size: 12px;
     color: #bab9bb;

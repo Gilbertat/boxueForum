@@ -7,12 +7,14 @@
                         <span class="count_of_replies" title="回复数">
                             {{$topic->reply_count}}
                         </span>
-                        <span class="count_seperator">/</span>
+                        <span class="count_separator">/</span>
                         <span class="count_of_visits" title="查看数">
                             {{$topic->view_count}}
                         </span>
-                        {{--<span class="count_seperator">|</span>--}}
-                        {{--<abbr title="{{ $topic->updated_at }}" class="timeago">{{\Carbon\Carbon::parse($topic->updated_at)->diffForHumans()}}</abbr>--}}
+                        <span class="count_separator">|</span>
+                        <span class="count_of_likes" title="点赞数">
+                            {{$topic->vote_count}}
+                        </span>
                     </div>
                 </a>
 
