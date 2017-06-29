@@ -77,7 +77,6 @@ class TopicsController extends Controller
                                ->get();
 
         $replies = Reply::where('topic_id', $topic->id)
-                         ->orderBy('created_at', 'desc')
                          ->get();
 
         return view('topics.detail', compact('topic', 'user', 'topics', 'replies'));
