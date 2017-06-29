@@ -20,7 +20,7 @@
 @include('layouts._header')
 <div id="app">
     <div class="container main-container" id="pjax-container">
-        @include('shared.messages')
+        @include('flash::message')
         @yield('content')
     </div>
 </div>

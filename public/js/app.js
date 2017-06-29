@@ -11545,6 +11545,8 @@ var app = new Vue({
 
 $(document).ready(function () {
 
+    $('div.alert').not('.alert-important').delay(3000).fadeOut(350);
+
     $('#logout').on('click', function () {
         var text = $(this).data('lang-logout');
         swal({

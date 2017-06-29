@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use Illuminate\Support\Facades\Mail;
+use Laracasts\Flash\Flash;
 
 class UsersController extends Controller
 {
@@ -63,7 +64,7 @@ class UsersController extends Controller
         $user->save();
 
         Auth::login($user);
-        session()->flash('success', '恭喜您，账号激活成功!');
+        Flash('恭喜您，账号激活成功!')->success();
         return redirect()->route('users.show', [$user]);
     }
 
@@ -85,7 +86,7 @@ class UsersController extends Controller
             'name' => $request->nickname,
             'city' => $request->city,
         ]);
-        session()->flash('success', '个人资料更新成功!');
+        Flash::success('个人资料更新成功!');
         return redirect()->route('users.show', $id);
     }
 
@@ -107,8 +108,8 @@ class UsersController extends Controller
            'password' => bcrypt($request->password),
         ]);
 
-        session()->flash('success', '密码修改成功!');
-        return redirect()->route('login', $id);
+        Flash::success('密码修改成功!');
+        return redirect()->route('users.show', $id);
     }
 
     /*修改头像*/
@@ -126,12 +127,12 @@ class UsersController extends Controller
         if ($file = $request->file('avatar')) {
             try {
                 $user->updateAvatar($file);
-                session()->flash('success','上传头像成功');
+                Flash::success('上传图像成功!');
             } catch (ImageUploadException $exception) {
-                session()->flash('errors', error($exception->getMessage()));
+                Flash::error('上传图像失败！请检查文件是否为图片')->important();
             }
         } else {
-            session()->flash('errors','上传头像失败');
+            Flash::error('上传头像失败!');
         }
 
         return redirect(route('users.edit_avatar', $id));

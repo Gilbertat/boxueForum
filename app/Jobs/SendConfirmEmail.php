@@ -2,6 +2,7 @@
 
 namespace App\Jobs;
 
+use App\Mail\RegisterEmail;
 use Illuminate\Bus\Queueable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Queue\InteractsWithQueue;
@@ -36,17 +37,18 @@ class SendConfirmEmail implements ShouldQueue
      */
     public function handle()
     {
-        $user = $this->user;
+         $user = $this->user;
 
-        $view = 'emails.confirm';
-        $data = compact('user');
-        $from = 'shiyue45457@gmail.com';
-        $name = 'boxueForum';
-        $to = $user->email;
-        $subject = '欢迎来到泊学论坛，请确认你的邮箱';
 
-        Mail::send($view, $data, function ($message) use ($from, $name, $to, $subject) {
-            $message->from($from, $name)->to($to)->subject($subject);
-        });
+         Mail::to($user)->send(new RegisterEmail($user));
+
+//        $view = 'emails.confirm';
+//        $data = compact('user');
+//        $to = $user->email;
+//        $subject = '欢迎来到泊学论坛，请确认你的邮箱';
+//
+//        Mail::send($view, $data, function ($message) use ($from, $name, $to, $subject) {
+//            $message->from($from, $name)->to($to)->subject($subject);
+//        });
     }
 }
