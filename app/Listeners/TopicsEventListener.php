@@ -49,7 +49,7 @@ class TopicsEventListener
     public function ipViewLimit($id, $slug, $ip)
     {
         // 设定redis key
-        $ipTopicKey = 'topic:ip:limit'.$id.$slug;
+        $ipTopicKey = 'topic:ip:limit:'. $id . ':' . $slug;
 
         // 使用redis的SISMEMBER命令检查set中有没有该键，时间复杂度O(1)
         $existsInRedisSet = Redis::command('SISMEMBER', [$ipTopicKey, $ip]);
@@ -69,24 +69,21 @@ class TopicsEventListener
     // 更新数据库
     public function updateTopicViewCount($id, $slug, $count)
     {
-
-        $topic_model = Topic::where([
-            ['user_id', $id],
+        dd('aa');
+        $topic = Topic::where([
             ['slug', env("APP_URL") . 'topics/' . $id . '/' . $slug]
         ])->first();
 
-        dd($topic_model);
+        $topic->view_count += $count;
 
-        $topic_model->view_count += $count;
-
-        $topic_model->save();
+        $topic->save();
     }
 
     // 不同用户访问更新浏览次数
 
     public function updateTopicCacheViewCount($id, $slug, $ip)
     {
-        $cacheKey = 'topic:view' . $id . $slug;
+        $cacheKey = 'topic:view:' . $id . ':' . $slug;
 
         if (Redis::command('HEXISTS', [$cacheKey, $ip])) {
             $incre_count = Redis::command('HINCRBY', [$cacheKey, $ip, 1]);

@@ -8,7 +8,6 @@ use App\Models\Category;
 use App\Models\Reply;
 use App\Models\Topic;
 use App\Models\User;
-use function foo\func;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
@@ -66,9 +65,8 @@ class TopicsController extends Controller
     public function detail(Request $request)
     {
 
-        $topic = Cache::remember('topic:cache' . $request->slug, self::modelCacheExpires, function () use($request) {
+        $topic = Cache::remember('topic:cache:' . $request->slug, self::modelCacheExpires, function () use($request) {
            return Topic::where([
-               ['user_id', $request->id],
                ['slug', env("APP_URL") . 'topics/' . $request->id . '/' . $request->slug]
            ])->first();
         });
