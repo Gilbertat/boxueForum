@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\TopicsViewCount;
 use App\Http\Requests\StoreTopicRequest;
 use App\Models\Category;
 use App\Models\Reply;
@@ -10,10 +11,12 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
+use Cache;
 
 class TopicsController extends Controller
 {
 
+    const modelCacheExpires = 10;
 
     /* 权限控制 */
     function __construct()
@@ -60,6 +63,7 @@ class TopicsController extends Controller
     /* 话题详情 */
     public function detail(Request $request)
     {
+
         $topic = Topic::where([
             ['user_id', $request->id],
             ['slug', env("APP_URL") . 'topics/' . $request->id . '/' . $request->slug]
@@ -80,6 +84,22 @@ class TopicsController extends Controller
                          ->get();
 
         return view('topics.detail', compact('topic', 'user', 'topics', 'replies'));
+
+    }
+
+    // 使用redis进行view_count 计数
+    public function showTopicCache(Request $request, $id)
+    {
+        $topic = Cache::remember('topic:cache'.$id, self::modelCacheExpires, function () use($id) {
+           return Topic::where('id', $id)->first();
+        });
+
+        // 获取客户端IP
+        $ip = $request->ip();
+
+        // 触发计数事件
+        event(new TopicsViewCount($topic, $ip));
+
 
     }
 

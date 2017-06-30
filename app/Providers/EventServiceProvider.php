@@ -20,6 +20,10 @@ class EventServiceProvider extends ServiceProvider
         'App\Events\WelcomeEmail' => [
           'App\Listeners\WelcomeEmailEventListener',
         ],
+
+        'App\Events\TopicsViewCount' => [
+          'App\Listeners\TopicsEventListener',
+        ],
     ];
 
     /**

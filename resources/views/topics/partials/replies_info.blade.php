@@ -20,7 +20,7 @@
                     {{--</span>--}}
 
                     <div class="meta">
-                        <abbr title="{{$reply->created_at}}" class="imeago">{{$reply->created_at->diffForHumans()}}</abbr>
+                        <abbr title="{{$reply->created_at}}" class="timeago">{{$reply->created_at->diffForHumans()}}</abbr>
                     </div>
                 </div>
                 <div class="media-body markdown-body content-body">
