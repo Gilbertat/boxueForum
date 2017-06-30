@@ -11,10 +11,10 @@ class TopicsEventListener
 {
 
     // 同一帖子最大访问次数，超过该次数刷新数据库
-    const topicViewLimit = 2;
+    const topicViewLimit = 10;
 
     // 同一IP 浏览帖子过期时间
-    const ipExpireSec = 2;
+    const ipExpireSec = 300;
     /**
      * Create the event listener.
      *
