@@ -8,6 +8,7 @@ use App\Models\Category;
 use App\Models\Reply;
 use App\Models\Topic;
 use App\Models\User;
+use function foo\func;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
@@ -61,17 +62,21 @@ class TopicsController extends Controller
     }
 
     /* 话题详情 */
+    /* 使用redis 进行 浏览量计数*/
     public function detail(Request $request)
     {
 
-        $topic = Topic::where([
-            ['user_id', $request->id],
-            ['slug', env("APP_URL") . 'topics/' . $request->id . '/' . $request->slug]
-        ])->first();
+        $topic = Cache::remember('topic:cache' . $request->slug, self::modelCacheExpires, function () use($request) {
+           return Topic::where([
+               ['user_id', $request->id],
+               ['slug', env("APP_URL") . 'topics/' . $request->id . '/' . $request->slug]
+           ])->first();
+        });
 
+        $ip = $request->ip();
 
+        event(new TopicsViewCount($topic, $ip, $request->slug));
 
-        \DB::table('topics')->increment('view_count');
 
         $user = User::findOrFail($request->id);
 
@@ -87,21 +92,8 @@ class TopicsController extends Controller
 
     }
 
-    // 使用redis进行view_count 计数
-    public function showTopicCache(Request $request, $id)
-    {
-        $topic = Cache::remember('topic:cache'.$id, self::modelCacheExpires, function () use($id) {
-           return Topic::where('id', $id)->first();
-        });
-
-        // 获取客户端IP
-        $ip = $request->ip();
-
-        // 触发计数事件
-        event(new TopicsViewCount($topic, $ip));
 
 
-    }
 
     public function attachment(Request $request)
     {
