@@ -11,10 +11,10 @@ class TopicsEventListener
 {
 
     // 同一帖子最大访问次数，超过该次数刷新数据库
-    const topicViewLimit = 30;
+    const topicViewLimit = 2;
 
     // 同一IP 浏览帖子过期时间
-    const ipExpireSec = 300;
+    const ipExpireSec = 2;
     /**
      * Create the event listener.
      *
@@ -69,14 +69,17 @@ class TopicsEventListener
     // 更新数据库
     public function updateTopicViewCount($id, $slug, $count)
     {
-        $topic = Topic::where([
+
+        $topic_model = Topic::where([
             ['user_id', $id],
             ['slug', env("APP_URL") . 'topics/' . $id . '/' . $slug]
         ])->first();
 
-        $topic->view_count += $count;
+        dd($topic_model);
 
-        $topic->save();
+        $topic_model->view_count += $count;
+
+        $topic_model->save();
     }
 
     // 不同用户访问更新浏览次数
