@@ -24,18 +24,26 @@ class TopicsViewCount
     // 帖子时间戳
     public $slug;
 
+    // 用户id
+    public $id;
+
     /**
      * Create a new event instance.
      *
      * @param  $topic
      *
      * @param  $ip
+     *
+     * @param  $slug
+     *
+     * @param $id
      */
-    public function __construct(Topic $topic, $ip, $slug)
+    public function __construct(Topic $topic, $ip, $slug, $id)
     {
         $this->topic = $topic;
         $this->ip = $ip;
         $this->slug = $slug;
+        $this->id = $id;
     }
 
     /**

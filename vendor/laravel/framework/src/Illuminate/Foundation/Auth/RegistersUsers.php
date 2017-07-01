@@ -17,7 +17,7 @@ trait RegistersUsers
      */
     public function showRegistrationForm()
     {
-        return view('users.create');
+        return view('auth.register');
     }
 
     /**

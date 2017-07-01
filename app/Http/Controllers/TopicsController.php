@@ -64,8 +64,7 @@ class TopicsController extends Controller
     /* 使用redis 进行 浏览量计数*/
     public function detail(Request $request)
     {
-
-        $topic = Cache::remember('topic:cache:' . $request->slug, self::modelCacheExpires, function () use($request) {
+        $topic = Cache::remember('topic:cache:' . $request->id . ':' . $request->slug, self::modelCacheExpires, function () use($request) {
            return Topic::where([
                ['slug', env("APP_URL") . 'topics/' . $request->id . '/' . $request->slug]
            ])->first();
@@ -73,7 +72,7 @@ class TopicsController extends Controller
 
         $ip = $request->ip();
 
-        event(new TopicsViewCount($topic, $ip, $request->slug));
+        event(new TopicsViewCount($topic, $ip, $request->slug, $request->id));
 
 
         $user = User::findOrFail($request->id);

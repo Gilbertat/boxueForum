@@ -11,7 +11,7 @@ class TopicsEventListener
 {
 
     // 同一帖子最大访问次数，超过该次数刷新数据库
-    const topicViewLimit = 10;
+    const topicViewLimit = 30;
 
     // 同一IP 浏览帖子过期时间
     const ipExpireSec = 300;
@@ -36,11 +36,11 @@ class TopicsEventListener
         /*查询topic需要*/
         $topic = $event->topic;
         $ip = $event->ip;
-        $id = $topic->user_id;
+        $id = $event->id;
         $slug = $event->slug;
 
         if ($this->ipViewLimit($id, $slug, $ip)) {
-            $this->updateTopicCacheViewCount($id, $slug, $ip);
+            $this->updateTopicCacheViewCount($id, $slug, $ip, $topic);
         }
 
     }
@@ -51,7 +51,7 @@ class TopicsEventListener
         // 设定redis key
         $ipTopicKey = 'topic:ip:limit:'. $id . ':' . $slug;
 
-        // 使用redis的SISMEMBER命令检查set中有没有该键，时间复杂度O(1)
+        // 使用redis的SISMEMBER命令检查set中有没有该键
         $existsInRedisSet = Redis::command('SISMEMBER', [$ipTopicKey, $ip]);
 
         // 如果没有该ip记录,则写入该ip到redis中
@@ -67,30 +67,26 @@ class TopicsEventListener
     }
 
     // 更新数据库
-    public function updateTopicViewCount($id, $slug, $count)
+    public function updateTopicViewCount( $count, $topic)
     {
-        dd('aa');
-        $topic = Topic::where([
-            ['slug', env("APP_URL") . 'topics/' . $id . '/' . $slug]
-        ])->first();
-
         $topic->view_count += $count;
 
-        $topic->save();
+        $topic->update([
+           'view_count' => $topic->view_count,
+        ]);
     }
 
     // 不同用户访问更新浏览次数
 
-    public function updateTopicCacheViewCount($id, $slug, $ip)
+    public function updateTopicCacheViewCount($id, $slug, $ip, $topic)
     {
         $cacheKey = 'topic:view:' . $id . ':' . $slug;
-
         if (Redis::command('HEXISTS', [$cacheKey, $ip])) {
             $incre_count = Redis::command('HINCRBY', [$cacheKey, $ip, 1]);
             if ($incre_count == self::topicViewLimit) {
-                $this->updateTopicViewCount($id, $slug, $incre_count);
+                $this->updateTopicViewCount($incre_count, $topic);
                 Redis::command('HDEL', [$cacheKey, $ip]);
-                Redis::command('DEL', ['laravel:topic:cache:' . $id . $slug]);
+                Redis::command('DEL', ['laravel:topic:cache:' . $id . ':' . $slug]);
             }
         } else {
             Redis::command('HSET', [$cacheKey, $ip, '1']);
