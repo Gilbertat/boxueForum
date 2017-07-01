@@ -83,7 +83,7 @@ class TopicsEventListener
         $cacheKey = 'topic:view:' . $id . ':' . $slug;
         if (Redis::command('HEXISTS', [$cacheKey, $ip])) {
             $incre_count = Redis::command('HINCRBY', [$cacheKey, $ip, 1]);
-            if ($incre_count == self::topicViewLimit) {
+            if ($incre_count >= self::topicViewLimit) {
                 $this->updateTopicViewCount($incre_count, $topic);
                 Redis::command('HDEL', [$cacheKey, $ip]);
                 Redis::command('DEL', ['laravel:topic:cache:' . $id . ':' . $slug]);
