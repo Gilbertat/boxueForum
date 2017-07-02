@@ -11545,6 +11545,8 @@ var app = new Vue({
 
 $(document).ready(function () {
 
+    axios.defaults.headers.common['X-CSRF-TOKEN'] = $('meta[name="_token"]').attr('content');
+
     $('div.alert').not('.alert-important').delay(3000).fadeOut(350);
 
     $('#logout').on('click', function () {
@@ -11573,6 +11575,35 @@ $(document).ready(function () {
             if (response.status == 200) {
                 $(".vote_value").html(response.data['message']);
             }
+        });
+    });
+
+    // 隐藏帖， 显示帖
+    $('#topic_delete_button').click(function () {
+        swal({
+            title: "",
+            text: '确定隐藏该帖吗？',
+            type: "warning",
+            showCancelButton: true,
+            cancelButtonText: "取消",
+            confirmButtonText: "确定",
+            closeOnConfirm: false
+        }, function () {
+            $('#topic_delete_form').submit();
+        });
+    });
+
+    $('#topic_retry_button').click(function () {
+        swal({
+            title: "",
+            text: '确定显示该帖吗？',
+            type: "warning",
+            showCancelButton: true,
+            cancelButtonText: "取消",
+            confirmButtonText: "确定",
+            closeOnConfirm: false
+        }, function () {
+            $('#topic_retry_form').submit();
         });
     });
 

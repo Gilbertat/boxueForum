@@ -77,7 +77,6 @@ class TopicsEventListener
     }
 
     // 不同用户访问更新浏览次数
-
     public function updateTopicCacheViewCount($id, $slug, $ip, $topic)
     {
         $cacheKey = 'topic:view:' . $id . ':' . $slug;

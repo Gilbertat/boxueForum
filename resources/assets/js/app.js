@@ -21,28 +21,29 @@ const app = new Vue({
 });
 
 
-
 $(document).ready(function () {
+
+    axios.defaults.headers.common['X-CSRF-TOKEN'] = $('meta[name="_token"]').attr('content');
 
     $('div.alert').not('.alert-important').delay(3000).fadeOut(350);
 
 
-   $('#logout').on('click', function () {
-       var text = $(this).data('lang-logout');
-       swal({
-           title: "",
-           text: text,
-           type: "warning",
-           showCancelButton: true,
-           cancelButtonText: "取消",
-           confirmButtonText: "退出",
-           closeOnConfirm: false
-       }, function() {
-           $('#logout-form').submit();
-       });
-   });
+    $('#logout').on('click', function () {
+        var text = $(this).data('lang-logout');
+        swal({
+            title: "",
+            text: text,
+            type: "warning",
+            showCancelButton: true,
+            cancelButtonText: "取消",
+            confirmButtonText: "退出",
+            closeOnConfirm: false
+        }, function () {
+            $('#logout-form').submit();
+        });
+    });
 
-    $('#vote').click( function() {
+    $('#vote').click(function () {
 
         axios({
             url: $("#vote").attr("data-url"),
@@ -56,6 +57,35 @@ $(document).ready(function () {
         });
     });
 
+    // 隐藏帖， 显示帖
+    $('#topic_delete_button').click(function () {
+        swal({
+            title: "",
+            text: '确定隐藏该帖吗？',
+            type: "warning",
+            showCancelButton: true,
+            cancelButtonText: "取消",
+            confirmButtonText: "确定",
+            closeOnConfirm: false
+        }, function () {
+            $('#topic_delete_form').submit();
+        });
+    })
+
+    $('#topic_retry_button').click(function () {
+        swal({
+            title: "",
+            text: '确定显示该帖吗？',
+            type: "warning",
+            showCancelButton: true,
+            cancelButtonText: "取消",
+            confirmButtonText: "确定",
+            closeOnConfirm: false
+        }, function() {
+            $('#topic_retry_form').submit();
+        });
+    })
+
     $(document).pjax('a[data-pjax]', '#pjax-container', {
         timeout: 1000,
         maxCacheLength: 500
@@ -66,7 +96,7 @@ $(document).ready(function () {
     });
 
     $(document).on('pjax:end', function () {
-       NProgress.done();
+        NProgress.done();
     });
 });
 

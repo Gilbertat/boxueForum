@@ -5,7 +5,7 @@
     <meta http-equiv="x-ua-compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- CSRF Token-->
-    <meta name="csrf-token" content="{{csrf_token()}}">
+    <meta name="_token" content="{{csrf_token()}}">
     <title>@yield('title', 'boxue') - {{env('APP_NAME')}} </title>
     <link rel="stylesheet" href="{{mix('css/app.css')}}">
     <link rel="stylesheet" href="{{asset('css/nprogress.css')}}">

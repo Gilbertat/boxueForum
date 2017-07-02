@@ -20,7 +20,8 @@
             <div class="topic panel panel-default">
                 <div class="infos panel-heading">
                     <h1 class="panel-title topic-title">{{$topic->title}}</h1>
-                    <a  href="javascript:void(0)" id="vote" class="vote_count" data-url="{{ route('topic.vote', $topic->id) }}">
+                    <a href="javascript:void(0)" id="vote" class="vote_count"
+                       data-url="{{ route('topic.vote', $topic->id) }}">
                         <i class="fa fa-star"></i> <i class="vote_value">{{$topic->vote_count}}</i>
                     </a>
                     @include('topics.partials.info')
@@ -28,6 +29,11 @@
                 <div class="content-body entry-content panel-body">
                     @include('topics.partials.body')
                 </div>
+                @if(Auth::check())
+                    @if(Auth::id() == $topic->user_id)
+                        @include('topics.partials.operate')
+                    @endif
+                @endif
             </div>
             @include('topics.partials.replies')
         </div>
@@ -37,7 +43,7 @@
 @section('script')
     <script type="text/javascript">
         var editor;
-        $(function() {
+        $(function () {
             editor = editormd("mdEditor", {
                 placeholder: "请使用Markdown格式书写:-)。",
                 width: "100%",

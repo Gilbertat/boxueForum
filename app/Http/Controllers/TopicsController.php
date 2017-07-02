@@ -12,6 +12,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
 use Cache;
+use Laracasts\Flash\Flash;
 
 class TopicsController extends Controller
 {
@@ -26,6 +27,7 @@ class TopicsController extends Controller
         ]);
 
     }
+
     /* 显示添加话题表单 */
     public function create()
     {
@@ -90,8 +92,7 @@ class TopicsController extends Controller
     }
 
 
-
-
+    // 上传图片
     public function attachment(Request $request)
     {
         $file = $request->file('image');
@@ -141,6 +142,24 @@ class TopicsController extends Controller
             'status'  => 200,
             'message' => $topic->vote_count,
         ]);
+    }
+
+    public function delete($id)
+    {
+        $topic = Topic::findOrFail($id);
+        $topic->is_hidden = 0;
+        $topic->save();
+        Flash::success('隐藏成功!');
+        return redirect()->route('home');
+    }
+
+    public function retry($id)
+    {
+        $topic = Topic::findOrFail($id);
+        $topic->is_hidden = 1;
+        $topic->save();
+
+        return redirect()->route('home');
     }
 
     /* 查重 */

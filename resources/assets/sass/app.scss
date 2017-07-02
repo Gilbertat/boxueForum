@@ -795,6 +795,17 @@ abbr[data-original-title], abbr[title] {
   .entry-content {
     padding: 22px;
   }
+
+  .panel-footer {
+    height: 35px;
+    background-color: white;
+  }
+
+  #topic_delete_button,
+  #topic_retry_button {
+    color: #a8a3a3;
+    font-size: 18px;
+  }
 }
 
 .reply-post-submit {

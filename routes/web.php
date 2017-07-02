@@ -46,6 +46,8 @@ Route::get('topics/{id}/{slug}', 'TopicsController@detail')->name('topic.detail'
 Route::get('users/{id}/topics', 'UsersController@topic')->name('users.topics');
 Route::post('topic/uploads/images/', 'TopicsController@attachment')->name('topic.attachment');
 Route::get('topic/{id}/vote', 'TopicsController@vote')->name('topic.vote');
+Route::delete('topic/{id}/delete', 'TopicsController@delete')->name('topic.delete');
+Route::post('topic/{id}retry', 'TopicsController@retry')->name('topic.retry');
 
 /*follow unFollow*/
 Route::post('/users/followers/{id}', 'FollowersController@store')->name('followers.store');
