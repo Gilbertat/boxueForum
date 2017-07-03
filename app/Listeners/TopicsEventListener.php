@@ -11,7 +11,7 @@ class TopicsEventListener
 {
 
     // 同一帖子最大访问次数，超过该次数刷新数据库
-    const topicViewLimit = 1;
+    const topicViewLimit = 2;
 
     // 同一IP 浏览帖子过期时间
     const ipExpireSec = 300;
@@ -83,7 +83,7 @@ class TopicsEventListener
         if (Redis::command('HEXISTS', [$cacheKey, $ip])) {
             $incre_count = Redis::command('HINCRBY', [$cacheKey, $ip, 1]);
             if ($incre_count >= self::topicViewLimit) {
-                $this->updateTopicViewCount($incre_count, $topic);
+                $this->updateTopicViewCount($incre_count - 1, $topic);
                 Redis::command('HDEL', [$cacheKey, $ip]);
                 Redis::command('DEL', ['laravel:topic:cache:' . $id . ':' . $slug]);
             }
