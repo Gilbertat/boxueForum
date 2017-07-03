@@ -390,6 +390,7 @@ section.user_info {
     padding: 1px 2px;
     color: #B9BDC0;
     text-decoration: none;
+    font-size: 14px;
   }
 
   a.anchor {
@@ -810,7 +811,7 @@ abbr[data-original-title], abbr[title] {
   #topic_retry_button,
   .topic_edit {
     color: #a8a3a3;
-    font-size: 18px;
+    font-size: 14px;
   }
 }
 
@@ -835,6 +836,7 @@ abbr[data-original-title], abbr[title] {
     text-align: center;
     width: 80px;
   }
+
   .label.role {
     padding: .1em .2em .1em;
     position: inherit;

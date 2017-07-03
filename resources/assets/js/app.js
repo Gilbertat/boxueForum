@@ -84,6 +84,21 @@ $(document).ready(function () {
         }, function() {
             $('#topic_retry_form').submit();
         });
+    });
+
+    $('#reply_delete_button').click(function () {
+        var text = $(this).attr('data-content');
+        swal({
+            title:"",
+            text: text,
+            type: 'warning',
+            showCancelButton: true,
+            cancelButtonText: "取消",
+            confirmButtonText: "确定",
+            closeOnConfirm: false
+        }, function () {
+            $('#reply_delete_form').submit();
+        });
     })
 
     $(document).pjax('a[data-pjax]', '#pjax-container', {

@@ -15,9 +15,15 @@
                     <a href="{{route('users.show', [$reply->user_id])}}" title="{{$reply->user->name}}" class="remove-padding-left author" data-pjax>
                         {{$reply->user->name}}
                     </a>
-                    {{--<span class="operate pull-right">--}}
+                    <span class="operate pull-right">
+                        @if(Auth::id() == $reply->user_id)
+                            <a class="fa fa-trash-o" href="javascript:void(0);" id="reply_delete_button" title="删除评论" data-content="确定要删除该条评论吗？"></a>
+                            <form action="{{route('replies.delete', $reply->id)}}" id="reply_delete_form" method="post">
+                                {{csrf_field()}}
+                            </form>
+                        @endif
                         {{--<a class="fa fa-reply" href="javascript:void(0)" onclick="replyOne('{{$reply->user->name}}');" title="回复{{$reply->user->name}}"></a>--}}
-                    {{--</span>--}}
+                    </span>
 
                     <div class="meta">
                         <abbr title="{{$reply->created_at}}" class="timeago">{{$reply->created_at->diffForHumans()}}</abbr>

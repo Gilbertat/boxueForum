@@ -46,6 +46,18 @@ class RepliesController extends Controller
 
     }
 
+    public function delete($id)
+    {
+        $reply = Reply::query()->findOrFail($id);
+        $topic = $reply->topic;
+        $reply->delete();
+        $topic->decrement('reply_count');
+
+        Flash::success('删除评论成功');
+        return redirect()->back();
+
+    }
+
 
     public function isDuplicate($data)
     {
