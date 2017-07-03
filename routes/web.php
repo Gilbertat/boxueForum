@@ -48,6 +48,8 @@ Route::post('topic/uploads/images/', 'TopicsController@attachment')->name('topic
 Route::get('topic/{id}/vote', 'TopicsController@vote')->name('topic.vote');
 Route::delete('topic/{id}/delete', 'TopicsController@delete')->name('topic.delete');
 Route::post('topic/{id}retry', 'TopicsController@retry')->name('topic.retry');
+Route::get('topic/{id}/edit', 'TopicsController@edit')->name('topic.edit');
+Route::post('topic/{id}/update', 'TopicsController@update')->name('topic.update');
 
 /*follow unFollow*/
 Route::post('/users/followers/{id}', 'FollowersController@store')->name('followers.store');

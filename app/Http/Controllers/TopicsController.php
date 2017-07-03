@@ -59,7 +59,31 @@ class TopicsController extends Controller
         $user = User::findOrFail(Auth::user()->id);
         $user->increment('topic_count');
 
-        session()->flash("success", '发布话题成功!');
+        Flash::success('发布话题成功!');
+        return redirect(route('home'));
+    }
+
+    // 编辑话题
+    public function edit($id)
+    {
+        $topic = Topic::query()->findOrFail($id);
+        $categories = Category::all();
+
+        return view('topics.edit', compact('topic', 'categories'));
+    }
+
+    // 保存编辑
+    public function update($id, StoreTopicRequest $request)
+    {
+        $topic = Topic::query()->findOrFail($id);
+        $topic->update([
+            'title' => $request->title,
+            'content_raw' => $request->mark,
+            'content_html' => $request->content_html,
+            'category_id' => $request->category_id,
+            'updated_at' => Carbon::now()
+        ]);
+        Flash::success('保存成功!');
         return redirect(route('home'));
     }
 

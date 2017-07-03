@@ -801,8 +801,14 @@ abbr[data-original-title], abbr[title] {
     background-color: white;
   }
 
+  .topic_edit {
+    display: inline-block;
+    margin-right: 15px;
+  }
+
   #topic_delete_button,
-  #topic_retry_button {
+  #topic_retry_button,
+  .topic_edit {
     color: #a8a3a3;
     font-size: 18px;
   }
