@@ -6,6 +6,7 @@ use App\Http\Requests\StoreReplyRequest;
 use App\Models\Reply;
 use App\Models\Topic;
 use Carbon\Carbon;
+use Laracasts\Flash\Flash;
 
 class RepliesController extends Controller
 {
@@ -22,7 +23,8 @@ class RepliesController extends Controller
     public function store(StoreReplyRequest $request)
     {
         if ($this->isDuplicate($request->input())) {
-            session()->flash('warning', '请不要发送重复内容!');
+            Flash::error('请不要发送重复内容!');
+            return redirect()->back();
         }
 
 

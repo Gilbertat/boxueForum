@@ -39,7 +39,8 @@ class TopicsController extends Controller
     public function store(StoreTopicRequest $request)
     {
         if ($this->isDuplicate($request->input())) {
-            session()->flash('warning', '请不要发送重复内容!');
+            Flash::error('请不要发送重复内容');
+            return redirect()->intended(route('topic.create'));
         }
 
         $content_slug = slug(Carbon::now()->timestamp, Auth::user()->id);
