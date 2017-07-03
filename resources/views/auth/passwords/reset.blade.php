@@ -10,7 +10,7 @@
                 </div>
                 <div class="panel-body">
                     @include('shared.errors')
-                    <form action="{{route('password.update')}}" method="post">
+                    <form action="{{route('password.request')}}" method="post">
                         {{csrf_field()}}
                         <input type="hidden" name="token" value="{{ $token }}">
                         <div class="form-group">

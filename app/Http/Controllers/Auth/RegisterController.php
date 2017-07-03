@@ -68,8 +68,6 @@ class RegisterController extends Controller
             'password' => bcrypt($data['password']),
         ]);
 
-
-
        $job = (new SendConfirmEmail($user))->delay(5);
        dispatch($job);
        Flash::success('验证邮件已经发送到您的注册邮箱上，请注意查收。');
