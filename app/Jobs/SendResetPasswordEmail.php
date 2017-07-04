@@ -7,19 +7,23 @@ use Illuminate\Queue\SerializesModels;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
+use App\Notifications\ResetPasswordNotification;
+
 
 class SendResetPasswordEmail implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
+
+    public $token;
     /**
      * Create a new job instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct($token)
     {
-        //
+        $this->token = $token;
     }
 
     /**
@@ -27,8 +31,8 @@ class SendResetPasswordEmail implements ShouldQueue
      *
      * @return void
      */
-    public function handle()
+    public function handle($token)
     {
-        //
+       $this->notify(new ResetPasswordNotification($token));
     }
 }

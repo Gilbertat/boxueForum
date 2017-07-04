@@ -3,6 +3,7 @@
 namespace App\Models;
 
 
+use App\Jobs\SendResetPasswordEmail;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use App\Notifications\ResetPasswordNotification;
@@ -76,7 +77,9 @@ class User extends Authenticatable
 
     public function sendPasswordResetNotification($token)
     {
-        $this->notify(new ResetPasswordNotification($token));
+        $job = new SendResetPasswordEmail($token);
+
+        dispatch($job);
     }
 
     // 发起的讨论
