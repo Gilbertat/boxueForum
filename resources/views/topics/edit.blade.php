@@ -40,8 +40,8 @@
                 toolbarIcons: function () {
                     return ["undo", "redo", "|", "bold", "hr", "del", "italic", "quote", "|", "h1", "h2", "h3", "h4", "h5", "h6", "|", "preview", "fullscreen", "|", "help"]
                 },
-                placeholder: "请使用Markdown格式书写:-)。"
-
+                placeholder: "请使用Markdown格式书写:-)。",
+                toolbar: false,
             });
         });
     </script>
