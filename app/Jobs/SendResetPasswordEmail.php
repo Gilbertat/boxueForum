@@ -32,8 +32,9 @@ class SendResetPasswordEmail implements ShouldQueue
      *
      * @return void
      */
-    public function handle($token)
+    public function handle()
     {
+        $token = $this->token;
        $this->notify(new ResetPasswordNotification($token));
     }
 }
