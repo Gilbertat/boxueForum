@@ -77,7 +77,7 @@ class User extends Authenticatable
 
     public function sendPasswordResetNotification($token)
     {
-        dispatch(new SendResetPasswordEmail($token));
+        $this->notify(new ResetPasswordNotification($token));
     }
 
     // 发起的讨论
