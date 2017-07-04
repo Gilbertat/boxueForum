@@ -18,3 +18,10 @@ function slug($time, $user_id)
 {
     return env('APP_URL') . 'topics/' . $user_id . '/' . $time;
 }
+
+function cacheKey($user_id, $date)
+{
+    $slug = \Carbon\Carbon::parse($date)->timestamp;
+
+    return 'topic:cache:' . $user_id . ':' . $slug;
+}

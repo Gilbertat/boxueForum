@@ -83,6 +83,9 @@ class TopicsController extends Controller
             'category_id' => $request->category_id,
             'updated_at' => Carbon::now()
         ]);
+
+
+        Cache::forget(cacheKey($topic->user_id, $topic->created_at));
         Flash::success('保存成功!');
         return redirect(route('home'));
     }
@@ -174,6 +177,7 @@ class TopicsController extends Controller
         $topic = Topic::findOrFail($id);
         $topic->is_hidden = 0;
         $topic->save();
+        Cache::forget(cacheKey($topic->user_id, $topic->created_at));
         Flash::success('隐藏成功!');
         return redirect()->route('home');
     }
@@ -183,7 +187,8 @@ class TopicsController extends Controller
         $topic = Topic::findOrFail($id);
         $topic->is_hidden = 1;
         $topic->save();
-
+        Cache::forget(cacheKey($topic->user_id, $topic->created_at));
+        Flash::success('恢复成功!');
         return redirect()->route('home');
     }
 
