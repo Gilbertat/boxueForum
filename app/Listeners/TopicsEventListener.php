@@ -16,9 +16,6 @@ class TopicsEventListener
     // 同一IP 浏览帖子过期时间
     const ipExpireSec = 300;
 
-    // 帖子动态过期时间
-    const contentExpireSec = 5;
-
     /**
      * Create the event listener.
      *

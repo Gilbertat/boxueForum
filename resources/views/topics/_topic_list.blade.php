@@ -46,7 +46,7 @@
                             <a href="{{URL::route('users.show', [$topic->lastReplyUser->id])}}" data-pjax style="color: #ec5e2e;">
                                 {{$topic->lastReplyUser->name}}
                             </a>
-                            于<abbr title="{{$topic->updated_at}}" class="timeago">{{$topic->updated_at->diffForHumans()}}</abbr>
+                            于<abbr title="{{$topic->reply->last()->created_at}}" class="timeago">{{$topic->reply->last()->created_at->diffForHumans()}}</abbr>
                             .
                         @endif
                         {{$topic->view_count}}阅读
