@@ -4,6 +4,7 @@ namespace Illuminate\Foundation\Auth;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Password;
+use Laracasts\Flash\Flash;
 
 trait SendsPasswordResetEmails
 {
@@ -58,6 +59,7 @@ trait SendsPasswordResetEmails
      */
     protected function sendResetLinkResponse($response)
     {
+        Flash::success('重置密码邮件已发送到您的邮箱中，请注意查看!');
         return back()->with('status', trans($response));
     }
 
