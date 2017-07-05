@@ -4,15 +4,15 @@
             <li class="list-group-item">
                 <a class="reply_count_area pull-right" href="#">
                     <div class="count_set">
-                        <span class="count_of_replies" title="回复数">
+                        <span class="count_of_replies" title="回复">
                             {{$topic->reply_count}}
                         </span>
                         <span class="count_separator">/</span>
-                        <span class="count_of_visits" title="查看数">
+                        <span class="count_of_visits" title="查看">
                             {{$topic->view_count}}
                         </span>
                         <span class="count_separator">|</span>
-                        <span class="count_of_likes" title="点赞数">
+                        <span class="count_of_likes" title="赞">
                             {{$topic->vote_count}}
                         </span>
                     </div>

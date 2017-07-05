@@ -64,7 +64,7 @@ class UsersController extends Controller
         $user->save();
 
         Auth::login($user);
-        Flash('恭喜您，账号激活成功!')->success();
+        Flash::success('恭喜您，账号激活成功!');
         return redirect()->route('users.show', [$user]);
     }
 
