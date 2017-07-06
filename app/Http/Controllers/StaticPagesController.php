@@ -13,7 +13,7 @@ class StaticPagesController extends Controller
     public function home()
     {
         $topics = Topic::query()->where('is_hidden',1)
-                                ->orderBy('created_at', 'desc')
+                                ->orderBy('updated_at', 'desc')
                                 ->paginate(30);
 
         $post = Post::orderBy('updated_at', 'desc')->first();

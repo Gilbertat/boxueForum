@@ -17,6 +17,7 @@ class Reply extends Model
         'updated_at'
     ];
 
+    protected $touches = ['topic'];
 
     public function user()
     {

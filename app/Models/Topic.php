@@ -11,6 +11,8 @@ class Topic extends Model
 
     protected $table = 'topics';
 
+    public $timestamps = false;
+
     protected $fillable = [
         'title',
         'content_raw',
