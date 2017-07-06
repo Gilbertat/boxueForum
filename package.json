@@ -22,6 +22,7 @@
     "datatables": "^1.10.13",
     "font-awesome": "^4.7.0",
     "gulp": "^3.9.1",
+    "highlight.js": "^9.12.0",
     "inline-attachment": "^2.0.3",
     "jquery-highlight": "^3.4.0",
     "jquery-pjax": "^2.0.1",

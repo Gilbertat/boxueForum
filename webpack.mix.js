@@ -16,7 +16,9 @@ mix.js('resources/assets/js/app.js', 'public/js')
     .copy('node_modules/inline-attachment/src/inline-attachment.js', 'public/js/inline-attachment.js')
     .copy('node_modules/inline-attachment/src/jquery.inline-attachment.js', 'public/js/jquery.inline-attachment.js')
     .copy('node_modules/nprogress/nprogress.css', 'public/css/nprogress.css')
-    .copy('node_modules/nprogress/nprogress.js', 'public/js/nprogress.js');
+    .copy('node_modules/nprogress/nprogress.js', 'public/js/nprogress.js')
+    .copy('node_modules/highlight.js/lib/highlight.js', 'public/js/highlight.js')
+    .copy('node_modules/highlight.js/styles/default.css', 'public/css/highlight.css');
 
 
 if (mix.config.inProduction) {

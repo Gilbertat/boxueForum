@@ -42,6 +42,7 @@
 
 @section('script')
     <script type="text/javascript">
+
         var editor;
         $(function () {
             editor = editormd("mdEditor", {
@@ -54,5 +55,8 @@
                 lineNumbers: false,
             });
         });
+
+        hljs.initHighlightingOnLoad();
+
     </script>
 @stop
