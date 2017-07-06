@@ -7,6 +7,8 @@ use App\Models\Reply;
 use App\Models\Topic;
 use Carbon\Carbon;
 use Laracasts\Flash\Flash;
+use Cache;
+
 
 class RepliesController extends Controller
 {
@@ -50,8 +52,14 @@ class RepliesController extends Controller
     {
         $reply = Reply::query()->findOrFail($id);
         $topic = $reply->topic;
+        Cache::forget(cacheKey($topic->user_id, $topic->created_at));
         $reply->delete();
         $topic->decrement('reply_count');
+
+        if ($topic->reply_count == 0) {
+            $topic->last_reply_user_id = 0;
+            $topic->save();
+        }
 
         Flash::success('删除评论成功');
         return redirect()->back();
