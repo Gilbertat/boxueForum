@@ -14,7 +14,9 @@ try {
     require('sweetalert');
     require('jquery-pjax');
     require('axios');
+    require('highlight.js');
     require('jquery-highlight');
+
 
 } catch (e) {}
 

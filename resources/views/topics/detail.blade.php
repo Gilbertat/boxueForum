@@ -56,7 +56,5 @@
             });
         });
 
-        hljs.initHighlightingOnLoad();
-
     </script>
 @stop
