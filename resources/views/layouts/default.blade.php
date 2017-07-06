@@ -9,7 +9,7 @@
     <title>@yield('title', 'boxue') - {{env('APP_NAME')}} </title>
     <link rel="stylesheet" href="{{mix('css/app.css')}}">
     <link rel="stylesheet" href="{{asset('css/nprogress.css')}}">
-    <link href="https://cdn.bootcss.com/highlight.js/9.12.0/styles/xcode.min.css" rel="stylesheet">
+    <link href="https://cdn.bootcss.com/highlight.js/9.12.0/styles/solarized-dark.min.css" rel="stylesheet">
     <script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
     <script src="https://cdn.bootcss.com/highlight.js/9.12.0/languages/swift.min.js"></script>
     <script>hljs.initHighlightingOnLoad();</script>
