@@ -2,14 +2,18 @@
     <div class="panel-heading">
         <div class="total">回复:{{$topic->reply_count}}</div>
     </div>
-    <div class="panel-body">
-        @if(count($replies))
+    @if(count($replies))
+        <div class="panel-body">
             @include('topics.partials.replies_info')
-        @else
-            <ul class="list-group row"></ul>
-            <div class="empty-block text-center">暂无评论~</div>
-        @endif
-    </div>
+        </div>
+        <div class="panel-footer text-right remove-padding-horizontal pager-footer">
+            {{$replies->links()}}
+        </div>
+    @else
+        <ul class="list-group row"></ul>
+        <div class="empty-block text-center">暂无评论~</div>
+    @endif
+
 </div>
 @if(Auth::check())
     <div class="reply-box form box-block">

@@ -19,6 +19,7 @@
         ]) !!};
     </script>
     @include('vendor.editor.head')
+    @yield('head')
 </head>
 <body>
 @include('layouts._header')

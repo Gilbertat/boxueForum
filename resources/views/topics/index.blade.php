@@ -1,4 +1,7 @@
 @extends('layouts.default')
+@section('head')
+    @include('vendor.editor.head')
+@endsection
 @section('title','全部帖子')
 @section('content')
     <div class="row">
