@@ -8,11 +8,11 @@
                     <div class="panel-body remove-padding-horizontal">
                         @include('topics._topic_list')
                     </div>
-                    @if(count($topics) >= 30)
-                        <div class="panel-footer text-right remove-padding-horizontal pager-footer">
-                           {{$topics->links()}}
-                        </div>
-                    @endif
+
+                    <div class="panel-footer text-right remove-padding-horizontal pager-footer">
+                        {{$topics->links()}}
+                    </div>
+
                 @else
                     <div class="panel-body">
                         <div class="empty">还没有任何人发帖哦~~</div>
