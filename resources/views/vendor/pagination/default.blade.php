@@ -20,7 +20,7 @@
                     @if ($page == $paginator->currentPage())
                         <li class="active"><span>{{ $page }}</span></li>
                     @else
-                        <li><a href="{{ $url }}">{{ $page }}</a></li>
+                        <li><a href="{{ $url }}" data-pjax>{{ $page }}</a></li>
                     @endif
                 @endforeach
             @endif
@@ -28,7 +28,7 @@
 
         {{-- Next Page Link --}}
         @if ($paginator->hasMorePages())
-            <li><a href="{{ $paginator->nextPageUrl() }}" rel="next">&raquo;</a></li>
+            <li><a href="{{ $paginator->nextPageUrl() }}" rel="next" data-pjax>&raquo;</a></li>
         @else
             <li class="disabled"><span>&raquo;</span></li>
         @endif
