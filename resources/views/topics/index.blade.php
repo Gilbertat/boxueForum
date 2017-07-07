@@ -8,11 +8,9 @@
                     <div class="panel-body remove-padding-horizontal">
                         @include('topics._topic_list')
                     </div>
-
                     <div class="panel-footer text-right remove-padding-horizontal pager-footer">
-                        {{$topics->links()}}
+                        {!! $topics->appends(Request::except('page', '_pjax'))->render() !!}
                     </div>
-
                 @else
                     <div class="panel-body">
                         <div class="empty">还没有任何人发帖哦~~</div>
