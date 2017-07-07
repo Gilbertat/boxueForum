@@ -9,7 +9,7 @@
                         @include('topics._topic_list')
                     </div>
                     <div class="panel-footer text-right remove-padding-horizontal pager-footer">
-                       {{$topics->appends('data-pjax')->links()}}
+                       {{$topics->fragment('data-pjax')->links()}}
                     </div>
                 @else
                     <div class="panel-body">
