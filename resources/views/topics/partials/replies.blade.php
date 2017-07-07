@@ -5,6 +5,9 @@
     <div class="panel-body">
         @if(count($replies))
             @include('topics.partials.replies_info')
+            <div class="panel-footer text-right remove-padding-horizontal pager-footer">
+                {{$replies->links()}}
+            </div>
         @else
             <ul class="list-group row"></ul>
             <div class="empty-block text-center">暂无评论~</div>
