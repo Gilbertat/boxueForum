@@ -10,8 +10,9 @@
         <ul class="list-group row"></ul>
         <div class="empty-block text-center">暂无评论~</div>
     @endif
-
 </div>
+
+
 @if(Auth::check())
     <div class="reply-box form box-block">
         @include('shared.errors')

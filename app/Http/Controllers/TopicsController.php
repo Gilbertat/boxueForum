@@ -113,7 +113,7 @@ class TopicsController extends Controller
                                ->get();
 
         $replies = Reply::where('topic_id', $topic->id)
-                         ->paginate(15);
+                         ->get();
 
         return view('topics.detail', compact('topic', 'user', 'topics', 'replies'));
 
