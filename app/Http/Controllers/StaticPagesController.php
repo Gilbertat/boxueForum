@@ -14,7 +14,7 @@ class StaticPagesController extends Controller
     {
         $topics = Topic::query()->where('is_hidden',1)
                                 ->orderBy('updated_at', 'desc')
-                                ->paginate(5);
+                                ->paginate(30);
 
         $post = Post::orderBy('updated_at', 'desc')->first();
         $categories = Category::all();
