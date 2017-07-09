@@ -9,16 +9,17 @@
     <title>@yield('title', 'boxue') - {{env('APP_NAME')}} </title>
     <link rel="stylesheet" href="{{mix('css/app.css')}}">
     <link rel="stylesheet" href="{{asset('css/nprogress.css')}}">
+    <link rel="stylesheet" href="{{asset('css/simplemde.min.css')}}">
     <link href="https://cdn.bootcss.com/highlight.js/9.12.0/styles/solarized-dark.min.css" rel="stylesheet">
     <script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
     <script src="https://cdn.bootcss.com/highlight.js/9.12.0/languages/swift.min.js"></script>
     <script>hljs.initHighlightingOnLoad();</script>
+    @yield('style')
     <script>
         window.Laravel = {!! json_encode([
             'csrfToken' => csrf_token(),
         ]) !!};
     </script>
-    @include('vendor.editor.head')
     @yield('head')
 </head>
 <body>
@@ -31,6 +32,7 @@
 </div>
 <script src="{{asset('js/nprogress.js')}}"></script>
 <script src="{{mix('js/app.js')}}"></script>
+<script src="{{asset('js/simplemde.min.js')}}"></script>
 <!-- JS Customization -->
 @yield('script')
 </body>

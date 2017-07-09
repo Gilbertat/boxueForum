@@ -28,6 +28,7 @@
     "jquery-pjax": "^2.0.1",
     "nprogress": "^0.2.0",
     "pjax": "^0.2.4",
+    "simplemde": "^1.11.2",
     "sweetalert": "^1.1.3"
   }
 }

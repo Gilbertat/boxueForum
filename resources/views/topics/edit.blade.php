@@ -20,11 +20,8 @@
                         @endforeach
                     </select>
                 </div>
-                <div class="form-group">
-                    <div id="mdEditor">
-                        <textarea style="display: none;" name="mark">{{$topic->content_raw}}</textarea>
-                        <textarea class="editormd-html-textarea" name="content_html" required></textarea>
-                    </div>
+                <div class="form-group topic-edit">
+                    <textarea name="editor" id="editor">{{$topic->content_raw}}</textarea>
                 </div>
                 <button type="submit" class="btn btn-primary">保存更改</button>
             </form>
@@ -33,14 +30,10 @@
 @stop
 
 @section('script')
-    <script>
-        var editor;
-        $(function () {
-            editor = editormd("mdEditor", {
-                toolbarIcons: function () {
-                    return ["undo", "redo", "|", "bold", "hr", "del", "italic", "quote", "|", "h1", "h2", "h3", "h4", "h5", "h6", "|", "preview", "fullscreen", "|", "help"]
-                },
-                placeholder: "请使用Markdown格式书写:-)。",
+    <script type="text/javascript">
+        $(document).ready(function () {
+            var mdEditor = new SimpleMDE({
+                element: $("#editor")[0],
                 toolbar: false,
             });
         });

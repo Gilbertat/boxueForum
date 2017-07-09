@@ -18,7 +18,9 @@ mix.js('resources/assets/js/app.js', 'public/js')
     .copy('node_modules/nprogress/nprogress.css', 'public/css/nprogress.css')
     .copy('node_modules/nprogress/nprogress.js', 'public/js/nprogress.js')
     .copy('node_modules/highlight.js/lib/highlight.js', 'public/js/highlight.js')
-    .copy('node_modules/highlight.js/styles/default.css', 'public/css/highlight.css');
+    .copy('node_modules/highlight.js/styles/default.css', 'public/css/highlight.css')
+    .copy('node_modules/simplemde/dist/simplemde.min.css', 'public/css/simplemde.min.css')
+    .copy('node_modules/simplemde/dist/simplemde.min.js', 'public/js/simplemde.min.js');
 
 
 if (mix.config.inProduction) {

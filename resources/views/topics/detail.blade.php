@@ -43,18 +43,13 @@
 @section('script')
     <script type="text/javascript">
 
-        var editor;
-        $(function () {
-            editor = editormd("mdEditor", {
-                placeholder: "请使用Markdown格式书写:-)。",
-                width: "100%",
-                height: 164,
-                watch: false,
-                styleActiveLine: false,
+        $(document).ready(function () {
+            var mdEditor = new SimpleMDE({
+                element: $("#editor")[0],
                 toolbar: false,
-                lineNumbers: false,
+                height: 600,
             });
-        });
 
+        });
     </script>
 @stop

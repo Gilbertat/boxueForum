@@ -13,6 +13,8 @@ use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
 use Cache;
 use Laracasts\Flash\Flash;
+use League\CommonMark\CommonMarkConverter;
+
 
 class TopicsController extends Controller
 {
@@ -45,11 +47,15 @@ class TopicsController extends Controller
 
         $content_slug = slug(Carbon::now()->timestamp, Auth::user()->id);
 
+        $mark = new CommonMarkConverter();
+
+        $content_html = $mark->convertToHtml($request->editor);
+
         Topic::create([
             'user_id' => Auth::user()->id,
             'title' => $request->title,
-            'content_raw' => $request->mark,
-            'content_html' => $request->content_html,
+            'content_raw' => $request->editor,
+            'content_html' =>$content_html,
             'category_id' => $request->category_id,
             'slug' => $content_slug,
             'created_at' => Carbon::now(),
@@ -76,14 +82,19 @@ class TopicsController extends Controller
     public function update($id, StoreTopicRequest $request)
     {
         $topic = Topic::query()->findOrFail($id);
+
+
+        $mark = new CommonMarkConverter();
+
+        $content_html = $mark->convertToHtml($request->editor);
+
         $topic->update([
             'title' => $request->title,
-            'content_raw' => $request->mark,
-            'content_html' => $request->content_html,
+            'content_raw' => $request->editor,
+            'content_html' => $content_html,
             'category_id' => $request->category_id,
             'updated_at' => Carbon::now()
         ]);
-
 
         Cache::forget(cacheKey($topic->user_id, $topic->created_at));
         Flash::success('保存成功!');
@@ -113,12 +124,11 @@ class TopicsController extends Controller
                                ->get();
 
         $replies = Reply::where('topic_id', $topic->id)
-                         ->get();
+                         ->paginate(5);
 
         return view('topics.detail', compact('topic', 'user', 'topics', 'replies'));
 
     }
-
 
     // 上传图片
     public function attachment(Request $request)

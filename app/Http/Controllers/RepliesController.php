@@ -8,6 +8,7 @@ use App\Models\Topic;
 use Carbon\Carbon;
 use Laracasts\Flash\Flash;
 use Cache;
+use League\CommonMark\CommonMarkConverter;
 
 
 class RepliesController extends Controller
@@ -29,10 +30,13 @@ class RepliesController extends Controller
             return redirect()->back();
         }
 
+        $mark = new CommonMarkConverter();
+
+        $content_html = $mark->convertToHtml($request->editor);
 
         Reply::create([
-            'content_raw' => $request->mark,
-            'content_html' => $request->content_html,
+            'content_raw' => $request->editor,
+            'content_html' => $content_html,
             'topic_id' => $request->topic_id,
             'user_id' => \Auth::user()->id,
             'created_at' => Carbon::now(),
@@ -40,6 +44,7 @@ class RepliesController extends Controller
         ]);
 
         $topic = Topic::findOrFail($request->topic_id);
+        Cache::forget(cacheKey($topic->user_id, $topic->created_at));
         $topic->increment('reply_count');
         $topic->last_reply_user_id = \Auth::user()->id;
         $topic->save();
@@ -74,7 +79,7 @@ class RepliesController extends Controller
                             ->orderBy('id', 'desc')
                             ->first();
 
-        return count($last_reply) && strcmp($last_reply->content_raw, $data['mark']) === 0;
+        return count($last_reply) && strcmp($last_reply->content_raw, $data['editor']) === 0;
     }
 
 }

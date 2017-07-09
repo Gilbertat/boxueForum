@@ -186,7 +186,6 @@ return [
         Intervention\Image\ImageServiceProvider::class,
         zgldh\QiniuStorage\QiniuFilesystemServiceProvider::class,
         Laracasts\Flash\FlashServiceProvider::class,
-        Axhello\Editor\MDEditorServiceProvider::class,
         Mews\Purifier\PurifierServiceProvider::class,
     ],
 
@@ -239,7 +238,6 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
         'Debugbar' => Barryvdh\Debugbar\Facade::class,
         'Image' => Intervention\Image\Facades\Image::class,
-        'MDEditor' => Axhello\Editor\Facade\MDEditorFacade::class,
 
     ],
 

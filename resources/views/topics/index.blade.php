@@ -1,7 +1,6 @@
 @extends('layouts.default')
-@section('head')
-    @include('vendor.editor.head')
-@endsection
+
+
 @section('title','全部帖子')
 @section('content')
     <div class="row">
@@ -23,4 +22,13 @@
         </div>
         @include('layouts.partials.sidebar')
     </div>
+@endsection
+
+@section('script')
+    <script type="text/javascript">
+        $(function () {
+            $('.pagination').find("a").attr("data-pjax", "");
+        })
+
+    </script>
 @endsection

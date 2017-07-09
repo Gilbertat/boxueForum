@@ -58,7 +58,7 @@ Route::delete('/users/followers/{id}', 'FollowersController@destroy')->name('fol
 /* replies */
 
 Route::post('/replies', 'RepliesController@store')->name('replies.store');
-Route::post('replies{id}/delete','RepliesController@delete')->name('replies.delete');
+Route::post('replies/{id}/delete','RepliesController@delete')->name('replies.delete');
 
 /* notification */
 

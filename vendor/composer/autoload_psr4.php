@@ -42,6 +42,7 @@ return array(
     'Mews\\Captcha\\' => array($vendorDir . '/mews/captcha/src'),
     'League\\HTMLToMarkdown\\' => array($vendorDir . '/league/html-to-markdown/src'),
     'League\\Flysystem\\' => array($vendorDir . '/league/flysystem/src'),
+    'League\\CommonMark\\' => array($vendorDir . '/league/commonmark/src'),
     'Laravel\\Tinker\\' => array($vendorDir . '/laravel/tinker/src'),
     'Intervention\\Image\\' => array($vendorDir . '/intervention/image/src/Intervention/Image'),
     'Illuminate\\' => array($vendorDir . '/laravel/framework/src/Illuminate'),
@@ -58,6 +59,5 @@ return array(
     'Carbon\\' => array($vendorDir . '/nesbot/carbon/src/Carbon'),
     'Barryvdh\\LaravelIdeHelper\\' => array($vendorDir . '/barryvdh/laravel-ide-helper/src'),
     'Barryvdh\\Debugbar\\' => array($vendorDir . '/barryvdh/laravel-debugbar/src'),
-    'Axhello\\Editor\\' => array($vendorDir . '/axhello/laravel-markdown-editor/src'),
     'App\\' => array($baseDir . '/app'),
 );

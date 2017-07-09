@@ -86,8 +86,10 @@ $(document).ready(function () {
         });
     });
 
-    $('#reply_delete_button').click(function () {
+    $('.reply_delete_button').on('click', function () {
         var text = $(this).attr('data-content');
+        var form_name = $(this).attr('data-form');
+        console.log(form_name);
         swal({
             title:"",
             text: text,
@@ -97,7 +99,7 @@ $(document).ready(function () {
             confirmButtonText: "确定",
             closeOnConfirm: false
         }, function () {
-            $('#reply_delete_form').submit();
+            $('.' + form_name).submit();
         });
     })
 
@@ -111,6 +113,7 @@ $(document).ready(function () {
     });
 
     $(document).on('pjax:end', function () {
+        $('.pagination').find("a").attr("data-pjax", "");
         NProgress.done();
     });
 });

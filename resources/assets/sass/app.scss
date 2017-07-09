@@ -798,13 +798,18 @@ abbr[data-original-title], abbr[title] {
   }
 
   .panel-footer {
-    height: 35px;
+    height: 77px;
     background-color: white;
   }
 
   .topic_edit {
     display: inline-block;
     margin-right: 15px;
+  }
+
+  .action {
+    position: relative;
+    top: 15px;
   }
 
   #topic_delete_button,
@@ -825,6 +830,25 @@ abbr[data-original-title], abbr[title] {
   .btn-primary:hover {
     background: #00c4bc;
     border-color: #00c4bc;
+  }
+
+}
+
+.topic-create,
+.topic-edit {
+  .CodeMirror .CodeMirror-scroll {
+    height: 600px;
+    min-height: 200px;
+  }
+}
+
+.topic-replies {
+  .CodeMirror {
+    min-height: 50px;
+    height: 192px;
+    .CodeMirror-scroll {
+      min-height: 50px;
+    }
   }
 }
 
@@ -889,7 +913,6 @@ abbr[data-original-title], abbr[title] {
   margin: 10px;
   color: #ccc;
 }
-
 
 
 /*footer*/

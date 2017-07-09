@@ -25,11 +25,8 @@
                             @endforeach
                         </select>
                     </div>
-                    <div class="form-group">
-                        <div id="mdEditor">
-                            <textarea style="display: none;" name="mark"></textarea>
-                            <textarea class="editormd-html-textarea" name="content_html" required></textarea>
-                        </div>
+                    <div class="form-group topic-create">
+                        <textarea name="editor" id="editor"></textarea>
                     </div>
                     <button type="submit" class="btn btn-primary">发布话题</button>
                 </form>
@@ -40,23 +37,27 @@
     <script src="{{asset('js/inline-attachment.js')}}"></script>
     <script src="{{asset('js/jquery.inline-attachment.js')}}"></script>
     <script type="text/javascript">
-        var options = {
-            uploadUrl: '{{route('topic.attachment')}}',
-            uploadFieldName: 'image',
-            urlText: "\n ![file]({filename}) \n\n",
-            extraParams: {
-                '_token': '{{csrf_token()}}',
-            }
-        };
 
-        $('.editormd-html-textarea').inlineattachment(options);
+        $('.CodeMirror-scroll').css('min-height', 50);
 
-        var editor;
-        $(function() {
-            editor = editormd("mdEditor", {
+        $(document).ready(function () {
+            var options = {
+                uploadUrl: '{{route('topic.attachment')}}',
+                uploadFieldName: 'image',
+                urlText: "\n ![file]({filename}) \n\n",
+                extraParams: {
+                    '_token': '{{csrf_token()}}',
+                }
+            };
+
+            $('textarea').inlineattachment(options);
+
+            var mdEditor = new SimpleMDE({
+                element: $("#editor")[0],
                 toolbar: false,
-                placeholder: "请使用Markdown格式书写:-)。",
+                height: 600,
             });
-        });
+        })
+
     </script>
 @stop

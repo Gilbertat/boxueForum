@@ -17,8 +17,8 @@
                     </a>
                     <span class="operate pull-right">
                         @if(Auth::id() == $reply->user_id)
-                            <a class="fa fa-trash-o" href="javascript:void(0);" id="reply_delete_button" title="删除评论" data-content="确定要删除该条评论吗？"></a>
-                            <form action="{{route('replies.delete', $reply->id)}}" id="reply_delete_form" method="post">
+                            <a class="fa fa-trash-o reply_delete_button" href="javascript:void(0);" title="删除评论" data-form="reply_delete_form{{$index}}" data-content="确定要删除该条评论吗"></a>
+                            <form action="{{route('replies.delete', $reply->id)}}" class="reply_delete_form{{$index}}" method="post">
                                 {{csrf_field()}}
                             </form>
                         @endif
