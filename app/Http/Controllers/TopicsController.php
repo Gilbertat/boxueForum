@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
 use Cache;
 use Laracasts\Flash\Flash;
+use Intervention\Image\ImageManagerStatic as Image;
 use League\CommonMark\CommonMarkConverter;
 
 
@@ -55,7 +56,7 @@ class TopicsController extends Controller
             'user_id' => Auth::user()->id,
             'title' => $request->title,
             'content_raw' => $request->editor,
-            'content_html' =>$content_html,
+            'content_html' => $content_html,
             'category_id' => $request->category_id,
             'slug' => $content_slug,
             'created_at' => Carbon::now(),
@@ -84,6 +85,8 @@ class TopicsController extends Controller
         $topic = Topic::query()->findOrFail($id);
 
 
+        Cache::forget(cacheKey($topic->user_id, $topic->created_at));
+
         $mark = new CommonMarkConverter();
 
         $content_html = $mark->convertToHtml($request->editor);
@@ -96,7 +99,6 @@ class TopicsController extends Controller
             'updated_at' => Carbon::now()
         ]);
 
-        Cache::forget(cacheKey($topic->user_id, $topic->created_at));
         Flash::success('保存成功!');
         return redirect(route('home'));
     }
@@ -105,10 +107,10 @@ class TopicsController extends Controller
     /* 使用redis 进行 浏览量计数*/
     public function detail(Request $request)
     {
-        $topic = Cache::remember('topic:cache:' . $request->id . ':' . $request->slug, self::modelCacheExpires, function () use($request) {
-           return Topic::where([
-               ['slug', env("APP_URL") . 'topics/' . $request->id . '/' . $request->slug]
-           ])->first();
+        $topic = Cache::remember('topic:cache:' . $request->id . ':' . $request->slug, self::modelCacheExpires, function () use ($request) {
+            return Topic::where([
+                ['slug', env("APP_URL") . 'topics/' . $request->id . '/' . $request->slug]
+            ])->first();
         });
 
         $ip = $request->ip();
@@ -119,12 +121,12 @@ class TopicsController extends Controller
         $user = User::findOrFail($request->id);
 
         $topics = Topic::where('user_id', $request->id)
-                               ->orderBy('updated_at', 'desc')
-                               ->limit(5)
-                               ->get();
+            ->orderBy('updated_at', 'desc')
+            ->limit(5)
+            ->get();
 
         $replies = Reply::where('topic_id', $topic->id)
-                         ->paginate(5);
+            ->paginate(25);
 
         return view('topics.detail', compact('topic', 'user', 'topics', 'replies'));
 
@@ -144,20 +146,26 @@ class TopicsController extends Controller
         $validator = \Validator::make($input, $rules);
         if ($validator->fails()) {
             return \Response::json([
-               'error' => '请选择图片'
+                'error' => '请选择图片'
             ]);
         }
 
         // 存储图片的目录
         $destinationPath = 'uploads/images/';
         // 获取图片名
-        $filename = Auth::user()->id . '_' . Carbon::now() . $file->getClientOriginalName();
-
+        $filename = Auth::user()->id . '_' . $file->getClientOriginalName();
         // 移动图片
         $file->move($destinationPath, $filename);
 
+        $img = Image::make($destinationPath . $filename)
+            ->resize(650, null, function ($constraint) {
+                $constraint->aspectRatio();
+                $constraint->upsize();
+            });
+        $img->save();
+
         return \Response::json([
-           'filename' => '/' . $destinationPath . $filename
+            'filename' => env('APP_URL') . $destinationPath . $filename
         ]);
     }
 
@@ -171,13 +179,13 @@ class TopicsController extends Controller
             $topic->decrement('vote_count');
         } else {
             $topic->votes()->create([
-               'user_id' => Auth::id()
+                'user_id' => Auth::id()
             ]);
             $topic->increment('vote_count');
         }
 
         return response([
-            'status'  => 200,
+            'status' => 200,
             'message' => $topic->vote_count,
         ]);
     }
@@ -206,8 +214,8 @@ class TopicsController extends Controller
     protected function isDuplicate($data)
     {
         $last_topic = Topic::where('user_id', Auth::user()->id)
-                            ->orderBy('created_at', 'desc')
-                            ->first();
+            ->orderBy('created_at', 'desc')
+            ->first();
 
         return count($last_topic) && strcmp($last_topic->title, $data['title']) === 0;
     }
