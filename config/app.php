@@ -187,6 +187,9 @@ return [
         zgldh\QiniuStorage\QiniuFilesystemServiceProvider::class,
         Laracasts\Flash\FlashServiceProvider::class,
         Mews\Purifier\PurifierServiceProvider::class,
+
+        // 分页url处理
+        Spatie\PaginateRoute\PaginateRouteServiceProvider::class,
     ],
 
     /*
@@ -238,6 +241,7 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
         'Debugbar' => Barryvdh\Debugbar\Facade::class,
         'Image' => Intervention\Image\Facades\Image::class,
+        'PaginateRoute' => Spatie\PaginateRoute\PaginateRouteFacade::class,
 
     ],
 

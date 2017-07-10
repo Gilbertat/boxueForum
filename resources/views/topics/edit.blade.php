@@ -48,6 +48,14 @@
             var mdEditor = new SimpleMDE({
                 element: $("#editor")[0],
                 toolbar: false,
+                spellChecker: false,
+
+                autosave: {
+                    enable: true,
+                    delay: 3000,
+                    unique_id: "topic_content{{isset($topic) ? $topic->id . '_' . str_slug($topic->updated_at) : ''}}"
+                }
+
             });
 
             inlineAttachment.editors.codemirror4.attach(mdEditor.codemirror, options);
