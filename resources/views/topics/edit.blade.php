@@ -30,12 +30,28 @@
 @stop
 
 @section('script')
+    <script src="{{asset('js/inline-attachment.js')}}"></script>
+    <script src="{{asset('js/codemirror-4.inline-attachment.js')}}"></script>
     <script type="text/javascript">
-        $(document).ready(function () {
+        $(document).ready(function ()
+        {
+
+            var options = {
+                uploadUrl: '{{route('topic.attachment')}}',
+                uploadFieldName: 'image',
+                urlText: "\n ![file]({filename}) \n\n",
+                extraParams: {
+                    '_token': '{{csrf_token()}}',
+                }
+            };
+
             var mdEditor = new SimpleMDE({
                 element: $("#editor")[0],
                 toolbar: false,
             });
+
+            inlineAttachment.editors.codemirror4.attach(mdEditor.codemirror, options);
+
         });
     </script>
 @stop

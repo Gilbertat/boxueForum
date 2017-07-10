@@ -35,12 +35,11 @@
     @stop
 @section('script')
     <script src="{{asset('js/inline-attachment.js')}}"></script>
-    <script src="{{asset('js/jquery.inline-attachment.js')}}"></script>
+    <script src="{{asset('js/codemirror-4.inline-attachment.js')}}"></script>
     <script type="text/javascript">
 
-        $('.CodeMirror-scroll').css('min-height', 50);
-
-        $(document).ready(function () {
+        $(document).ready(function ()
+        {
             var options = {
                 uploadUrl: '{{route('topic.attachment')}}',
                 uploadFieldName: 'image',
@@ -50,14 +49,20 @@
                 }
             };
 
-            $('textarea').inlineattachment(options);
-
             var mdEditor = new SimpleMDE({
                 element: $("#editor")[0],
+                spellChecker: false,
                 toolbar: false,
-                height: 600,
+                autosave: {
+                    enable: true,
+                    delay: 3000,
+                    unique_id: "topic_content{{isset($topic) ? $topic->id . '_' . str_slug($topic->updated_at) : ''}}"
+                }
             });
-        })
+
+            inlineAttachment.editors.codemirror4.attach(mdEditor.codemirror, options);
+
+        });
 
     </script>
 @stop
