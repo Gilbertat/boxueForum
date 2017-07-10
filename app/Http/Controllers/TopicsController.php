@@ -96,9 +96,12 @@ class TopicsController extends Controller
             'content_raw' => $request->editor,
             'content_html' => $content_html,
             'category_id' => $request->category_id,
-            'last_reply_user_id' => \Auth::user()->id,
             'updated_at' => Carbon::now()
         ]);
+
+        $topic->last_reply_user_id = \Auth::user()->id;
+
+        $topic->save();
 
         Flash::success('保存成功!');
         return redirect(route('home'));
