@@ -61,7 +61,6 @@
             });
 
             inlineAttachment.editors.codemirror4.attach(mdEditor.codemirror, options);
-
         });
 
     </script>

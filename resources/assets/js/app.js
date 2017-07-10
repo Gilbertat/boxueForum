@@ -116,5 +116,7 @@ $(document).ready(function () {
         $('.pagination').find("a").attr("data-pjax", "");
         NProgress.done();
     });
+
+
 });
 

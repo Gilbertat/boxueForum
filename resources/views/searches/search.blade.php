@@ -31,8 +31,8 @@
         </div>
 
         @if(count($topics) > 30)
-            <div class="panel-footer">
-                {!! $topics->appends(Request::except('page', '_pjax'))->render() !!}
+            <div class="panel-footer text-right remove-padding-horizontal pager-footer">
+               {{$topic->links()}}
             </div>
         @endif
     </div>
