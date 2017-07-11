@@ -25,7 +25,7 @@ class StaticPagesController extends Controller
     {
         $query = $request->input('q');
         $users = User::search($query, null, true)->orderBy('id', 'asc')->limit(5)->get();
-        $topics = Topic::search($query, null, true)->paginate(30);
+        $topics = Topic::search($query, null, true)->where('is_hidden',1)->paginate(30);
 
         return view('searches.search', compact('users', 'topics', 'query'));
     }
