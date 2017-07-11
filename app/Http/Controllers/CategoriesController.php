@@ -11,7 +11,7 @@ class CategoriesController extends Controller
     public function show($id)
     {
         $categories = Category::all();
-        $topics = Category::find($id)->topic()->orderBy('updated_at','desc')->paginate(30);
+        $topics = Category::find($id)->topic()->where('is_hidden',1)->orderBy('updated_at','desc')->paginate(30);
         // 根据id查找指定分类
         $category = Category::findOrFail($id);
         $post = Post::orderBy('updated_at', 'desc')->first();
