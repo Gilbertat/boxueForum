@@ -12,7 +12,15 @@
         <div class="main-col col-md-9 left-col">
             <ol class="breadcrumb">
                 <li><a href="{{route('users.show', [$user->id])}}" data-pjax>个人中心</a></li>
-                <li class="active">{{$user->name}}发布的话题({{$user->topic_count}})</li>
+                @if(Auth::id() == $user->id)
+                    <li class="active">{{$user->name}}发布的话题({{$user->topic_count}})</li>
+                @else
+                    @if($user->topic_count != 0)
+                        <li class="active">{{$user->name}}发布的话题({{$user->topic_count - 1}})</li>
+                    @else
+                        <li class="active">{{$user->name}}发布的话题({{$user->topic_count}})</li>
+                    @endif
+                @endif
             </ol>
 
             <div class="panel panel-default">

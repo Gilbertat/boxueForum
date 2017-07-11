@@ -34,7 +34,11 @@ class UsersController extends Controller
     public function show($id)
     {
         $user = User::findOrFail($id);
-        $topics = User::find($id)->topic()->orderBy('updated_at', 'desc')->paginate(15);
+        if ($user->id == Auth::id()) {
+            $topics = User::find($id)->topic()->orderBy('updated_at', 'desc')->paginate(15);
+        } else {
+            $topics = User::find($id)->topic()->where('is_hidden',1)->orderBy('updated_at', 'desc')->paginate(15);
+        }
         return view('users.show', compact('user', 'topics'));
     }
 
@@ -141,8 +145,11 @@ class UsersController extends Controller
     public function topic($id)
     {
         $user = User::findOrFail($id);
-        $topics = User::find($id)->topic()->orderBy('updated_at', 'desc')->paginate(15);
-
+        if ($user->id == Auth::id()) {
+            $topics = User::find($id)->topic()->orderBy('updated_at', 'desc')->paginate(15);
+        } else {
+            $topics = User::find($id)->topic()->where('is_hidden',1)->orderBy('updated_at', 'desc')->paginate(15);
+        }
         return view('users.topics', compact('user', 'topics'));
     }
 

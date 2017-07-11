@@ -45,7 +45,18 @@
                 <span class="text">关注者</span>
             </div>
             <div class="col-xs-6">
-                <a href="{{route('users.topics', [$user->id])}}" class="counter" data-pjax>{{$user->topic_count}}</a>
+                @if($user->id == Auth::id())
+                    <a href="{{route('users.topics', [$user->id])}}" class="counter"
+                       data-pjax>{{$user->topic_count}}</a>
+                @else
+                    @if($user->topic_count != 0)
+                        <a href="{{route('users.topics', [$user->id])}}" class="counter"
+                           data-pjax>{{$user->topic_count - 1}}</a>
+                    @else
+                        <a href="{{route('users.topics', [$user->id])}}" class="counter"
+                           data-pjax>{{$user->topic_count}}</a>
+                    @endif
+                @endif
                 <span class="text">话题</span>
             </div>
         </div>

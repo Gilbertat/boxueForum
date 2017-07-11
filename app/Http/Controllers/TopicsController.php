@@ -124,10 +124,20 @@ class TopicsController extends Controller
 
         $user = User::findOrFail($request->id);
 
-        $topics = Topic::where('user_id', $request->id)
-            ->orderBy('updated_at', 'desc')
-            ->limit(5)
-            ->get();
+        if ($user->id == Auth::id()) {
+            $topics = Topic::where('user_id', $request->id)
+                ->orderBy('updated_at', 'desc')
+                ->limit(5)
+                ->get();
+        } else {
+            $topics = Topic::where('user_id', $request->id)
+                ->where('is_hidden',1)
+                ->orderBy('updated_at', 'desc')
+                ->limit(5)
+                ->get();
+        }
+
+
 
         $replies = Reply::where('topic_id', $topic->id)
             ->paginate(25);
