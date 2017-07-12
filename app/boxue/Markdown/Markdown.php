@@ -4,7 +4,7 @@ namespace boxue\Markdown;
 
 use League\HTMLToMarkdown\HtmlConverter;
 use Parsedown;
-use Mews\Purifier\Purifier;
+use Mews\Purifier\Facades\Purifier;
 
 class Markdown
 {
@@ -15,6 +15,7 @@ class Markdown
     {
         $this->htmlParser = new HtmlConverter(['header_style' => 'atx']);
         $this->markdownParser = new Parsedown();
+
     }
 
     public function convertHtmlToMarkdown($html)
@@ -24,8 +25,8 @@ class Markdown
 
     public function convertMarkdownToHtml($markdown)
     {
-        $convertHtml = $this->markdownParser->setBreaksEnabled(true)->text($markdown);
-      //  $convertHtml = Purifier::clean($convertHtml, 'user_topic_body');
+        $convertHtml = $this->markdownParser->text($markdown);
+        $convertHtml = Purifier::clean($convertHtml, 'user_topic_body');
 
         return $convertHtml;
 

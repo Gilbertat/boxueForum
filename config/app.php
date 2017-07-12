@@ -242,6 +242,7 @@ return [
         'Debugbar' => Barryvdh\Debugbar\Facade::class,
         'Image' => Intervention\Image\Facades\Image::class,
         'PaginateRoute' => Spatie\PaginateRoute\PaginateRouteFacade::class,
+        'Purifer' => Mews\Purifier\Facades\Purifier::class,
 
     ],
 

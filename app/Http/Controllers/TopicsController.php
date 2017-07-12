@@ -15,6 +15,7 @@ use Cache;
 use Laracasts\Flash\Flash;
 use Intervention\Image\ImageManagerStatic as Image;
 use League\CommonMark\CommonMarkConverter;
+use boxue\Markdown\Markdown;
 
 
 class TopicsController extends Controller
@@ -48,9 +49,9 @@ class TopicsController extends Controller
 
         $content_slug = slug(Carbon::now()->timestamp, Auth::user()->id);
 
-        $mark = new CommonMarkConverter();
+        $mark = new Markdown;
 
-        $content_html = $mark->convertToHtml($request->editor);
+        $content_html = $mark->convertMarkdownToHtml($request->editor);
 
         Topic::create([
             'user_id' => Auth::user()->id,
@@ -87,9 +88,9 @@ class TopicsController extends Controller
 
         Cache::forget(cacheKey($topic->user_id, $topic->created_at));
 
-        $mark = new CommonMarkConverter();
+        $mark = new Markdown;
 
-        $content_html = $mark->convertToHtml($request->editor);
+        $content_html = $mark->convertMarkdownToHtml($request->editor);
 
         $topic->update([
             'title' => $request->title,
@@ -136,8 +137,6 @@ class TopicsController extends Controller
                 ->limit(5)
                 ->get();
         }
-
-
 
         $replies = Reply::where('topic_id', $topic->id)
             ->paginate(25);

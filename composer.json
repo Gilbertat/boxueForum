@@ -10,6 +10,7 @@
         "barryvdh/laravel-ide-helper": "v2.3.2",
         "caouecs/laravel-lang": "~3.0",
         "doctrine/dbal": "^2.5",
+        "erusev/parsedown": "^1.6",
         "intervention/image": "^2.3",
         "jacobbennett/pjax": "1.0.*",
         "laracasts/flash": "^3.0",

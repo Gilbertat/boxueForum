@@ -9,6 +9,7 @@ use Carbon\Carbon;
 use Laracasts\Flash\Flash;
 use Cache;
 use League\CommonMark\CommonMarkConverter;
+use boxue\Markdown\Markdown;
 
 
 class RepliesController extends Controller
@@ -30,9 +31,9 @@ class RepliesController extends Controller
             return redirect()->back();
         }
 
-        $mark = new CommonMarkConverter();
+        $mark = new Markdown;
 
-        $content_html = $mark->convertToHtml($request->editor);
+        $content_html = $mark->convertMarkdownToHtml($request->editor);
 
         Reply::create([
             'content_raw' => $request->editor,
