@@ -26,6 +26,8 @@
                     </span>
 
                     <div class="meta">
+                        <a name="reply{{$reply->id}}" id="reply{{$reply->id}}" class="anchor" href="#reply{{$reply->id}}" aria-hidden="true">#{{$topic->present()->replyIndex($index)}}</a>
+                        <span> .  </span>
                         <abbr title="{{$reply->created_at}}" class="timeago">{{$reply->created_at->diffForHumans()}}</abbr>
                     </div>
                 </div>

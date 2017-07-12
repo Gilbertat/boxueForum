@@ -3,15 +3,20 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Laracasts\Presenter\PresentableTrait;
 use Nicolaslopezj\Searchable\SearchableTrait;
 
 class Topic extends Model
 {
+    use PresentableTrait;
+
     use SearchableTrait;
 
     protected $table = 'topics';
 
     public $timestamps = false;
+
+    protected $presenter = 'boxue\Presenters\TopicPresenter';
 
     protected $fillable = [
         'title',

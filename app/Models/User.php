@@ -3,7 +3,6 @@
 namespace App\Models;
 
 
-use App\Jobs\SendResetPasswordEmail;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use App\Notifications\ResetPasswordNotification;
