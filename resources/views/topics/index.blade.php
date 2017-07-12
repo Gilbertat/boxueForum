@@ -10,9 +10,11 @@
                     <div class="panel-body remove-padding-horizontal">
                         @include('topics._topic_list')
                     </div>
-                    <div class="panel-footer text-right remove-padding-horizontal pager-footer">
-                       {{$topics->links()}}
-                    </div>
+                    @if($topics->hasMorePages())
+                        <div class="panel-footer text-right remove-padding-horizontal pager-footer">
+                            {{$topics->links()}}
+                        </div>
+                    @endif
                 @else
                     <div class="panel-body">
                         <div class="empty">还没有任何人发帖哦~~</div>
@@ -29,6 +31,5 @@
         $(function () {
             $('.pagination').find("a").attr("data-pjax", "");
         })
-
     </script>
 @endsection
