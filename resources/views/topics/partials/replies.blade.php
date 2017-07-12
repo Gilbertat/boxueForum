@@ -6,7 +6,7 @@
         <div class="panel-body">
             @include('topics.partials.replies_info')
         </div>
-        @if($replies->hasMorePages())
+        @if($replies->hasMorePages() || $replies->previousPageUrl())
             <div class="panel-footer text-right remove-padding-horizontal pager-footer">
                 {{$replies->links()}}
             </div>
