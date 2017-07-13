@@ -24,6 +24,10 @@ class EventServiceProvider extends ServiceProvider
         'App\Events\TopicsViewCount' => [
           'App\Listeners\TopicsEventListener',
         ],
+
+        'Illuminate\Auth\Events\Login' => [
+            'App\Listeners\LogSuccessfulLogin',
+        ],
     ];
 
     /**
