@@ -14,7 +14,6 @@ use Carbon\Carbon;
 use Cache;
 use Laracasts\Flash\Flash;
 use Intervention\Image\ImageManagerStatic as Image;
-use League\CommonMark\CommonMarkConverter;
 use boxue\Markdown\Markdown;
 
 
