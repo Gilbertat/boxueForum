@@ -13,9 +13,6 @@
 </style>
 @section('content')
     <div class="row">
-        <div class="col-md-3 side-bar">
-            @include('topics.partials.sidebar')
-        </div>
         <div class="col-md-9 topic-show main-col">
             <div class="topic panel panel-default">
                 <div class="infos panel-heading">
@@ -36,6 +33,9 @@
                 @endif
             </div>
             @include('topics.partials.replies')
+        </div>
+        <div class="col-md-3 side-bar">
+            @include('topics.partials.sidebar')
         </div>
     </div>
 @endsection
