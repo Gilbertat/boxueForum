@@ -14,7 +14,7 @@
 
         <div id="top-navbar-collapse" class="collapse navbar-collapse">
             <ul class="nav navbar-nav">
-                <li class="{{Request::is('/') ? 'active' : ''}}"><a href="{{route('home')}}" data-pjax>话题列表</a></li>
+                <li class="{{Request::is('/') ? 'active' : ''}}"><a href="{{route('home')}}">话题列表</a></li>
                 <li><a href="https://boxueio.com/" target="_blank">泊学</a></li>
             </ul>
             <div class="navbar-right">
