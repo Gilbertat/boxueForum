@@ -57,6 +57,25 @@ $(document).ready(function () {
         });
     });
 
+    // 发帖
+    $('#topic-form-button').click(function () {
+        var method = $('.topic-form-submit').attr('data-method');
+        var url = $('.topic-form-submit').attr('data-url');
+
+        axios({
+            url: url,
+            method: method,
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content'),
+            },
+            data: $('.topic-form-submit').serialize(),
+        }).then(function (response) {
+            console.log(response.data);
+        })
+
+
+    })
+
     // 隐藏帖， 显示帖
     $('#topic_delete_button').click(function () {
         swal({
@@ -89,7 +108,6 @@ $(document).ready(function () {
     $('.reply_delete_button').on('click', function () {
         var text = $(this).attr('data-content');
         var form_name = $(this).attr('data-form');
-        console.log(form_name);
         swal({
             title:"",
             text: text,

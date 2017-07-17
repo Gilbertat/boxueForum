@@ -37,28 +37,7 @@ class TopicCreator
 
 
         return $observer->creatorSucceed($topic);
-//        $content_slug = slug(Carbon::now()->timestamp, Auth::user()->id);
-//
-//        $mark = new Markdown;
-//
-//        $content_html = $mark->convertMarkdownToHtml($request->editor);
-//
-//        Topic::create([
-//            'user_id' => Auth::user()->id,
-//            'title' => $request->title,
-//            'content_raw' => $request->editor,
-//            'content_html' => $content_html,
-//            'category_id' => $request->category_id,
-//            'slug' => $content_slug,
-//            'created_at' => Carbon::now(),
-//            'updated_at' => Carbon::now(),
-//        ]);
-//
-//        $user = User::findOrFail(Auth::user()->id);
-//        $user->increment('topic_count');
-//
-//        Flash::success('发布话题成功!');
-//        return redirect(route('home'));
+
     }
 
 
