@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Laracasts\Presenter\PresentableTrait;
 use Nicolaslopezj\Searchable\SearchableTrait;
@@ -67,6 +68,11 @@ class Topic extends Model
     public function lastReplyUser()
     {
         return $this->belongsTo(User::class, 'last_reply_user_id');
+    }
+
+    public function link()
+    {
+        return str_replace(env('APP_URL'), env('APP_URL'),route('topic.detail', ['id' => $this->user_id, 'slug'=>Carbon::parse($this->created_at)->timestamp]));
     }
 
 

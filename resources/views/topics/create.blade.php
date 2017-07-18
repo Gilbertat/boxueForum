@@ -12,7 +12,7 @@
         <div class="row">
             <div class="col-md-12">
                 @include('shared.errors')
-                <form action="{{route('topic.store')}}" method="post">
+                <form class="topic-form-submit" data-url="{{route('topic.store')}}" data-method="post">
                     {{csrf_field()}}
                     <div class="form-group">
                         <input type="text" name="title" class="form-control" placeholder="请填写标题" required>
@@ -28,7 +28,7 @@
                     <div class="form-group topic-create">
                         <textarea name="editor" id="editor"></textarea>
                     </div>
-                    <button type="submit" class="btn btn-primary">发布话题</button>
+                    <a class="btn btn-primary" id="topic-form-button" href="javascript:void(0);">发布话题</a>
                 </form>
             </div>
         </div>
@@ -53,6 +53,7 @@
                 element: $("#editor")[0],
                 spellChecker: false,
                 toolbar: false,
+                forceSync: true,
                 autosave: {
                     enable: true,
                     delay: 3000,

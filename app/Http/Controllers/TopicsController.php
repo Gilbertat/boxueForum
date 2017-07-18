@@ -15,13 +15,16 @@ use Cache;
 use Laracasts\Flash\Flash;
 use Intervention\Image\ImageManagerStatic as Image;
 use boxue\Markdown\Markdown;
+use boxue\Listeners\CreatorListener;
 
 
-class TopicsController extends Controller
+class TopicsController extends Controller implements CreatorListener
 {
 
     const modelCacheExpires = 10;
 
+
+    private $_response = [];
     /* 权限控制 */
     function __construct()
     {
@@ -41,33 +44,8 @@ class TopicsController extends Controller
     /* 存储话题 */
     public function store(StoreTopicRequest $request)
     {
-        if ($this->isDuplicate($request->input())) {
-            Flash::error('请不要发送重复内容');
-            return redirect()->intended(route('topic.create'));
-        }
-
-        $content_slug = slug(Carbon::now()->timestamp, Auth::user()->id);
-
-        $mark = new Markdown;
-
-        $content_html = $mark->convertMarkdownToHtml($request->editor);
-
-        Topic::create([
-            'user_id' => Auth::user()->id,
-            'title' => $request->title,
-            'content_raw' => $request->editor,
-            'content_html' => $content_html,
-            'category_id' => $request->category_id,
-            'slug' => $content_slug,
-            'created_at' => Carbon::now(),
-            'updated_at' => Carbon::now(),
-        ]);
-
-        $user = User::findOrFail(Auth::user()->id);
-        $user->increment('topic_count');
-
-        Flash::success('发布话题成功!');
-        return redirect(route('home'));
+        app('boxue\Creators\TopicCreator')->create($this, $request->except('_token'));
+        return response()->json($this->_response);
     }
 
     // 编辑话题
@@ -230,6 +208,22 @@ class TopicsController extends Controller
             ->first();
 
         return count($last_topic) && strcmp($last_topic->title, $data['title']) === 0;
+    }
+
+
+    /*
+     *
+     *  creatorListener Delegate
+     *
+     */
+    public function creatorFailed($error)
+    {
+        $this->_response = ['status' => 'error', 'info' => $error, 'href'=>'/'];
+    }
+
+    public function creatorSucceed($topic)
+    {
+        $this->_response = ['status'=>'success', 'info'=>'发布成功!', 'href'=> $topic->link()];
     }
 
 }

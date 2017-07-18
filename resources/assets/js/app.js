@@ -70,7 +70,17 @@ $(document).ready(function () {
             },
             data: $('.topic-form-submit').serialize(),
         }).then(function (response) {
-            console.log(response.data);
+            var res = response.data;
+            var message = res.status == 'success' ? "发布成功" : res.info;
+            swal({
+                title: "",
+                text: message,
+                type: res.status == 'success' ? "success" : "error",
+                showConfirmButton: false,
+                timer: 1000,
+            }, function() {
+                window.location.href = res.href;
+            })
         })
 
 
