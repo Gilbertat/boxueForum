@@ -61,7 +61,6 @@ $(document).ready(function () {
     $('#topic-form-button').click(function () {
         var method = $('.topic-form-submit').attr('data-method');
         var url = $('.topic-form-submit').attr('data-url');
-
         axios({
             url: url,
             method: method,
@@ -71,20 +70,19 @@ $(document).ready(function () {
             data: $('.topic-form-submit').serialize(),
         }).then(function (response) {
             var res = response.data;
-            var message = res.status == 'success' ? "发布成功" : res.info;
+            var message = res.info;
             swal({
                 title: "",
                 text: message,
-                type: res.status == 'success' ? "success" : "error",
+                type: res.status,
                 showConfirmButton: false,
                 timer: 1000,
-            }, function() {
+            }, function () {
                 window.location.href = res.href;
             })
         })
-
-
     })
+
 
     // 隐藏帖， 显示帖
     $('#topic_delete_button').click(function () {
@@ -110,7 +108,7 @@ $(document).ready(function () {
             cancelButtonText: "取消",
             confirmButtonText: "确定",
             closeOnConfirm: false
-        }, function() {
+        }, function () {
             $('#topic_retry_form').submit();
         });
     });
@@ -119,7 +117,7 @@ $(document).ready(function () {
         var text = $(this).attr('data-content');
         var form_name = $(this).attr('data-form');
         swal({
-            title:"",
+            title: "",
             text: text,
             type: 'warning',
             showCancelButton: true,
@@ -147,4 +145,42 @@ $(document).ready(function () {
 
 
 });
+
+
+// 回帖
+replySubmit = function () {
+
+    var url = $('#submit-reply-form').attr('data-url');
+    axios({
+        url: url,
+        method: 'post',
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content'),
+        },
+        data: $('#submit-reply-form').serialize(),
+    }).then(function (response) {
+        var res = response.data;
+        if (res) {
+            swal({
+                title: "",
+                text: "回复成功!",
+                type: "success",
+                showConfirmButton: false,
+                timer: 1000,
+            }, function () {
+                location.reload();
+            });
+        } else {
+            var message = res.info;
+            swal({
+                title: "",
+                text: message,
+                type: res.status,
+                showConfirmButton: false,
+                timer: 1000,
+            })
+        }
+    })
+}
+
 

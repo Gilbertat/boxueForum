@@ -59,7 +59,7 @@
                 element: $("#editor")[0],
                 spellChecker: false,
                 toolbar: false,
-
+                forceSync: true,
                 autosave: {
                     enable: true,
                     delay: 3000,

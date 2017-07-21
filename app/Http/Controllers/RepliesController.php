@@ -4,15 +4,16 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreReplyRequest;
 use App\Models\Reply;
-use App\Models\Topic;
-use Carbon\Carbon;
 use Laracasts\Flash\Flash;
 use Cache;
-use boxue\Markdown\Markdown;
+use boxue\Listeners\CreatorListener;
 
 
-class RepliesController extends Controller
+
+class RepliesController extends Controller implements CreatorListener
 {
+
+    protected $_response = [];
 
     /* 权限控制 */
     function __construct()
@@ -25,31 +26,10 @@ class RepliesController extends Controller
 
     public function store(StoreReplyRequest $request)
     {
-        if ($this->isDuplicate($request->input())) {
-            Flash::error('请不要发送重复内容!');
-            return redirect()->back();
-        }
 
-        $mark = new Markdown;
+        app('boxue\Creators\RepliesCreator')->create($this, $request->except('_token'));
 
-        $content_html = $mark->convertMarkdownToHtml($request->editor);
-
-        Reply::create([
-            'content_raw' => $request->editor,
-            'content_html' => $content_html,
-            'topic_id' => $request->topic_id,
-            'user_id' => \Auth::user()->id,
-            'created_at' => Carbon::now(),
-            'updated_at' => Carbon::now(),
-        ]);
-
-        $topic = Topic::findOrFail($request->topic_id);
-        Cache::forget(cacheKey($topic->user_id, $topic->created_at));
-        $topic->increment('reply_count');
-        $topic->last_reply_user_id = \Auth::user()->id;
-        $topic->save();
-
-        return redirect()->back();
+        return response()->json($this->_response);
 
     }
 
@@ -72,14 +52,15 @@ class RepliesController extends Controller
     }
 
 
-    public function isDuplicate($data)
+    public function creatorSucceed($reply)
     {
-        $last_reply = Reply::where('user_id', \Auth::id())
-                            ->where('topic_id', $data['topic_id'])
-                            ->orderBy('id', 'desc')
-                            ->first();
-
-        return count($last_reply) && strcmp($last_reply->content_raw, $data['editor']) === 0;
+        return $this->_response = $reply;
     }
+
+    public function creatorFailed($error)
+    {
+        return $this->_response = ['status' => 'error', 'info' => $error];
+    }
+
 
 }

@@ -20,14 +20,14 @@
 @if(Auth::check())
     <div class="reply-box form box-block">
         @include('shared.errors')
-        <form method="post" action="{{route('replies.store')}}" accept-charset="UTF-8">
+        <form id="submit-reply-form" accept-charset="UTF-8" data-url="{{route('replies.store')}}">
             {{csrf_field()}}
             <input type="hidden" name="topic_id" value="{{$topic->id}}">
             <div class="form-group topic-replies">
                 <textarea name="editor" id="editor"></textarea>
             </div>
             <div class="form-group reply-post-submit">
-                <button type="submit" class="btn btn-primary">回复</button>
+                <a class="btn btn-primary" onclick="replySubmit()">回复</a>
             </div>
         </form>
     </div>

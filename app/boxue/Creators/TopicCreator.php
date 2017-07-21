@@ -20,7 +20,6 @@ class TopicCreator
         $data['content_raw'] = $data['editor'];
         $markdown = new Markdown;
         $data['content_html'] = $markdown->convertMarkdownToHtml($data['content_raw']);
-        $data['category_id'] = $data['category_id'];
         $data['slug'] = slug(Carbon::now()->timestamp, Auth::id());
         $data['user_id'] = Auth::id();
         $data['created_at'] = Carbon::now();
