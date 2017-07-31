@@ -71,6 +71,7 @@ class User extends Authenticatable
 
         static::creating(function ($user) {
            $user->activation_token = str_random(30);
+           $user->avatar = 'default_avatar.jpg';
         });
     }
 

@@ -58,11 +58,9 @@
                                             </router-link>
                                         </li>
                                         <li>
-                                            <router-link class="button" to="#">
+                                            <a class="button" @click="logout">
                                                 <i class="fa fa-sign-out text-md"></i>退出
-                                            </router-link>
-                                            <form action="#" style="display: none;">
-                                            </form>
+                                            </a>
                                         </li>
                                     </ul>
                                 </li>
@@ -121,6 +119,17 @@
             },
             guest() {
                 return !this.auth
+            }
+        },
+        methods: {
+            logout() {
+                post('/api/logout')
+                        .then((res) => {
+                            if (res.data.done) {
+                                Auth.remove()
+                                this.$router.push('/login')
+                            }
+                        })
             }
         }
     }

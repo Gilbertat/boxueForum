@@ -26,8 +26,7 @@ class StoreUserRequest extends FormRequest
         return [
             'email' => 'required|email|unique:users|max:255',
             'nickname'=> 'required|max:20',
-            'captcha' => 'required|captcha',
-            'password' => 'required|confirmed'
+            'password' => 'required|between:6,25|confirmed'
         ];
     }
 }

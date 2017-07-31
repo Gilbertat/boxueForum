@@ -22,8 +22,6 @@ class AuthController extends Controller
             'email' => $request->email,
             'name' => $request->nickname,
             'password' => bcrypt($request->password),
-            'avatar' => 'default_avatar.jpg',
-
         ]);
 
         $job = (new SendConfirmEmail($user))->delay(5);
@@ -51,7 +49,7 @@ class AuthController extends Controller
                     'api_token' => $user->api_token,
                     'user_id' => $user->id,
                     'user_name' => $user->name,
-                    'user_avatar' => $user->avatar,
+                    'user_avatar' => $user->present()->gravatar,
                 ]);
         }
 
