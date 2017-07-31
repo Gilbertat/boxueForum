@@ -69,6 +69,28 @@ class CategoriesTableSeeder extends Seeder
                     'created_at'  => '2016-07-03 10:00:00',
                     'updated_at'  => '2016-07-03 10:00:00',
                 ),
+            5 =>
+                array(
+                    'id'          => 7,
+                    'post_count'  => 0,
+                    'weight'      => 90,
+                    'title'        => '11大讲堂',
+                    'color'       => '#cce7ff',
+                    'description' => '11的经验谈',
+                    'created_at'  => '2017-07-31 9:00:00',
+                    'updated_at'  => '2017-07-31 9:00:00',
+                ),
+            6 =>
+                array(
+                    'id'          => 8,
+                    'post_count'  => 0,
+                    'weight'      => 92,
+                    'title'        => '装备',
+                    'color'       => '#26ac21',
+                    'description' => '群友设备交易',
+                    'created_at'  => '2017-07-31 9:00:00',
+                    'updated_at'  => '2017-07-31 9:00:00',
+                ),
         ));
     }
 }
