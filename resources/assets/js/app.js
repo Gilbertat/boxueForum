@@ -143,44 +143,45 @@ $(document).ready(function () {
         NProgress.done();
     });
 
+    // 回帖
+   $('#reply-submit-button').on('click', function () {
+        var url = $('#submit-reply-form').attr('data-url');
+        axios({
+            url: url,
+            method: 'post',
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content'),
+            },
+            data: $('#submit-reply-form').serialize(),
+        }).then(function (response) {
+            var res = response.data;
+            if (res) {
+                swal({
+                    title: "",
+                    text: "回复成功!",
+                    type: "success",
+                    showConfirmButton: false,
+                    timer: 1000,
+                }, function () {
+                    location.reload();
+                });
+            } else {
+                var message = res.info;
+                swal({
+                    title: "",
+                    text: message,
+                    type: res.status,
+                    showConfirmButton: false,
+                    timer: 1000,
+                })
+            }
+        })
+    })
+
+
 
 });
 
 
-// 回帖
-replySubmit = function () {
-
-    var url = $('#submit-reply-form').attr('data-url');
-    axios({
-        url: url,
-        method: 'post',
-        headers: {
-            'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content'),
-        },
-        data: $('#submit-reply-form').serialize(),
-    }).then(function (response) {
-        var res = response.data;
-        if (res) {
-            swal({
-                title: "",
-                text: "回复成功!",
-                type: "success",
-                showConfirmButton: false,
-                timer: 1000,
-            }, function () {
-                location.reload();
-            });
-        } else {
-            var message = res.info;
-            swal({
-                title: "",
-                text: message,
-                type: res.status,
-                showConfirmButton: false,
-                timer: 1000,
-            })
-        }
-    })
-}
 
 

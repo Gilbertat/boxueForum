@@ -27,7 +27,7 @@
                 <textarea name="editor" id="editor"></textarea>
             </div>
             <div class="form-group reply-post-submit">
-                <a class="btn btn-primary" onclick="replySubmit()">回复</a>
+                <a class="btn btn-primary" id="reply-submit-button">回复</a>
             </div>
         </form>
     </div>
