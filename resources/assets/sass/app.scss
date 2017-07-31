@@ -448,14 +448,14 @@ input, textarea, select {
     box-shadow: none;
   }
 
-  #global_search_btn {
+  .global_search_btn {
     position: absolute;
     right: 7px;
     top: 6px;
     color: #999;
   }
 
-  input[type=text]:focus + #global_search_btn {
+  input[type=text]:focus + .global_search_btn {
     color: #000;
   }
 

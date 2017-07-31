@@ -11,12 +11,6 @@ try {
     window.$ = window.jQuery = require('jquery');
 
     require('bootstrap-sass');
-    require('sweetalert');
-    require('jquery-pjax');
-    require('axios');
-    require('highlight.js');
-    require('jquery-highlight');
-
 
 } catch (e) {}
 
