@@ -61,7 +61,7 @@ class AuthController extends Controller
                 'email' => ['邮箱或密码输入错误，请重试!']
             ], 422);
 
-    }n
+    }
 
     public function logout(Request $request)
     {
