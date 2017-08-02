@@ -38,7 +38,6 @@ class AuthController extends Controller
         $user = User::query()->where('email', $request->email)
             ->first();
 
-
         if ($user && Hash::check($request->password, $user->password)) {
             $user->api_token = str_random(60);
             $user->save();
@@ -52,7 +51,6 @@ class AuthController extends Controller
                     'user_avatar' => $user->present()->gravatar,
                 ]);
         }
-
 
         return response()
             ->json([

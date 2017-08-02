@@ -34,6 +34,19 @@ class TopicsController extends Controller implements CreatorListener
 
     }
 
+    public function index()
+    {
+        // 列表
+        $topics = Topic::query()->where('is_hidden',1)
+            ->orderBy('updated_at', 'desc')
+            ->paginate(30);
+
+        return response()
+            ->json([
+                'topics' => $topics
+            ]);
+    }
+
     /* 显示添加话题表单 */
     public function create()
     {

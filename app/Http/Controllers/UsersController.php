@@ -31,15 +31,23 @@ class UsersController extends Controller
     }
 
     // 根据id查询用户
-    public function show($id)
+    public function show($id, Request $request)
     {
         $user = User::findOrFail($id);
-        if ($user->id == Auth::id()) {
+
+        $user->avatar = $user->present()->gravatar;
+
+        if ('Bearer' . ' ' . $user->api_token == $request->header('Authorization')) {
             $topics = User::find($id)->topic()->orderBy('updated_at', 'desc')->paginate(15);
         } else {
             $topics = User::find($id)->topic()->where('is_hidden',1)->orderBy('updated_at', 'desc')->paginate(15);
         }
-        return view('users.show', compact('user', 'topics'));
+
+        return response()
+            ->json([
+                'user' => $user,
+                'user_topic' => $topics
+            ]);
     }
 
     // 用户资料入库,并自动登录

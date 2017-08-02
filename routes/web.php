@@ -3,9 +3,14 @@
 /* index */
 
 
+Route::get('/test', 'TestController@index');
+Route::get('/test/show', 'TestController@show');
+
 Route::get('/{any}', function () {
     return view('layouts.default');
 })->where(['any' => '.*']);
+
+
 
 
 //Route::get('/home', 'StaticPagesController@home')->name('home');

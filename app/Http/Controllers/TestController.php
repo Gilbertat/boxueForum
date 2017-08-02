@@ -10,4 +10,12 @@ class TestController extends Controller
     {
         return view('test.test');
     }
+
+    public function show(Request $request)
+    {
+        return response()
+            ->json([
+               'header' => $request->header('Authorization')
+            ]);
+    }
 }

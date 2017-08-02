@@ -10,7 +10,7 @@
                         <span class="icon-bar"></span>
                     </button>
 
-                    <router-link to="/" class="navbar-brand" data-pjax>泊学论坛</router-link>
+                    <router-link to="/" class="navbar-brand">泊学论坛</router-link>
 
                 </div>
 

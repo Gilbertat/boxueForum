@@ -1,6 +1,4 @@
 @extends('layouts.default')
-
-
 @section('title','全部帖子')
 @section('content')
     <div class="row">
