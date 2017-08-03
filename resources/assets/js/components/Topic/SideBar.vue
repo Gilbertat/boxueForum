@@ -24,7 +24,7 @@
                 <h3 class="panel-title">话题分类</h3>
             </div>
             <div class="panel-body text-center pills">
-                <router-link to="/" :title="全部" style="color: #000;">全部</router-link>
+                <router-link to="/" title="全部" style="color: #000;">全部</router-link>
                 <template v-for="category in categories">
                     <router-link to="" :title="category.description"
                                  :style="{color: category.color}">{{category.title}}
