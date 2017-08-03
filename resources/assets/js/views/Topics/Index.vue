@@ -72,6 +72,7 @@
                     </template>
                 </div>
             </div>
+            <sidebar :post="post" :categories="category"></sidebar>
         </div>
     </div>
 </template>
@@ -79,17 +80,22 @@
     import {get} from '../../helpers/api'
     import moment from 'moment'
     import pagination from '../Vendor/vue-pagination'
+    import sidebar from '../../components/Topic/SideBar'
 
     moment.locale('zh-cn');
 
     export default {
         components: {
             pagination,
+            sidebar,
         },
+
         data() {
             return {
                 topic_data: [],
                 topics: [],
+                post: [],
+                category: [],
                 url: '',
                 pageInfo: {
                     total: 0,  // 记录总条数   默认空，如果小于pageNum则组件不显示   类型Number
@@ -103,16 +109,7 @@
         },
 
         created() {
-            get('/api/topics')
-                    .then((res) => {
-                        this.topic_data = res.data.topics
-                        this.topics = this.topic_data.data
-                        this.url = res.data.url
-                        this.pageInfo.total = this.topic_data.total,
-                                this.pageInfo.current = this.topic_data.current_page,
-                                this.pageInfo.pagenum = this.topic_data.per_page,
-                                this.pageInfo.pagegroup = 29
-                    })
+           this.pageChange(1)
         },
 
         methods: {
@@ -124,12 +121,14 @@
                 get(`/api/topics?page=${current}`)
                         .then((res) => {
                             this.topic_data = res.data.topics
+                            this.post = res.data.post
+                            this.category = res.data.categories
                             this.topics = this.topic_data.data
                             this.url = res.data.url
-                            this.pageInfo.total = this.topic_data.total,
-                                    this.pageInfo.current = this.topic_data.current_page,
-                                    this.pageInfo.pagenum = this.topic_data.per_page,
-                                    this.pageInfo.pagegroup = 29
+                            this.pageInfo.total = this.topic_data.total
+                            this.pageInfo.current = this.topic_data.current_page
+                            this.pageInfo.pagenum = this.topic_data.per_page
+                            this.pageInfo.pagegroup = 29
                         })
             }
         }

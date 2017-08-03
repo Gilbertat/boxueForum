@@ -8,6 +8,7 @@ use App\Models\Category;
 use App\Models\Reply;
 use App\Models\Topic;
 use App\Models\User;
+use App\Models\Post;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
@@ -36,17 +37,25 @@ class TopicsController extends Controller implements CreatorListener
 
     public function index()
     {
-        // 列表
+        // 话题
         $topics = Topic::query()->where('is_hidden',1)
             ->orderBy('updated_at', 'desc')
             ->with('user', 'category', 'lastReplyUser')
             ->paginate(30);
 
+        // 公告
+        $post = Post::orderBy('updated_at', 'desc')->first();
+
+        // 分类
+        $categories = Category::all();
+
 
         return response()
             ->json([
                 'url' => env('APP_URL'),
-                'topics' => $topics
+                'topics' => $topics,
+                'post' => $post,
+                'categories' => $categories,
             ]);
     }
 
