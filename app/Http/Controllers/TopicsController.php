@@ -39,10 +39,13 @@ class TopicsController extends Controller implements CreatorListener
         // 列表
         $topics = Topic::query()->where('is_hidden',1)
             ->orderBy('updated_at', 'desc')
+            ->with('user', 'category', 'lastReplyUser')
             ->paginate(30);
+
 
         return response()
             ->json([
+                'url' => env('APP_URL'),
                 'topics' => $topics
             ]);
     }

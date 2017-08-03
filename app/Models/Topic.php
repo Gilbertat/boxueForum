@@ -70,6 +70,8 @@ class Topic extends Model
         return $this->belongsTo(User::class, 'last_reply_user_id');
     }
 
+
+
     public function link()
     {
         return str_replace(env('APP_URL'), env('APP_URL'),route('topic.detail', ['id' => $this->user_id, 'slug'=>Carbon::parse($this->created_at)->timestamp]));

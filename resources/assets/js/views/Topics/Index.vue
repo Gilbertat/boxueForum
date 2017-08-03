@@ -6,7 +6,7 @@
                     <template v-if="topics.length > 0">
                         <div class="panel-body remove-padding-horizontal">
                             <ul class="list-group row topic-list">
-                                <li class="list-group-item" v-for="topic in topics" >
+                                <li class="list-group-item" v-for="topic in topics">
                                     <a class="reply_count_area pull-right" href="#">
                                         <div class="count_set">
                                             <span class="count_of_replies" title="回复">
@@ -25,7 +25,7 @@
                                     <div class="avatar pull-left">
                                         <router-link to="">
                                             <img class="media-object img-thumbnail avatar avatar-middle"
-                                                 :src="user.avatar">
+                                                 :src="`${url}/uploads/avatars/${topic.user.avatar}?/imageView2/1/w/100/h/100`">
                                         </router-link>
                                     </div>
                                     <div class="infos">
@@ -35,32 +35,34 @@
                                             </router-link>
                                         </div>
                                         <div class="meta">
-                                            <!--<a href="{{route('categories.show', $topic->category_id)}}" class="category"-->
-                                               <!--data-pjax style="color: {{$topic->category->color}}">-->
-                                                <!--{{$topic->category->title}}-->
-                                            <!--</a>-->
-                                            <!--.-->
-                                            <!--<abbr title="{{$topic->created_at}}" class="timeago">{{$topic->created_at->diffForHumans()}}</abbr>-->
-                                            <!--由-->
-                                            <!--<a href="{{route('users.show',  $topic->user->id)}}" class="author"-->
-                                                <!--style="color: #84dfec;">-->
-                                                <!--{{$topic->user->name}}-->
-                                            <!--</a>-->
-                                            <!--编辑-->
-                                            <!--@if(count($topic->lastReplyUser))-->
-                                            <!--最后回复由-->
-                                            <!--<a href="{{URL::route('users.show', [$topic->lastReplyUser->id])}}"-->
-                                               <!--data-pjax style="color: #ec5e2e;">-->
-                                                <!--{{$topic->lastReplyUser->name}}-->
-                                            <!--</a>-->
-                                            <!--于<abbr title="{{$topic->updated_at}}" class="timeago">{{$topic->updated_at->diffForHumans()}}</abbr>-->
-                                            <!--.-->
-                                            <!--&lt;!&ndash;@endif&ndash;&gt;-->
-                                            <!--{{$topic->view_count}}阅读-->
+                                            <router-link to="" class="category"
+                                                         :style="{color: topic.category.color}">
+                                                {{topic.category.title}}
+                                            </router-link>
+                                            .
+                                            <abbr :title="topic.created_at" class="timeago">{{computedDate(topic.created_at)}}</abbr>
+                                            由
+                                            <router-link to="" class="author"
+                                                         style="color: #84dfec">
+                                                {{topic.user.name}}
+                                            </router-link>
+                                            编辑
+                                            <template v-if="topic.last_reply_user_id != 0">
+                                                最后回复由
+                                                <router-link to="" style="color: #ec5e2e;">
+                                                    {{topic.last_reply_user.name}}
+                                                </router-link>
+                                                于<abbr :title="topic.updated_at" class="timeago">{{computedDate(topic.updated_at)}}</abbr>
+                                                .
+                                                {{topic.view_count}}阅读
+                                            </template>
                                         </div>
                                     </div>
                                 </li>
                             </ul>
+                        </div>
+                        <div class="panel-footer text-right remove-padding-horizontal pager-footer">
+                            <pagination :pageInfo="pageInfo" @change="pageChange"></pagination>
                         </div>
                     </template>
                     <template v-else>
@@ -75,29 +77,59 @@
 </template>
 <script type="text/javascript">
     import {get} from '../../helpers/api'
+    import moment from 'moment'
+    import pagination from '../Vendor/vue-pagination'
+
+    moment.locale('zh-cn');
 
     export default {
+        components: {
+            pagination,
+        },
         data() {
             return {
+                topic_data: [],
                 topics: [],
-                user: []
+                url: '',
+                pageInfo: {
+                    total: 0,  // 记录总条数   默认空，如果小于pageNum则组件不显示   类型Number
+                    current: 0,  // 当前页数，   默认为1                             类型Number
+                    pagenum: 0, // 每页显示条数,默认10                              类型Number
+                    pagegroup: 0,    // 分页条数     默认为5，需传入奇数                 类型Number
+                    skin: '#16a086'  // 选中页码的颜色主题 默认为'#16a086'               类型String
+                }
+
             }
         },
 
         created() {
             get('/api/topics')
                     .then((res) => {
-                        this.topics = res.data.topics['data']
+                        this.topic_data = res.data.topics
+                        this.topics = this.topic_data.data
+                        this.url = res.data.url
+                        this.pageInfo.total = this.topic_data.total,
+                                this.pageInfo.current = this.topic_data.current_page,
+                                this.pageInfo.pagenum = this.topic_data.per_page,
+                                this.pageInfo.pagegroup = 29
                     })
-
-            this.show(1)
         },
 
         methods: {
-            show(user_id) {
-                get(`/api/users/${user_id}`)
+            computedDate(date) {
+                return moment(date, "YYYYMMDD").fromNow();
+            },
+
+            pageChange(current) {
+                get(`/api/topics?page=${current}`)
                         .then((res) => {
-                            this.user = res.data.user
+                            this.topic_data = res.data.topics
+                            this.topics = this.topic_data.data
+                            this.url = res.data.url
+                            this.pageInfo.total = this.topic_data.total,
+                                    this.pageInfo.current = this.topic_data.current_page,
+                                    this.pageInfo.pagenum = this.topic_data.per_page,
+                                    this.pageInfo.pagegroup = 29
                         })
             }
         }

@@ -16,9 +16,9 @@
 
                 <div id="top-navbar-collapse" class="collapse navbar-collapse">
                     <ul class="nav navbar-nav">
-                        <li>
-                            <router-link to="#">话题列表</router-link>
-                        </li>
+                        <router-link tag="li" to="/">
+                            <a>话题列表</a>
+                        </router-link>
                         <li>
                             <router-link to="https://boxueio.com/" target="_blank">泊学</router-link>
                         </li>

@@ -26,6 +26,7 @@
     "inline-attachment": "^2.0.3",
     "jquery-highlight": "^3.4.0",
     "jquery-pjax": "^2.0.1",
+    "moment": "^2.18.1",
     "nprogress": "^0.2.0",
     "pjax": "^0.2.4",
     "simplemde": "^1.11.2",
