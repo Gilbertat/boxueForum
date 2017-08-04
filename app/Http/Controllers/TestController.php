@@ -19,8 +19,6 @@ class TestController extends Controller
             ->with('user')
             ->paginate(30);
 
-
-
         return view('test.test', compact('topics'));
 
     }

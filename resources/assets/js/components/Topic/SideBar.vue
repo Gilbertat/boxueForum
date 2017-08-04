@@ -2,7 +2,7 @@
 
     <div class="col-md-3 side-bar">
         <template v-if="auth">
-            <router-link to="" class="create-topic">
+            <router-link to="/topic/create" class="create-topic">
                 <i class="fa fa-plus text-md"></i>创建话题
             </router-link>
         </template>

@@ -29,9 +29,8 @@ class TopicsController extends Controller implements CreatorListener
     /* 权限控制 */
     function __construct()
     {
-        $this->middleware('auth', [
-            'only' => ['create', 'store'],
-        ]);
+        $this->middleware('auth:api')
+            ->except(['index', 'show']);
 
     }
 
@@ -63,7 +62,11 @@ class TopicsController extends Controller implements CreatorListener
     public function create()
     {
         $categories = Category::all();
-        return view('topics.create', compact('categories'));
+
+        return response()
+            ->json([
+                "categories" => $categories
+            ]);
     }
 
     /* 存储话题 */
