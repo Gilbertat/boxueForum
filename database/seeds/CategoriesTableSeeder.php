@@ -91,6 +91,17 @@ class CategoriesTableSeeder extends Seeder
                     'created_at'  => '2017-07-31 9:00:00',
                     'updated_at'  => '2017-07-31 9:00:00',
                 ),
+            7 =>
+                array(
+                    'id'          => 9,
+                    'post_count'  => 0,
+                    'weight'      => 90,
+                    'title'        => '面试',
+                    'color'       => '#303131',
+                    'description' => '群友设备交易',
+                    'created_at'  => '2017-08-04 13:00:00',
+                    'updated_at'  => '2017-08-04 13:00:00',
+                ),
         ));
     }
 }
