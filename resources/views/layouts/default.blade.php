@@ -9,7 +9,9 @@
     <title>@yield('title', 'boxue') - {{env('APP_NAME')}} </title>
     <link rel="stylesheet" href="{{mix('css/app.css')}}">
     {{--<link rel="stylesheet" href="{{asset('css/nprogress.css')}}">--}}
-    {{--<link rel="stylesheet" href="{{asset('css/simplemde.min.css')}}">--}}
+    <link rel="stylesheet" href="{{asset('css/simplemde.min.css')}}">
+    <script src="{{asset('js/inline-attachment.js')}}"></script>
+    <script src="{{asset('js/codemirror-4.inline-attachment.js')}}"></script>
     {{--<link href="https://cdn.bootcss.com/highlight.js/9.12.0/styles/solarized-dark.min.css" rel="stylesheet">--}}
     {{--<script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>--}}
     {{--<script src="https://cdn.bootcss.com/highlight.js/9.12.0/languages/swift.min.js"></script>--}}

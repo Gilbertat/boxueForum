@@ -39,6 +39,7 @@ class User extends Authenticatable
         'message_count',
         'city',
         'last_activied_at',
+        'api_token'
     ];
 
     /**
@@ -61,7 +62,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $hidden = [
-        'password', 'remember_token',
+        'password', 'remember_token', 'api_token'
     ];
 
 

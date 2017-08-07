@@ -31,7 +31,6 @@ class TopicsController extends Controller implements CreatorListener
     {
         $this->middleware('auth:api')
             ->except(['index', 'show']);
-
     }
 
     public function index()
@@ -72,7 +71,7 @@ class TopicsController extends Controller implements CreatorListener
     /* 存储话题 */
     public function store(StoreTopicRequest $request)
     {
-        app('boxue\Creators\TopicCreator')->create($this, $request->except('_token'));
+        app('boxue\Creators\TopicCreator')->create($this, $request->except('api_token'));
         return response()->json($this->_response);
     }
 
@@ -153,6 +152,7 @@ class TopicsController extends Controller implements CreatorListener
     // 上传图片
     public function attachment(Request $request)
     {
+
         $file = $request->file('image');
         // 图片认证
         $input = array('image' => $file);
@@ -171,7 +171,7 @@ class TopicsController extends Controller implements CreatorListener
         // 存储图片的目录
         $destinationPath = 'uploads/images/';
         // 获取图片名
-        $filename = Auth::user()->id . '_' . $file->getClientOriginalName();
+        $filename = Auth::guard('api')->user()->id . '_' . $file->getClientOriginalName();
         // 移动图片
         $file->move($destinationPath, $filename);
 
@@ -246,12 +246,12 @@ class TopicsController extends Controller implements CreatorListener
      */
     public function creatorFailed($error)
     {
-        $this->_response = ['status' => 'error', 'info' => $error, 'href'=>'/'];
+        $this->_response = ['status' => 'error', 'info' => $error];
     }
 
     public function creatorSucceed($topic)
     {
-        $this->_response = ['status'=>'success', 'info'=>'发布成功!', 'href'=> $topic->link()];
+        $this->_response = ['status'=>'success', 'info'=>'发布成功!'];
     }
 
 }

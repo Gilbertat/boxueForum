@@ -12,3 +12,4 @@ vendor/ezyang/htmlpurifier/plugins/phorum/htmlpurifier/
 /public/js/app.js
 /public/css/app.css
 /vendor/
+public/uploads/images

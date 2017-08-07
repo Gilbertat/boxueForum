@@ -114,7 +114,7 @@
 
         methods: {
             computedDate(date) {
-                return moment(date, "YYYYMMDD").fromNow();
+                return moment(date, "YYYY-MM-DD HH:mm").fromNow();
             },
 
             pageChange(current) {
