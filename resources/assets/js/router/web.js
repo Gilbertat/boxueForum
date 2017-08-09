@@ -5,6 +5,7 @@ import Login from '../views/Auth/Login.vue'
 import Register from '../views/Auth/Register.vue'
 import Index from '../views/Topics/Index.vue'
 import Create from '../views/Topics/Create.vue'
+import Show from  '../views/Topics/show.vue'
 
 Vue.use(VueRouter)
 
@@ -14,8 +15,9 @@ const router = new VueRouter({
     routes: [
         { path: '/', component: Index},
         { path: '/login', component: Login },
-        { path: '/register', component: Register},
-        { path: '/topic/create', component: Create}
+        { path: '/register', component: Register },
+        { path: '/topic/create', component: Create },
+        { path: '/topic/:id', component: Show }
     ]
 })
 

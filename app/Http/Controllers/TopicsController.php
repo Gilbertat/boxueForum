@@ -9,6 +9,7 @@ use App\Models\Reply;
 use App\Models\Topic;
 use App\Models\User;
 use App\Models\Post;
+use function foo\func;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
@@ -112,14 +113,63 @@ class TopicsController extends Controller implements CreatorListener
         return redirect(route('home'));
     }
 
+
+    public function show($id, Request $request)
+    {
+        $topic = Cache::remember('topic:cache:' . $id, self::modelCacheExpires, function () use ($id) {
+            return Topic::query()
+                ->with(['user', 'category', 'lastReplyUser'])
+                ->findOrFail($id);
+        });
+
+        $ip = $request->ip();
+        $slug = Carbon::parse($topic->created_at)->timestamp;
+
+        event(new TopicsViewCount($topic, $ip, $slug, $topic->user_id));
+
+        $user = User::query()->findOrFail($topic->user_id);
+
+        if ($topic->user_id== Auth::guard('api')->user()->id) {
+            $topics = Topic::where('user_id', $topic->user_id)
+                ->orderBy('updated_at', 'desc')
+                ->limit(5)
+                ->get();
+
+        } else {
+            $topics = Topic::where('user_id', $topic->user_id)
+                ->where('is_hidden',1)
+                ->orderBy('updated_at', 'desc')
+                ->limit(5)
+                ->get();
+        }
+
+        $replies = Reply::query()
+            ->where('topic_id', $topic->id)
+            ->with(['user'])
+            ->paginate(25);
+
+
+        return response()
+            ->json([
+                'url' => env('APP_URL'),
+                'topic' => $topic,
+                'topics' => $topics,
+                'user' => $user,
+                'replies' => $replies
+            ]);
+
+    }
+
     /* 话题详情 */
     /* 使用redis 进行 浏览量计数*/
     public function detail(Request $request)
     {
         $topic = Cache::remember('topic:cache:' . $request->id . ':' . $request->slug, self::modelCacheExpires, function () use ($request) {
-            return Topic::where([
+            return Topic::query()->where([
                 ['slug', env("APP_URL") . 'topics/' . $request->id . '/' . $request->slug]
-            ])->first();
+            ])
+                ->with(['user', 'category', 'lastReplyUser'])
+                ->first();
         });
 
         $ip = $request->ip();
@@ -145,7 +195,14 @@ class TopicsController extends Controller implements CreatorListener
         $replies = Reply::where('topic_id', $topic->id)
             ->paginate(25);
 
-        return view('topics.detail', compact('topic', 'user', 'topics', 'replies'));
+        return response()
+            ->json([
+               'topic' => $topic,
+               'topics' => $topics,
+               'user' => $user,
+               'replies' => $replies
+            ]);
+//            view('topics.detail', compact('topic', 'user', 'topics', 'replies'));
 
     }
 
@@ -240,18 +297,17 @@ class TopicsController extends Controller implements CreatorListener
 
 
     /*
-     *
      *  creatorListener Delegate
-     *
      */
     public function creatorFailed($error)
     {
         $this->_response = ['status' => 'error', 'info' => $error];
     }
 
+
     public function creatorSucceed($topic)
     {
-        $this->_response = ['status'=>'success', 'info'=>'发布成功!'];
+        $this->_response = ['status'=>'success', 'info'=>'发布成功!', 'href'=> $topic->link()];
     }
 
 }

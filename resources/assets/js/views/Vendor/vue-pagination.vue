@@ -42,14 +42,10 @@ export default {
                 (this.pageInfo.current > count + 1) && list.unshift({ text:'...',val: list[0].val - 1 });
                 (this.pageInfo.current < this.page - count) && list.push({ text:'...',val: list[list.length - 1].val + 1 });
             }
-            console.log(list)
             return list;
         }
     },
-    created:function (argument) {
-        console.log(this.pageInfo)
 
-    },
     methods: {
         clickCurrent: function(idx) {
             if( this.pageInfo.current != idx && idx > 0 && idx < this.page + 1) {
@@ -57,6 +53,9 @@ export default {
                 this.$emit('change',this.pageInfo.current);
             }
         }
+    },
+    created:function (argument) {
+
     }
 }
 </script>

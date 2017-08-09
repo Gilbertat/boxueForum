@@ -3,7 +3,7 @@
         <div class="row">
             <div class="col-md-9">
                 <div class="panel panel-default">
-                    <template v-if="topics.length > 0">
+                    <template v-if="topics">
                         <div class="panel-body remove-padding-horizontal">
                             <ul class="list-group row topic-list">
                                 <li class="list-group-item" v-for="topic in topics">
@@ -30,33 +30,11 @@
                                     </div>
                                     <div class="infos">
                                         <div class="media-heading">
-                                            <router-link to="">
+                                            <router-link :to="`topic/${topic.id}`">
                                                 {{topic.title}}
                                             </router-link>
                                         </div>
-                                        <div class="meta">
-                                            <router-link to="" class="category"
-                                                         :style="{color: topic.category.color}">
-                                                {{topic.category.title}}
-                                            </router-link>
-                                            .
-                                            <abbr :title="topic.created_at" class="timeago">{{computedDate(topic.created_at)}}</abbr>
-                                            由
-                                            <router-link to="" class="author"
-                                                         style="color: #84dfec">
-                                                {{topic.user.name}}
-                                            </router-link>
-                                            编辑
-                                            <template v-if="topic.last_reply_user_id != 0">
-                                                最后回复由
-                                                <router-link to="" style="color: #ec5e2e;">
-                                                    {{topic.last_reply_user.name}}
-                                                </router-link>
-                                                于<abbr :title="topic.updated_at" class="timeago">{{computedDate(topic.updated_at)}}</abbr>
-                                                .
-                                                {{topic.view_count}}阅读
-                                            </template>
-                                        </div>
+                                        <info :topic="topic"></info>
                                     </div>
                                 </li>
                             </ul>
@@ -80,7 +58,8 @@
     import {get} from '../../helpers/api'
     import moment from 'moment'
     import pagination from '../Vendor/vue-pagination'
-    import sidebar from '../../components/Topic/SideBar'
+    import sidebar from '../../components/Universal/SideBar'
+    import info from '../../components/Universal/topic-info'
 
     moment.locale('zh-cn');
 
@@ -88,6 +67,7 @@
         components: {
             pagination,
             sidebar,
+            info,
         },
 
         data() {
@@ -109,7 +89,7 @@
         },
 
         created() {
-           this.pageChange(1)
+            this.pageChange(1)
         },
 
         methods: {
