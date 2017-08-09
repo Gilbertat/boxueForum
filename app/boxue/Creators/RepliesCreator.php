@@ -19,17 +19,17 @@ class RepliesCreator {
             return $observer->creatorFailed('请不要发送重复内容');
         }
 
-        $data['content_raw'] = $data['editor'];
+        $data['content_raw'] = $data['value'];
         $mark = new Markdown;
         $data['content_html'] = $mark->convertMarkdownToHtml($data['content_raw']);
-        $data['user_id'] = Auth::id();
+        $data['user_id'] = Auth::guard('api')->user()->id;
         $data['created_at'] = Carbon::now();
         $data['updated_at'] = Carbon::now();
 
         $topic = Topic::query()->findOrFail($data['topic_id']);
         Cache::forget(cacheKey($topic->user_id, $topic->created_at));
         $topic->increment('reply_count');
-        $topic->last_reply_user_id = Auth::id();
+        $topic->last_reply_user_id = Auth::guard('api')->user()->id;
         $topic-> save();
 
         $reply = Reply::query()->create($data);

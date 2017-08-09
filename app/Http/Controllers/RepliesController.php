@@ -18,9 +18,8 @@ class RepliesController extends Controller implements CreatorListener
     /* 权限控制 */
     function __construct()
     {
-        $this->middleware('auth', [
-            'only' => ['store'],
-        ]);
+        $this->middleware('auth:api')
+            ->except(['delete', 'store']);
 
     }
 
@@ -52,7 +51,7 @@ class RepliesController extends Controller implements CreatorListener
 
     public function creatorSucceed($reply)
     {
-        return $this->_response = $reply;
+        return $this->_response = ['status' => 'success', 'message' => '回复成功'];
     }
 
     public function creatorFailed($error)
