@@ -1,6 +1,6 @@
 <template>
     <ul class="list-group row">
-        <li class="list-group-item media" style="margin-top: 0px;" v-for="(reply, index) in data">
+        <li class="list-group-item media" style="margin-top: 0px;" v-for="(reply, index) in replies">
             <div class="avatar avatar-container pull-left">
                 <router-link to="#">
                     <img class="media-object img-thumbnail avatar avatar-middle" :src="`${url}/uploads/avatars/${reply.user.avatar}?/imageView2/1/w/100/h/100`" :alt="reply.user.name" style="width: 55px; height: 55px;">
@@ -37,7 +37,7 @@
     import moment from 'moment'
 
     export default {
-        props: ["data", "url"],
+        props: ["replies", "url"],
 
         methods: {
             diffForHumans(date) {

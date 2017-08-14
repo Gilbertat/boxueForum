@@ -19,6 +19,7 @@ import router from './router/web'
 
 import Nprogress from 'nprogress'
 import 'nprogress/nprogress.css'
+import Vuex from 'vuex'
 
 Nprogress.inc(0.2)
 Nprogress.configure({ easing: 'ease', speed: 500, showSpinner: false})

@@ -56,7 +56,7 @@ class RepliesController extends Controller implements CreatorListener
 
     public function creatorFailed($error)
     {
-        return $this->_response = ['status' => 'error', 'info' => $error];
+        return $this->_response = ['status' => 'error', 'message' => $error];
     }
 
 

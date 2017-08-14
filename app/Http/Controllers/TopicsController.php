@@ -9,7 +9,6 @@ use App\Models\Reply;
 use App\Models\Topic;
 use App\Models\User;
 use App\Models\Post;
-use function foo\func;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;

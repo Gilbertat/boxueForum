@@ -6,7 +6,7 @@
             </div>
             <template v-if="replies">
                 <div class="panel-body">
-                    <rep :data="data" :url="url"></rep>
+                    <rep :replies="replies" :url="url"></rep>
                 </div>
                 <div class="panel-footer text-right remove-padding-horizontal pager-footer">
 
@@ -34,6 +34,7 @@
 </template>
 <script type="text/javascript">
     import Auth from '../../store/auth'
+    import swal from 'sweetalert'
     import mde from '../../components/Universal/inline-simple.vue'
     import rep from '../../components/Topic/Reply_info.vue'
     import {post} from '../../helpers/api'
@@ -49,7 +50,7 @@
 
         data() {
             return {
-                data: [],
+                data: this.replies,
                 authState: Auth.state,
                 form: {
                     value: '',
@@ -63,7 +64,13 @@
             postReply() {
                 post('/api/replies/store', this.form)
                         .then((res) => {
-                            console.log(res)
+                            swal({
+                                title: "",
+                                text: res.data.message,
+                                type: res.data.status,
+                                timer: 1000,
+                                showConfirmButton: false
+                            })
                         })
             }
         },
