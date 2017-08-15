@@ -90,7 +90,7 @@
         created() {
             interceptors((err) => {
                 if (err.response.status === 401) {
-                    Auth.remove()
+                    this.$store.commit('removeUserData')
                     this.$router.push('/login')
                 }
 
@@ -102,23 +102,19 @@
                     this.$router.push('/not-found')
                 }
             })
-            Auth.initialize()
         },
         data() {
             return {
-                authState: Auth.state,
+                authState: this.$store.state.user,
                 flash: Flash.state
             }
         },
         computed: {
             auth() {
-                if (this.authState.api_token) {
+                if (this.$store.state.user.api_token) {
                     return true
                 }
                 return false
-            },
-            guest() {
-                return !this.auth
             }
         },
         methods: {
@@ -126,7 +122,7 @@
                 post('/api/logout')
                         .then((res) => {
                             if (res.data.done) {
-                                Auth.remove()
+                                this.$store.commit('removeUserData')
                                 this.$router.push('/login')
                             }
                         })

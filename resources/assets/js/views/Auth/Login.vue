@@ -37,7 +37,6 @@
 </template>
 <script type="text/javascript">
     import {post} from '../../helpers/api'
-    import Auth from '../../store/auth'
     import swal from 'sweetalert'
 
     export default {
@@ -46,7 +45,6 @@
                 form: {
                     email: '',
                     password: '',
-                    remember: '',
                 },
                 error: {},
                 isProcessing: false
@@ -59,7 +57,7 @@
                 post('api/login', this.form)
                         .then((res) => {
                             if (res.data.authenticated) {
-                                Auth.set(res.data.api_token, res.data.user_id, res.data.user_name, res.data.user_avatar)
+                                this.$store.commit('setUserData', res.data)
                                 swal({
                                     title: "欢迎回来",
                                     text: res.data.user_name,

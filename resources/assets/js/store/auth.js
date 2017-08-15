@@ -12,11 +12,11 @@ export default {
         this.state.user_avatar = localStorage.getItem('user_avatar')
 
     },
-    set(api_token, user_id, user_name, user_avatar) {
-        localStorage.setItem('api_token', api_token)
-        localStorage.setItem('user_id', user_id)
-        localStorage.setItem('user_name', user_name)
-        localStorage.setItem('user_avatar', user_avatar)
+    set(data) {
+        localStorage.setItem('api_token', data.api_token)
+        localStorage.setItem('user_id', data.user_id)
+        localStorage.setItem('user_name', data.user_name)
+        localStorage.setItem('user_avatar', data.user_avatar)
         this.initialize()
     },
     remove() {

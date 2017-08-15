@@ -19,7 +19,7 @@ import router from './router/web'
 
 import Nprogress from 'nprogress'
 import 'nprogress/nprogress.css'
-import Vuex from 'vuex'
+import store from './store/store'
 
 Nprogress.inc(0.2)
 Nprogress.configure({ easing: 'ease', speed: 500, showSpinner: false})
@@ -36,6 +36,7 @@ router.afterEach(() => {
 
 const app = new Vue({
     el: '#root',
+    store,
     template: `<app></app>`,
     components: { App },
     router
