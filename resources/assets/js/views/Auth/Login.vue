@@ -36,9 +36,9 @@
     </div>
 </template>
 <script type="text/javascript">
-    import {post} from '../../helpers/api'
+    import { mapGetters } from 'vuex'
+    import auth from  '../../store/auth'
     import swal from 'sweetalert'
-
     export default {
         data() {
             return {
@@ -50,31 +50,28 @@
                 isProcessing: false
             }
         },
+
+        computed: {
+            ...mapGetters({
+                loginStatus: 'loginStatus'
+            })
+        },
+
         methods: {
             login() {
-                this.isProcessing = true
+                this.$store.dispatch('login', this.form).then(() => {
+                    swal({
+                        title: "欢迎回来",
+                        text: auth.get('user_name'),
+                        type: 'success',
+                        showConfirmButton: false,
+                        timer: 1000,
+                    })
+                    this.$router.push('/')
+                }, (err) => {
+                       this.error = err.response.data
+                })
 
-                post('api/login', this.form)
-                        .then((res) => {
-                            if (res.data.authenticated) {
-                                this.$store.commit('setUserData', res.data)
-                                swal({
-                                    title: "欢迎回来",
-                                    text: res.data.user_name,
-                                    type: 'success',
-                                    showConfirmButton: false,
-                                    timer: 1000,
-                                })
-                                this.$router.push('/')
-                            }
-                            this.isProcessing = false
-                        })
-                        .catch((err) => {
-                            if (err.response.status === 422) {
-                                this.error = err.response.data
-                            }
-                            this.isProcessing = false
-                        })
             }
         }
     }

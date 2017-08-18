@@ -1,30 +1,56 @@
 import auth from '../auth'
+import {post} from '../../helpers/api'
+import * as types from '../mutation-types'
 
 const state = {
-    api_token: null,
-    user_id: 0,
-    user_name: null,
-    user_avatar: null
+    user: [],
+    loginStatus: null
 }
 
-const mutations = {
-    setUserData (state, data) {
-        state.api_token = data.api_token;
-        state.user_id = data.user_id;
-        state.user_name = data.user_name;
-        state.user_avatar = data.user_avatar;
+const getters = {
+    loginStatus: state => state.loginStatus
+}
 
-    },
-
-    removeUserData (state) {
-        state.api_token = null;
-        state.user_avatar = null;
-        state.user_id = 0;
-        state.user_name = null;
+const actions = {
+    login({commit}, form) {
+        commit(types.CHECKOUT_REQUEST)
+        return new Promise((resolve, reject) => {
+            post('api/login', form)
+                .then((res) => {
+                    if (res.status === 200) {
+                        commit(types.LOGIN, {user_info: res.data})
+                        commit(types.LOGIN_SUCCESS)
+                        resolve(res)
+                    }
+                }, (err) => {
+                   if (err.response.status === 422) {
+                       reject(err)
+                   }
+                })
+        })
     }
 }
 
-export default  {
+const mutations = {
+    [types.CHECKOUT_REQUEST](state) {
+        auth.remove()
+        state.user = []
+        state.loginStatus = null
+    },
+
+    [types.LOGIN](state, {user_info}) {
+        state.user = user_info
+        auth.set(user_info)
+    },
+
+    [types.LOGIN_SUCCESS](state) {
+        state.loginStatus = 'success'
+    }
+}
+
+export default {
     state,
-    mutations
+    actions,
+    mutations,
+    getters
 }

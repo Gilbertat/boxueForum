@@ -19,6 +19,10 @@ export default {
         localStorage.setItem('user_avatar', data.user_avatar)
         this.initialize()
     },
+    get: function (data) {
+        return localStorage.getItem(data)
+    },
+
     remove() {
         localStorage.removeItem('api_token')
         localStorage.removeItem('user_id')
