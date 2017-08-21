@@ -28,6 +28,18 @@ const actions = {
                    }
                 })
         })
+    },
+
+    logout( {commit} ) {
+        return new Promise((resolve, reject) => {
+            post('api/logout')
+                .then((res) => {
+                    commit(types.LOGOUT)
+                    resolve(res)
+                }, (err) => {
+                    reject(err)
+                })
+        })
     }
 }
 
@@ -45,6 +57,12 @@ const mutations = {
 
     [types.LOGIN_SUCCESS](state) {
         state.loginStatus = 'success'
+    },
+
+    [types.LOGOUT](state) {
+        state.user = []
+        state.loginStatus = null
+        auth.remove()
     }
 }
 

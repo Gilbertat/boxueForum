@@ -41,8 +41,8 @@
                                     <router-link to="#" type="button" data-toggle="dropdown" aria-haspopup="true"
                                                  aria-expanded="false"
                                                  id="dLabel">
-                                        <img class="avatar-topnav" :src="authState.user_avatar" alt="avatar">
-                                        {{authState.user_name}}
+                                        <img class="avatar-topnav" :src="user.user_avatar" alt="avatar">
+                                        {{user.user_name}}
                                         <span class="caret"></span>
                                     </router-link>
 
@@ -85,6 +85,7 @@
     import Auth from './store/auth'
     import {post, interceptors} from './helpers/api'
     import Flash from './helpers/flash'
+    import { mapState } from 'vuex'
 
     export default {
         created() {
@@ -110,23 +111,26 @@
             }
         },
         computed: {
+            ...mapState({
+                user: state => state.user.user
+            }),
+
             auth() {
-                if (this.$store.state.user.api_token) {
+                if (this.user.api_token) {
                     return true
                 }
                 return false
             }
         },
         methods: {
-            logout() {
-                post('/api/logout')
-                        .then((res) => {
-                            if (res.data.done) {
-                                this.$store.commit('removeUserData')
-                                this.$router.push('/login')
-                            }
-                        })
-            }
+           logout() {
+               this.$store.dispatch('logout')
+                       .then(() => {
+                           this.$router.push('/login')
+                       }, (err) => {
+                           console.log(err)
+                       })
+           }
         }
     }
 

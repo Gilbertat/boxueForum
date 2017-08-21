@@ -36,7 +36,6 @@
     </div>
 </template>
 <script type="text/javascript">
-    import { mapGetters } from 'vuex'
     import auth from  '../../store/auth'
     import swal from 'sweetalert'
     export default {
@@ -51,14 +50,10 @@
             }
         },
 
-        computed: {
-            ...mapGetters({
-                loginStatus: 'loginStatus'
-            })
-        },
-
         methods: {
             login() {
+                this.isProcessing = true
+                this.error = {}
                 this.$store.dispatch('login', this.form).then(() => {
                     swal({
                         title: "欢迎回来",
@@ -68,8 +63,10 @@
                         timer: 1000,
                     })
                     this.$router.push('/')
+                    this.isProcessing = false
                 }, (err) => {
                        this.error = err.response.data
+                       this.isProcessing = false
                 })
 
             }

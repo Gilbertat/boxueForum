@@ -646,6 +646,15 @@ input {
 
 }
 
+.error {
+  &_control {
+    color: #e53935;
+  }
+  &_bg {
+    background: #ffcdd2!important;
+  }
+}
+
 
 .topic-list {
   .label {
