@@ -128,12 +128,11 @@ class TopicsController extends Controller implements CreatorListener
 
         $user = User::query()->findOrFail($topic->user_id);
 
-        if ($topic->user_id== Auth::guard('api')->user()->id) {
+        if ($topic->user_id == Auth::guard('api')->id()) {
             $topics = Topic::where('user_id', $topic->user_id)
                 ->orderBy('updated_at', 'desc')
                 ->limit(5)
                 ->get();
-
         } else {
             $topics = Topic::where('user_id', $topic->user_id)
                 ->where('is_hidden',1)

@@ -15,7 +15,7 @@ const actions = {
     login({commit}, form) {
         commit(types.CHECKOUT_REQUEST)
         return new Promise((resolve, reject) => {
-            post('api/login', form)
+            post('/api/login', form)
                 .then((res) => {
                     if (res.status === 200) {
                         commit(types.LOGIN, {user_info: res.data})
@@ -32,7 +32,7 @@ const actions = {
 
     logout( {commit} ) {
         return new Promise((resolve, reject) => {
-            post('api/logout')
+            post('/api/logout')
                 .then((res) => {
                     commit(types.LOGOUT)
                     resolve(res)
