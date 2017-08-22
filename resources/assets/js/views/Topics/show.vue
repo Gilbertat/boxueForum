@@ -14,7 +14,7 @@
                         <div class="markdown-body" v-html="topic.content_html"></div>
                     </div>
                 </div>
-                <reply :topic="topic" :replies="replies" :url="url"></reply>
+                <reply></reply>
             </div>
             <div class="col-md-3 side-bar">
 
@@ -25,8 +25,7 @@
 </template>
 
 <script type="text/javascript">
-    import auth from '../../store/auth'
-    import {get} from '../../helpers/api'
+    import { mapState } from 'vuex'
     import info from '../../components/Universal/topic-info.vue'
     import reply from  '../../components/Topic/Replies.vue'
 
@@ -36,30 +35,21 @@
             reply,
         },
 
-        data() {
-            return {
-                url: '',
-                topics: [],
-                topic: [],
-                user: [],
-                replies_data: [],
-                replies: []
-            }
-        },
-
         created() {
             this.getData()
         },
 
+        computed: {
+            ...mapState({
+                topic: state => state.topic.topic,
+                replies: state => state.topic.replies,
+                url: state => state.url
+            })
+        },
+
         methods: {
             getData() {
-                get(`/api/topics/${this.$route.params.id}`)
-                        .then((res) => {
-                            this.url = res.data.url
-                            this.topic = res.data.topic
-                            this.replies_data = res.data.replies
-                            this.replies = this.replies_data.data
-                        })
+                this.$store.dispatch('topicShow', this.$route.params.id)
             }
         }
 

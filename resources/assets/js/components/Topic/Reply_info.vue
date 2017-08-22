@@ -35,9 +35,16 @@
 </template>
 <script type="text/javascript">
     import moment from 'moment'
+    import { mapState } from 'vuex'
 
     export default {
-        props: ["replies", "url"],
+
+        computed: {
+            ...mapState({
+                replies: state => state.topic.replies,
+                url: state => state.topic.url
+            })
+        },
 
         methods: {
             diffForHumans(date) {

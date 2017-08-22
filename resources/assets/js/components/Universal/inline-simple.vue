@@ -7,7 +7,7 @@
     import Auth from '../../store/auth'
 
     export default {
-        props: ['value'],
+        props: ['content'],
 
         mounted() {
             var options = {
@@ -27,7 +27,7 @@
                 forceSync: true,
             });
 
-            this.mdEditor.value(this.value)
+            this.mdEditor.value(this.content)
 
             inlineAttachment.editors.codemirror4.attach(this.mdEditor.codemirror, options);
 
@@ -35,8 +35,11 @@
             this.mdEditor.codemirror.on('change', function () {
                 self.$emit('input', self.mdEditor.value())
             })
-        },
 
+            this.$parent.$on('clearContent', (res) => {
+                this.mdEditor.value(res)
+            })
+        }
     }
 
 </script>

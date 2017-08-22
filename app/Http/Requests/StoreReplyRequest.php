@@ -24,7 +24,7 @@ class StoreReplyRequest extends FormRequest
     public function rules()
     {
         return [
-            'value' => 'required|min:2',
+            'content' => 'required|min:2',
         ];
     }
 }

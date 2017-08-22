@@ -6,7 +6,7 @@
             </div>
             <template v-if="replies">
                 <div class="panel-body">
-                    <rep :replies="replies" :url="url"></rep>
+                    <rep></rep>
                 </div>
                 <div class="panel-footer text-right remove-padding-horizontal pager-footer">
 
@@ -22,7 +22,7 @@
                 <form @submit.prevent="postReply">
                     <input type="hidden" v-model="form.topic_id">
                     <div class="form-group topic-replies">
-                        <mde v-model="form.value"></mde>
+                        <mde v-model="form.content"></mde>
                     </div>
                     <div class="form-group reply-post-submit">
                         <button class="btn btn-primary">回复</button>
@@ -35,59 +35,48 @@
 <script type="text/javascript">
     import Auth from '../../store/auth'
     import swal from 'sweetalert'
+    import {mapState} from 'vuex'
     import mde from '../../components/Universal/inline-simple.vue'
     import rep from '../../components/Topic/Reply_info.vue'
-    import {post} from '../../helpers/api'
 
     export default {
-
         components: {
             mde,
             rep,
         },
 
-        props: ["topic", "replies", "url"],
-
         data() {
             return {
-                data: this.replies,
                 authState: Auth.state,
                 form: {
-                    value: '',
+                    content: '',
                     topic_id: this.$route.params.id,
                 },
             }
         },
 
-
         methods: {
             postReply() {
-                post('/api/replies/store', this.form)
-                        .then((res) => {
-                            swal({
-                                title: "",
-                                text: res.data.message,
-                                type: res.data.status,
-                                timer: 1000,
-                                showConfirmButton: false
-                            })
-                        })
+                this.$store.dispatch('reply', this.form).then(() => {
+                      this.$emit('clearContent', '')
+                })
             }
         },
 
         computed: {
+            ...mapState({
+                topic: state => state.topic.topic,
+                url: state => state.url,
+                replies: state => state.topic.replies
+            }),
+
             auth() {
                 if (this.authState.api_token) {
                     return true
                 }
                 return false
             }
-            ,
-            guest() {
-                return !this.auth
-            }
         }
-        ,
     }
 
 </script>

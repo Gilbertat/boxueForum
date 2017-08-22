@@ -19,7 +19,7 @@ class RepliesCreator {
             return $observer->creatorFailed('请不要发送重复内容');
         }
 
-        $data['content_raw'] = $data['value'];
+        $data['content_raw'] = $data['content'];
         $mark = new Markdown;
         $data['content_html'] = $mark->convertMarkdownToHtml($data['content_raw']);
         $data['user_id'] = Auth::guard('api')->user()->id;
@@ -32,13 +32,22 @@ class RepliesCreator {
         $topic->last_reply_user_id = Auth::guard('api')->user()->id;
         $topic-> save();
 
-        $reply = Reply::query()->create($data);
+        $reply = Reply::query()
+            ->create($data);
 
         if (! $reply) {
             return $observer->creatorFailed('发表回复失败');
         }
 
-        return $observer->creatorSucceed($reply);
+        $last_reply = Reply::query()->where('user_id', \Auth::guard('api')->user()->id)
+            ->where('topic_id', $data['topic_id'])
+            ->orderBy('id', 'desc')
+            ->with(['user'])
+            ->first();
+
+
+
+        return $observer->creatorSucceed($last_reply);
 //
 //        $content_html = $mark->convertMarkdownToHtml($request->editor);
 //
@@ -63,12 +72,12 @@ class RepliesCreator {
 
     public function isDuplicate($data)
     {
-        $last_reply = Reply::where('user_id', \Auth::id())
+        $last_reply = Reply::where('user_id', \Auth::guard('api')->user()->id)
             ->where('topic_id', $data['topic_id'])
             ->orderBy('id', 'desc')
             ->first();
 
-        return count($last_reply) && strcmp($last_reply->content_raw, $data['editor']) === 0;
+        return count($last_reply) && strcmp($last_reply->content_raw, $data['content']) === 0;
     }
 
 
