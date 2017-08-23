@@ -58,7 +58,14 @@
         methods: {
             postReply() {
                 this.$store.dispatch('reply', this.form).then(() => {
-                      this.$emit('clearContent', '')
+                    this.$emit('clearContent', '')
+                    swal({
+                        title: "",
+                        type: "success",
+                        text: "回复成功!",
+                        timer: 1000,
+                        showConfirmButton: false
+                    });
                 })
             }
         },

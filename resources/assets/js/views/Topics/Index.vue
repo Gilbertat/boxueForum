@@ -1,6 +1,9 @@
 <template>
     <div class="container">
-        <div class="row">
+        <div class="loading" v-if="loading">
+            <Circle8></Circle8>
+        </div>
+        <div class="row" v-else>
             <div class="col-md-9">
                 <div class="panel panel-default">
                     <template v-if="topics">
@@ -54,12 +57,20 @@
         </div>
     </div>
 </template>
+<style>
+    .loading {
+        .margin-left: auto;
+        .margin-right: auto;
+    }
+</style>
 <script type="text/javascript">
     import {get} from '../../helpers/api'
     import moment from 'moment'
     import pagination from '../Vendor/vue-pagination'
     import sidebar from '../../components/Universal/SideBar'
     import info from '../../components/Universal/topic-info'
+    import Circle8 from 'vue-loading-spinner/src/components/Circle8.vue'
+
 
     moment.locale('zh-cn');
 
@@ -68,10 +79,12 @@
             pagination,
             sidebar,
             info,
+            Circle8
         },
 
         data() {
             return {
+                loading: false,
                 topic_data: [],
                 topics: [],
                 post: [],
@@ -97,8 +110,10 @@
             },
 
             pageChange(current) {
+                this.loading = true
                 get(`/api/topics?page=${current}`)
                         .then((res) => {
+                            this.loading = false
                             this.topic_data = res.data.topics
                             this.post = res.data.post
                             this.category = res.data.categories

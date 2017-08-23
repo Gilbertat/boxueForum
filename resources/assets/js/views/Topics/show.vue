@@ -1,6 +1,10 @@
 <template>
     <div class="container">
-        <div class="row">
+        <div class="loading" v-if="loading">
+            <Circle8></Circle8>
+        </div>
+
+        <div class="row" v-else>
             <div class="col-md-9 topic-show main-col">
                 <div class="topic panel panel-default">
                     <div class="infos panel-heading">
@@ -23,16 +27,33 @@
     </div>
 
 </template>
+<style>
+    .loading {
+        margin-left: auto;
+        margin-right: auto;
+        width: 120px;
+        height: 120px;
+    }
+
+</style>
 
 <script type="text/javascript">
-    import { mapState } from 'vuex'
+    import {mapState} from 'vuex'
     import info from '../../components/Universal/topic-info.vue'
-    import reply from  '../../components/Topic/Replies.vue'
+    import reply from '../../components/Topic/Replies.vue'
+    import Circle8 from 'vue-loading-spinner/src/components/Circle8.vue'
 
     export default {
         components: {
             info,
             reply,
+            Circle8
+        },
+
+        data() {
+            return {
+                loading: false,
+            }
         },
 
         created() {
@@ -49,12 +70,15 @@
 
         methods: {
             getData() {
+                this.loading = true
                 this.$store.dispatch('topicShow', this.$route.params.id)
+                        .then(() => {
+                            this.loading = false
+                        })
             }
         }
 
     }
-
 
 
 </script>
