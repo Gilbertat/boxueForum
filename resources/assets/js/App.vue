@@ -38,7 +38,7 @@
                                 <li>
                                 </li>
                                 <li>
-                                    <router-link to="#" type="button" data-toggle="dropdown" aria-haspopup="true"
+                                    <router-link to="" type="button" data-toggle="dropdown" aria-haspopup="true"
                                                  aria-expanded="false"
                                                  id="dLabel">
                                         <img class="avatar-topnav" :src="user.user_avatar" alt="avatar">
@@ -85,7 +85,7 @@
     import Auth from './store/auth'
     import {post, interceptors} from './helpers/api'
     import Flash from './helpers/flash'
-    import { mapState } from 'vuex'
+    import {mapState} from 'vuex'
 
     export default {
         created() {
@@ -123,14 +123,14 @@
             }
         },
         methods: {
-           logout() {
-               this.$store.dispatch('logout')
-                       .then(() => {
-                           this.$router.push('/login')
-                       }, (err) => {
-                           console.log(err)
-                       })
-           }
+            logout() {
+                this.$store.dispatch('logout')
+                        .then(() => {
+                            this.$router.go(-1)
+                        }, (err) => {
+                            console.log(err)
+                        })
+            }
         }
     }
 

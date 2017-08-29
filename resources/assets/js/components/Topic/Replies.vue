@@ -58,7 +58,7 @@
         methods: {
             postReply() {
                 this.$store.dispatch('reply', this.form).then(() => {
-                    this.$emit('clearContent', '')
+                    this.$emit('setContent', '')
                     swal({
                         title: "",
                         type: "success",

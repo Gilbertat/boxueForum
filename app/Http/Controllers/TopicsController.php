@@ -71,8 +71,7 @@ class TopicsController extends Controller implements CreatorListener
     /* 存储话题 */
     public function store(StoreTopicRequest $request)
     {
-        app('boxue\Creators\TopicCreator')->create($this, $request->except('api_token'));
-        return response()->json($this->_response);
+       return app('boxue\Creators\TopicCreator')->create($this, $request->except('api_token'));
     }
 
     // 编辑话题
@@ -299,13 +298,13 @@ class TopicsController extends Controller implements CreatorListener
      */
     public function creatorFailed($error)
     {
-        $this->_response = ['status' => 'error', 'info' => $error];
+        return response()->json(['status' => 'error', 'info' => $error], 422);
     }
 
 
     public function creatorSucceed($topic)
     {
-        $this->_response = ['status'=>'success', 'info'=>'发布成功!', 'href'=> $topic->link()];
+        return response()->json(['status'=>'success', 'info'=>'发布成功!', "topic_id" => $topic->id], 200);
     }
 
 }

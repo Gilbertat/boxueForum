@@ -15,13 +15,19 @@
                         <info :topic="topic"></info>
                     </div>
                     <div class="content-body entry-content panel-body">
-                        <div class="markdown-body" v-html="topic.content_html"></div>
+                        <div class="markdown-body" v-html="topic.content_html" v-hljs></div>
+                    </div>
+                    <div class="panel-footer">
+                        <div class="pull-right action" v-if="auth">
+                            <router-link :to="`/topic/${topic.id}/edit`" class="topic_edit" title="编辑该帖">
+                                <i class="fa fa-edit"></i>
+                            </router-link>
+                        </div>
                     </div>
                 </div>
                 <reply></reply>
             </div>
             <div class="col-md-3 side-bar">
-
             </div>
         </div>
     </div>
@@ -35,10 +41,13 @@
         height: 120px;
     }
 
+
 </style>
 
 <script type="text/javascript">
-    import {mapState} from 'vuex'
+    import { mapState } from 'vuex'
+    import hljs from 'highlight.js'
+    import Auth from '../../store/auth'
     import info from '../../components/Universal/topic-info.vue'
     import reply from '../../components/Topic/Replies.vue'
     import Circle8 from 'vue-loading-spinner/src/components/Circle8.vue'
@@ -52,6 +61,7 @@
 
         data() {
             return {
+                authState: Auth.state,
                 loading: false,
             }
         },
@@ -60,12 +70,26 @@
             this.getData()
         },
 
+        directives: {
+            hljs(el) {
+                let blocks = el.querySelectorAll('pre code')
+                Array.prototype.forEach.call(blocks, hljs.highlightBlock)
+            }
+        },
+
         computed: {
             ...mapState({
                 topic: state => state.topic.topic,
                 replies: state => state.topic.replies,
                 url: state => state.url
-            })
+            }),
+
+            auth() {
+                if (this.authState.api_token) {
+                    return true
+                }
+                return false
+            }
         },
 
         methods: {

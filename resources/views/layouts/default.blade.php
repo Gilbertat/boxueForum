@@ -8,14 +8,9 @@
     <meta name="_token" content="{{csrf_token()}}">
     <title>@yield('title', 'boxue') - {{env('APP_NAME')}} </title>
     <link rel="stylesheet" href="{{mix('css/app.css')}}">
-    {{--<link rel="stylesheet" href="{{asset('css/nprogress.css')}}">--}}
     <link rel="stylesheet" href="{{asset('css/simplemde.min.css')}}">
     <script src="{{asset('js/inline-attachment.js')}}"></script>
     <script src="{{asset('js/codemirror-4.inline-attachment.js')}}"></script>
-    {{--<link href="https://cdn.bootcss.com/highlight.js/9.12.0/styles/solarized-dark.min.css" rel="stylesheet">--}}
-    {{--<script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>--}}
-    {{--<script src="https://cdn.bootcss.com/highlight.js/9.12.0/languages/swift.min.js"></script>--}}
-    {{--<script>hljs.initHighlightingOnLoad();</script>--}}
     @yield('style')
     <script>
         window.Laravel = {!! json_encode([
@@ -25,16 +20,8 @@
     @yield('head')
 </head>
 <body>
-{{--@include('layouts._header')--}}
-<div id="root">
-    {{--<div class="container main-container" id="pjax-container">--}}
-        {{--@include('flash::message')--}}
-        {{--@yield('content')--}}
-    {{--</div>--}}
-</div>
-{{--<script src="{{asset('js/nprogress.js')}}"></script>--}}
+<div id="root"></div>
 <script src="{{mix('js/app.js')}}"></script>
-{{--<script src="{{asset('js/simplemde.min.js')}}"></script>--}}
 <!-- JS Customization -->
 @yield('script')
 </body>

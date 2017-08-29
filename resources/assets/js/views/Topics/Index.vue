@@ -33,7 +33,7 @@
                                     </div>
                                     <div class="infos">
                                         <div class="media-heading">
-                                            <router-link :to="`topic/${topic.id}`">
+                                            <router-link :to="`/topic/${topic.id}`">
                                                 {{topic.title}}
                                             </router-link>
                                         </div>

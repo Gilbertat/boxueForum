@@ -847,6 +847,12 @@ abbr[data-original-title], abbr[title] {
 
 }
 
+.markdown-body {
+  img {
+    width: 100%;
+  }
+}
+
 .topic-create,
 .topic-edit {
   .CodeMirror .CodeMirror-scroll {

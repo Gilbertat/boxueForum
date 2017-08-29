@@ -62,7 +62,7 @@
                         showConfirmButton: false,
                         timer: 1000,
                     })
-                    this.$router.push('/')
+                    this.$router.go(-1)
                     this.isProcessing = false
                 }, (err) => {
                        this.error = err.response.data

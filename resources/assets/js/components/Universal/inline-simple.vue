@@ -36,8 +36,8 @@
                 self.$emit('input', self.mdEditor.value())
             })
 
-            this.$parent.$on('clearContent', (res) => {
-                this.mdEditor.value(res)
+            this.$parent.$on('setContent', (res) => {
+                self.mdEditor.value(res)
             })
         }
     }
