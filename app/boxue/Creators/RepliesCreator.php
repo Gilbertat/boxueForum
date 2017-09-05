@@ -27,7 +27,6 @@ class RepliesCreator {
         $data['updated_at'] = Carbon::now();
 
         $topic = Topic::query()->findOrFail($data['topic_id']);
-        Cache::forget(cacheKey($topic->user_id, $topic->created_at));
         $topic->increment('reply_count');
         $topic->last_reply_user_id = Auth::guard('api')->user()->id;
         $topic-> save();

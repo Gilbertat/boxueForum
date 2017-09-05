@@ -26,6 +26,7 @@ class StoreTopicRequest extends FormRequest
         return [
             'title' => 'required|min:2',
             'category_id' => 'required|numeric',
+            'value' => 'required|min:2'
         ];
     }
 }

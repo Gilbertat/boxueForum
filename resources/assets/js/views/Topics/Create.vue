@@ -18,7 +18,8 @@
                     <div class="form-group topic-create">
                         <mde v-model="form.value"></mde>
                     </div>
-                    <button class="btn btn-primary">发布话题</button>
+                    <button class="btn btn-primary" v-if="this.title == 'edit'">更新话题</button>
+                    <button class="btn btn-primary" v-else>发布话题</button>
                 </form>
             </div>
         </div>
@@ -33,7 +34,7 @@
 </style>
 
 <script type="text/javascript">
-    import {get, post} from '../../helpers/api'
+    import {get, post, put} from '../../helpers/api'
     import {mapState} from 'vuex'
     import mde from '../../components/Universal/inline-simple.vue'
     import swal from 'sweetalert'
@@ -46,6 +47,7 @@
 
         data() {
             return {
+                title: "",
                 categories: [],
                 form: {
                     title: '',
@@ -60,7 +62,6 @@
             if (this.$route.params.type == "edit") {
                 this.setTopic()
             }
-
         },
 
         methods: {
@@ -75,6 +76,7 @@
             },
 
             setTopic() {
+                this.title = "edit"
                 this.form.title = this.topic.title
                 this.form.category_id = this.topic.category_id
                 this.form.value = this.topic.content_raw
@@ -82,7 +84,18 @@
 
             createTopic() {
                 if (this.$route.params.type === "edit") {
-
+                    put(`/api/topics/${this.$route.params.id}`, this.form)
+                            .then((res) => {
+                                this.$router.push(`/topic/${res.data.topic_id}`)
+                            }, (err) => {
+                                swal({
+                                    title: "错误",
+                                    text: '发生错误，请重试!',
+                                    type: 'error',
+                                    showConfirmButton: false,
+                                    timer: 1000,
+                                })
+                            })
 
                 } else {
                     post('/api/topics/store', this.form)

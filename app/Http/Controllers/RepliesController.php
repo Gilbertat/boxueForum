@@ -25,6 +25,8 @@ class RepliesController extends Controller implements CreatorListener
 
     public function store(StoreReplyRequest $request)
     {
+        Cache::forget(spaCacheKey($request->ip(), $request->topic_id));
+
         app('boxue\Creators\RepliesCreator')->create($this, $request->except('api_token'));
 
         return response()->json($this->_response);

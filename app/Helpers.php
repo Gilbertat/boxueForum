@@ -25,3 +25,8 @@ function cacheKey($user_id, $date)
 
     return 'topic:cache:' . $user_id . ':' . $slug;
 }
+
+function spaCacheKey($ip, $id)
+{
+    return 'topic:' . $ip . ':id:' . $id;
+}

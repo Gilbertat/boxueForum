@@ -35,7 +35,7 @@
 <script type="text/javascript">
     import Auth from '../../store/auth'
     import swal from 'sweetalert'
-    import {mapState} from 'vuex'
+    import { mapState } from 'vuex'
     import mde from '../../components/Universal/inline-simple.vue'
     import rep from '../../components/Topic/Reply_info.vue'
 

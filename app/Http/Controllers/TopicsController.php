@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Events\TopicsViewCount;
+use App\Events\TopicViewCount;
 use App\Http\Requests\StoreTopicRequest;
 use App\Models\Category;
 use App\Models\Reply;
@@ -11,7 +12,6 @@ use App\Models\User;
 use App\Models\Post;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Carbon\Carbon;
 use Cache;
 use Laracasts\Flash\Flash;
 use Intervention\Image\ImageManagerStatic as Image;
@@ -88,42 +88,38 @@ class TopicsController extends Controller implements CreatorListener
     {
         $topic = Topic::query()->findOrFail($id);
 
+        $ip = $request->ip();
 
-        Cache::forget(cacheKey($topic->user_id, $topic->created_at));
+        Cache::forget(spaCacheKey($ip, $id));
 
         $mark = new Markdown;
 
-        $content_html = $mark->convertMarkdownToHtml($request->editor);
+        $content_html = $mark->convertMarkdownToHtml($request->value);
 
         $topic->update([
             'title' => $request->title,
-            'content_raw' => $request->editor,
+            'content_raw' => $request->value,
             'content_html' => $content_html,
             'category_id' => $request->category_id,
-            'updated_at' => Carbon::now()
         ]);
 
-        $topic->last_reply_user_id = \Auth::user()->id;
 
-        $topic->save();
+        return response()->json(['topic_id' => $topic->id], 200);
 
-        Flash::success('保存成功!');
-        return redirect(route('home'));
     }
 
-
+// 使用Laravel Cache进行缓存
     public function show($id, Request $request)
     {
-        $topic = Cache::remember('topic:cache:' . $id, self::modelCacheExpires, function () use ($id) {
+        $ip = $request->ip();
+
+        $topic = Cache::remember('topic:' . $ip . ':id:' . $id, self::modelCacheExpires, function () use ($id) {
             return Topic::query()
                 ->with(['user', 'category', 'lastReplyUser'])
                 ->findOrFail($id);
         });
 
-        $ip = $request->ip();
-        $slug = Carbon::parse($topic->created_at)->timestamp;
-
-        event(new TopicsViewCount($topic, $ip, $slug, $topic->user_id));
+        event(new TopicViewCount($topic, $id, $ip));
 
         $user = User::query()->findOrFail($topic->user_id);
 

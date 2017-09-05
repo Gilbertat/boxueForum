@@ -3,7 +3,6 @@ export const CHECKOUT_REQUEST = 'CHECKOUT_REQUEST'
 export const LOGIN_SUCCESS = 'LOGIN_SUCCESS'
 export const LOGOUT = 'LOGOUT'
 
-
 export const TOPIC_LIST = 'TOPIC_LIST'
 export const GET_TOPIC = 'GET_TOPIC'
 export const GET_REPLY = 'GET_REPLY'
