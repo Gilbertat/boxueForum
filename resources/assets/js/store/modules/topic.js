@@ -8,9 +8,9 @@ const state = {
 }
 
 const actions = {
-    topicShow({commit}, id) {
+    topicShow({commit}, obj) {
         return new Promise((resolve, reject) => {
-            get(`/api/topics/${id}`)
+            get(`/api/topics/${obj.id}?page=${obj.page}`)
                 .then((res) => {
                     commit(types.GET_TOPIC, {topic: res})
                     resolve(res)

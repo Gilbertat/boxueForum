@@ -13,7 +13,9 @@
                         {{reply.user.name}}
                     </router-link>
                     <span class="operate pull-right">
-                        <!--@if(Auth::id() == $reply->user_id)-->
+                        <template v-if="user.user_id == reply.user_id">
+                            <router-link class="fa fa-trash-o reply_delete_button" to=""  title="删除评论"></router-link>
+                        </template>
                             <!--<a class="fa fa-trash-o reply_delete_button" href="javascript:void(0);" title="删除评论" data-form="reply_delete_form{{$index}}" data-content="确定要删除该条评论吗"></a>-->
                             <!--<form action="{{route('replies.delete', $reply->id)}}" class="reply_delete_form{{$index}}" method="post">-->
                                 <!--{{csrf_field()}}-->
@@ -23,7 +25,7 @@
                     </span>
 
                     <div class="meta">
-                        <router-link :name="reply.id" :id="reply.id" class="anchor" :to="`#reply${reply.id}`" aria-hidden="true">#{{index}}</router-link>
+                        <router-link :name="reply.id" :id="reply.id" class="anchor" :to="`#reply${reply.id}`" aria-hidden="true">#{{replyIndex(index)}}</router-link>
                         <!--<span> .  </span>-->
                         <abbr :title="reply.created_at" class="timeago">{{diffForHumans(reply.created_at)}}</abbr>
                     </div>
@@ -39,16 +41,25 @@
 
     export default {
 
+        props: ['page', 'pagegroup'],
+
         computed: {
             ...mapState({
                 replies: state => state.topic.replies,
-                url: state => state.topic.url
+                url: state => state.topic.url,
+                user: state => state.user.user
             })
         },
 
         methods: {
             diffForHumans(date) {
                 return moment(date, "YYYY-MM-DD HH:mm").fromNow();
+            },
+
+            replyIndex(index) {
+                index += 1;
+                var currentPage = this.page != 0 ? this.page : 1;
+                return (currentPage - 1) * this.pagegroup + index;
             }
         }
     }

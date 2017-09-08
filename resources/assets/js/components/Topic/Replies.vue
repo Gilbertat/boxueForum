@@ -6,11 +6,9 @@
             </div>
             <template v-if="replies">
                 <div class="panel-body">
-                    <rep></rep>
+                    <rep :page="pageInfo.current" :pagegroup="pageInfo.pagegroup"></rep>
                 </div>
-                <div class="panel-footer text-right remove-padding-horizontal pager-footer">
-
-                </div>
+                <pagination :pageInfo="pageInfo" @change="pageChange"></pagination>
             </template>
             <template v-else>
                 <ul class="list-group row"></ul>
@@ -35,15 +33,20 @@
 <script type="text/javascript">
     import Auth from '../../store/auth'
     import swal from 'sweetalert'
-    import { mapState } from 'vuex'
+    import {mapState} from 'vuex'
     import mde from '../../components/Universal/inline-simple.vue'
     import rep from '../../components/Topic/Reply_info.vue'
+    import pagination from '../../views/Vendor/vue-pagination'
+
 
     export default {
         components: {
             mde,
             rep,
+            pagination
         },
+
+        props: ['pageInfo'],
 
         data() {
             return {
@@ -67,6 +70,22 @@
                         showConfirmButton: false
                     });
                 })
+            },
+
+            pageChange(current) {
+                var obj = {
+                    id: this.$route.params.id,
+                    page: current
+                }
+
+                this.$store.dispatch('topicShow', obj)
+                        .then((res) => {
+                            this.pageInfo.total = res.data.replies.total
+                            this.pageInfo.current = res.data.replies.current_page
+                            this.pageInfo.pagenum = res.data.replies.per_page
+                            this.pageInfo.pagegroup = 25
+                        })
+
             }
         },
 

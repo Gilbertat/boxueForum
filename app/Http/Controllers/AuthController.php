@@ -56,8 +56,8 @@ class AuthController extends Controller
             ->json([
                 'email' => ['邮箱或密码输入错误，请重试!']
             ], 422);
-
     }
+
 
     public function logout(Request $request)
     {

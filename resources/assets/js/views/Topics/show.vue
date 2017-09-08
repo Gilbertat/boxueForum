@@ -25,7 +25,7 @@
                         </div>
                     </div>
                 </div>
-                <reply></reply>
+                <reply :pageInfo="pageInfo"></reply>
             </div>
             <div class="col-md-3 side-bar">
             </div>
@@ -63,11 +63,18 @@
             return {
                 authState: Auth.state,
                 loading: false,
+                pageInfo: {
+                    total: 0,  // 记录总条数   默认空，如果小于pageNum则组件不显示   类型Number
+                    current: 0,  // 当前页数，   默认为1                             类型Number
+                    pagenum: 0, // 每页显示条数,默认10                              类型Number
+                    pagegroup: 0,    // 分页条数     默认为5，需传入奇数                 类型Number
+                    skin: '#16a086'  // 选中页码的颜色主题 默认为'#16a086'               类型String
+                }
             }
         },
 
         created() {
-            this.getData()
+            this.getData(1)
         },
 
         directives: {
@@ -93,12 +100,21 @@
         },
 
         methods: {
-            getData() {
+            getData(page) {
+                var obj = {
+                    id: this.$route.params.id,
+                    page: page
+                }
                 this.loading = true
-                this.$store.dispatch('topicShow', this.$route.params.id)
-                        .then(() => {
+                this.$store.dispatch('topicShow', obj)
+                        .then((res) => {
                             this.loading = false
+                            this.pageInfo.total = res.data.replies.total
+                            this.pageInfo.current = res.data.replies.current_page
+                            this.pageInfo.pagenum = res.data.replies.per_page
+                            this.pageInfo.pagegroup = 25
                         })
+
             }
         }
 

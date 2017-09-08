@@ -66,7 +66,7 @@ export default {
 .pagination {
     display: inline-block;
     padding-left: 0;
-    margin: 20px 0;
+    margin: 25px 30px 20px 0;
     border-radius: 4px;
 }
 .pagination>li {

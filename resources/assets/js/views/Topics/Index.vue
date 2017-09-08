@@ -42,9 +42,7 @@
                                 </li>
                             </ul>
                         </div>
-                        <div class="panel-footer text-right remove-padding-horizontal pager-footer">
-                            <pagination :pageInfo="pageInfo" @change="pageChange"></pagination>
-                        </div>
+                        <pagination :pageInfo="pageInfo" @change="pageChange"></pagination>
                     </template>
                     <template v-else>
                         <div class="panel-body">
@@ -62,6 +60,7 @@
         .margin-left: auto;
         .margin-right: auto;
     }
+
 </style>
 <script type="text/javascript">
     import {get} from '../../helpers/api'
