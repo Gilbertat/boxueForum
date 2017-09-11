@@ -8,5 +8,6 @@ Route::resource('topics', 'TopicsController');
 Route::post('topics/image/uploads', 'TopicsController@attachment');
 Route::post('topics/store', 'TopicsController@store');
 Route::post('replies/store', 'RepliesController@store');
+Route::delete('replies/delete/{reply}', 'RepliesController@delete');
 
 Route::get('users/{id}', 'UsersController@show');

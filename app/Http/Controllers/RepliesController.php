@@ -32,11 +32,11 @@ class RepliesController extends Controller implements CreatorListener
         return response()->json($this->_response);
     }
 
-    public function delete($id)
+    public function delete($id, StoreReplyRequest $request)
     {
         $reply = Reply::query()->findOrFail($id);
         $topic = $reply->topic;
-        Cache::forget(cacheKey($topic->user_id, $topic->created_at));
+        Cache::forget(spaCacheKey($request->ip(), $topic->id));
         $reply->delete();
         $topic->decrement('reply_count');
 
@@ -45,8 +45,7 @@ class RepliesController extends Controller implements CreatorListener
             $topic->save();
         }
 
-        Flash::success('删除评论成功');
-        return redirect()->back();
+        return response()->json(['status' => 'success', 'message' => '删除成功'],200);
 
     }
 
