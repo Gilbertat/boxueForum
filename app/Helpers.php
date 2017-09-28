@@ -14,6 +14,17 @@ function cdn($filePath)
     return config('app.url') . $filePath;
 }
 
+function show ($status, $message, $data=[], $httpCode=200)
+{
+    $data = [
+        'status' => $status,
+        'message' => $message,
+        'data' => $data
+    ];
+
+    return response()->json($data, $httpCode);
+}
+
 function slug($time, $user_id)
 {
     return env('APP_URL') . 'topics/' . $user_id . '/' . $time;

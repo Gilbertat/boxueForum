@@ -17,7 +17,8 @@ class CategoriesController extends Controller
         $post = Post::orderBy('updated_at', 'desc')->first();
 
 
-        return view('topics.index', compact('categories', 'topics', 'category', 'post'));
+        return view('
+        topics.index', compact('categories', 'topics', 'category', 'post'));
     }
 
 }
