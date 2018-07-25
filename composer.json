@@ -65,6 +65,15 @@
             "php artisan optimize"
         ]
     },
+    "extra": {
+        "laravel": {
+            "dont-discover": [
+                "barryvdh/laravel-debugbar",
+                "barryvdh/laravel-ide-helper",
+                "laravel/dusk"
+            ]
+        }
+    },
     "config": {
         "preferred-install": "dist",
         "sort-packages": true,
